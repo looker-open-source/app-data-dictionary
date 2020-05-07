@@ -38,13 +38,16 @@ const Measure = styled.div`
   color: ${theme.colors.palette.yellow700}
 `
 
+export const DIMENSION = 'dimension'
+export const MEASURE = 'measure'
+
 export const CategorizedLabel: React.FC<{
   label: string,
   category: string
 }> = ({ label, category }) => {
-  if (category === 'dimension') {
+  if (category === DIMENSION) {
     return <Dimension>{humanize(label)}</Dimension>
-  } else if (category === 'measure') {
+  } else if (category === MEASURE) {
     return <Measure>{humanize(label)}</Measure>
   } else {
     return <div>{humanize(label)}</div>
