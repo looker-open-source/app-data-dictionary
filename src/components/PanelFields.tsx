@@ -65,7 +65,6 @@ export const defaultShowColumns = [
   'name',
   'type',
   'sql',
-  'tags',
 ]
 
 export const PanelFields: React.FC<{

@@ -24,47 +24,29 @@
 
  */
 
-import React from "react";
-import {
-  Code,
-  TableRow,
-  TableDataCell,
-} from "@looker/components";
+import React from "react"
+import styled from "styled-components"
+import { theme } from '@looker/components'
+import humanize from 'humanize-string'
 
-import { ILookmlModelExploreField } from "@looker/sdk";
-import { ColumnDescriptor } from "./interfaces";
 
-export const DetailDrawerRow: React.FC<{
-  column: ColumnDescriptor,
-  field: ILookmlModelExploreField,
-}> = ({ column, field }) => {
-  return (
-    <TableRow key={column.rowValueDescriptor}>
-      <TableDataCell
-        color="palette.charcoal700"
-        p="medium"
-        pl="small"
-        pr="small"
-      >
-        { column.label }
-      </TableDataCell>
-      <TableDataCell
-        className="break"
-        color="palette.charcoal700"
-        p="medium"
-        pl="small"
-        pr="small"
-      >
-        <Code
-          color="palette.charcoal700"
-          fontSize="small"
-          className="break"
-        >
-          {/*
-          // @ts-ignore */}
-          {column.formatter(field[column.rowValueDescriptor], false, field)}
-        </Code>
-      </TableDataCell>
-    </TableRow>
-  )
-};
+const Dimension = styled.div`
+  color: ${theme.colors.palette.charcoal600}
+`
+
+const Measure = styled.div`
+  color: ${theme.colors.palette.yellow700}
+`
+
+export const CategorizedLabel: React.FC<{
+  label: string,
+  category: string
+}> = ({ label, category }) => {
+  if (category === 'dimension') {
+    return <Dimension>{humanize(label)}</Dimension>
+  } else if (category === 'measure') {
+    return <Measure>{humanize(label)}</Measure>
+  } else {
+    return <div>{humanize(label)}</div>
+  }
+}
