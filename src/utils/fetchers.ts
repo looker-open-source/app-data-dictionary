@@ -49,6 +49,46 @@ export function useAllModels() {
   return allModels
 }
 
+export function indexAllExplores (allModels: ILookmlModel[]) {
+  const { coreSDK } = useContext(ExtensionContext)
+  const [allExplores, allExploresSetter] = useState<ILookmlModelExplore[] | undefined>([])
+  const [loadingPercent, loadingPercentSetter] = useState('')
+  useEffect(() => {
+    async function fetcher() {
+      const allExploreNames: {[key: string]: string[]} = {}
+      let exploreCount = 0
+      for (let model of allModels) {
+        for (let explore of model.explores) {
+          if (!allExploreNames[model.name]) {
+            allExploreNames[model.name] = []
+          }
+
+          allExploreNames[model.name].push(explore.name)
+          exploreCount++
+        }
+      }
+
+      let finishedCount = 0
+      const allExplores: ILookmlModelExplore[] = []
+      for (let modelName of Object.keys(allExploreNames)) {
+        for (let exploreName of allExploreNames[modelName])
+        try {
+          const newAllExplores = [...allExplores, await loadCachedExplore(coreSDK, modelName, exploreName)]
+          finishedCount++
+          allExploresSetter(newAllExplores)
+          loadingPercentSetter(`${finishedCount} / ${exploreCount}`)
+        }
+        catch (e) {
+          console.log('error', e)
+          exploreCount--
+        }
+      }
+    }
+    fetcher()
+  }, [coreSDK, allModels])
+  return { loadingPercent, allExplores }
+}
+
 export function useExplore(modelName?: string, exploreName?: string) {
   const { coreSDK } = useContext(ExtensionContext)
   const [currentExplore, exploreSetter] = useState<ILookmlModelExplore | undefined>(undefined)

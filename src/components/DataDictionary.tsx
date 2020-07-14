@@ -35,7 +35,7 @@ import {
 } from "@looker/components";
 import humanize from 'humanize-string'
 import styled, { ThemeProvider } from "styled-components";
-import { useAllModels } from "../utils/fetchers";
+import {indexAllExplores, useAllModels} from "../utils/fetchers";
 import "./styles.css";
 import { PanelFields } from "./PanelFields";
 import SidebarToggle from "./SidebarToggle";
@@ -127,6 +127,7 @@ export const DataDictionary: React.FC<{}> = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
+  const { loadingPercent, allExplores } = indexAllExplores(unfilteredModels)
 
   let models
 
@@ -172,6 +173,7 @@ export const DataDictionary: React.FC<{}> = () => {
             />
           </SidebarDivider>
           <PageContent>
+            <h1>{ loadingPercent } explores loaded</h1>
             <PanelFields
               columns={columns}
               currentExplore={currentExplore}
