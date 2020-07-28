@@ -61,54 +61,21 @@ export const ExploreList: React.FC = props => {
       {props.children}
       {currentModel && (
         <>
-          <Box m="medium" mb="none">
-            <GlobalSearch
-              placeholder="Search Model..."
-              display="block"
-              value={search}
-              // onClear={() => setSearch("")}
-              onChange={e => setSearch(e.currentTarget.value)}
-            />
-          </Box>
-          {search.length ? (
-            <SearchResults query={debouncedSearch} />
-          ) : (
-            <>
-              <MenuGroup label="Information" key="model">
-                <MenuItem
-                  current={isRelationships}
-                  key="relationships"
-                  onClick={() =>
-                    history.push(
-                      relationshipsURL({
-                        model: currentModel.name
-                      })
-                    )
-                  }
-                >
-                  Relationships
-                </MenuItem>
-              </MenuGroup>
-              <MenuGroup label="Explores" key="explores">
-                {currentModel.explores.filter(notHidden).map(explore => (
-                  <MenuItem
-                    current={exploreName === explore.name}
-                    key={explore.name}
-                    onClick={() =>
-                      history.push(
-                        internalExploreURL({
-                          model: currentModel.name,
-                          explore: explore.name
-                        })
-                      )
-                    }
-                  >
-                    {explore.label}
-                  </MenuItem>
-                ))}
-              </MenuGroup>
-            </>
-          )}
+          <MenuGroup label="Information" key="model">
+            <MenuItem
+              current={isRelationships}
+              key="relationships"
+              onClick={() =>
+                history.push(
+                  relationshipsURL({
+                    model: currentModel.name
+                  })
+                )
+              }
+            >
+              Relationships
+            </MenuItem>
+          </MenuGroup>
         </>
       )}
     </MenuList>
