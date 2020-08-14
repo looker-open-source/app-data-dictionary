@@ -46,8 +46,9 @@ import toPairs from "lodash/toPairs"
 import orderBy from "lodash/orderBy"
 import { ExternalLink } from "./ExternalLink";
 import { exploreURL } from "../utils/urls";
-import {ColumnDescriptor} from "./interfaces";
-import { ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField } from "@looker/sdk";
+import {ColumnDescriptor, ExploreComments} from "./interfaces";
+import { ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
+import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
 import { QuickSearch } from "./QuickSearch";
 import humanize from 'humanize-string'
 import { DIMENSION, MEASURE } from "./CategorizedLabel";
@@ -80,23 +81,28 @@ export const ExploreSearch = styled(InputSearch)`
   margin-top: 0;
 `
 
-export const defaultShowColumns = [
-  'label_short',
-  'description',
-  'name',
-  'type',
-  'sql',
-]
-
 export const PanelFields: React.FC<{
   columns: ColumnDescriptor[],
   currentExplore: ILookmlModelExplore | null,
   currentModel: ILookmlModel | null
   loadingExplore: string,
-  model: ILookmlModel}
-> = ({ columns, currentExplore, currentModel, loadingExplore, model }) => {
+  model: ILookmlModel,
+  comments: ExploreComments,
+  updateComments: (i: string) => void,
+  commentAuthors: IUser[],
+  me: IUser,
+}> = ({ columns, 
+        currentExplore, 
+        currentModel, 
+        loadingExplore, 
+        model,
+        comments,
+        updateComments,
+        commentAuthors,
+        me
+       }) => {
   const [search, setSearch] = useState('')
-  const [shownColumns, setShownColumns] = useState([...defaultShowColumns])
+  const [shownColumns, setShownColumns] = useState([...columns.filter(d => { return d.default }).map(d => d.rowValueDescriptor)])
   const [hasDescription, setHasDescription] = useState([])
   const [hasTags, setHasTags] = useState([])
   const [fieldTypes, setFieldTypes] = useState([])
@@ -171,7 +177,7 @@ export const PanelFields: React.FC<{
               </ButtonOutline>
             </ExternalLink>
             <ViewOptions
-              columns={columns}
+              columns={columns.filter(d => { return d.rowValueDescriptor !== "comment"})}
               shownColumns={shownColumns}
               setShownColumns={setShownColumns}
             />
@@ -214,6 +220,10 @@ export const PanelFields: React.FC<{
                   model={model}
                   search={search}
                   shownColumns={shownColumns}
+                  comments={comments}
+                  updateComments={updateComments}
+                  commentAuthors={commentAuthors}
+                  me={me}
                 />
               )
             }

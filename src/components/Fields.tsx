@@ -38,9 +38,10 @@ import {
   theme
 } from "@looker/components";
 import styled from "styled-components";
-
-import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField} from "@looker/sdk";
-import {ColumnDescriptor} from "./interfaces";
+import {ColumnDescriptor, FieldComments, ExploreComments} from "./interfaces";
+import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
+import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser} from "@looker/sdk";
+import {ColumnDescriptor, ExploreComments} from "./interfaces";
 import { DetailDrawer } from "./DetailDrawer";
 
 export const TableWrapper = styled(Box)`
@@ -59,6 +60,8 @@ export const StickyHeader = styled(TableHeaderCell)`
 }
 `;
 
+const DETAILS_PANE = 0;
+
 export const Fields: React.FC<{
   columns: ColumnDescriptor[],
   explore: ILookmlModelExplore,
@@ -67,6 +70,10 @@ export const Fields: React.FC<{
   fields: ILookmlModelExploreField[],
   search: string,
   shownColumns: string[],
+  comments: ExploreComments,
+  updateComments: (i: string) => void,
+  commentAuthors: IUser[],
+  me: IUser,
 }> = ({
   columns,
   explore,
@@ -74,8 +81,13 @@ export const Fields: React.FC<{
   fields,
   model,
   search,
-  shownColumns
+  shownColumns,
+  comments,
+  updateComments,
+  commentAuthors,
+  me
 }) => {
+  const [tab, setTab] = React.useState(DETAILS_PANE)
   return (
     <TableWrapper p="xxlarge">
       <Flex>
@@ -122,6 +134,12 @@ export const Fields: React.FC<{
                     key={field.name}
                     model={model}
                     shownColumns={shownColumns}
+                    tab={tab}
+                    setTab={setTab}
+                    comments={comments}
+                    updateComments={updateComments}
+                    commentAuthors={commentAuthors}
+                    me={me}
                   />
                 )
               }

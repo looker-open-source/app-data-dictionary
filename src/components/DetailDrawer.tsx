@@ -27,8 +27,11 @@
 import React from "react";
 import {
   theme,
+  AvatarIcon,
   ButtonOutline,
   ButtonTransparent,
+  Card,
+  CardContent,
   DrawerManager,
   Flex,
   FlexItem,
@@ -38,17 +41,25 @@ import {
   Table,
   TableRow,
   TableDataCell,
-  TableBody
+  TableBody,
+  Tabs,
+  TabList,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Text,
 } from "@looker/components";
 import styled from "styled-components";
 
-import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField} from "@looker/sdk";
-import {ColumnDescriptor} from "./interfaces";
+import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
+import {ColumnDescriptor, FieldComments, ExploreComments} from "./interfaces";
+import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
 import { ExternalLink } from "./ExternalLink";
 import { exploreFieldURL } from "../utils/urls";
 import { canGetDistribution, canGetTopValues } from "../utils/queries";
 import { QueryChart } from './QueryChart'
 import { DetailDrawerRow } from "./DetailDrawerRow";
+import { FieldMetadata } from "./FieldMetadata";
 
 
 // Page Header
@@ -59,11 +70,22 @@ const TableRowCustom = styled(TableRow)`
     background-color: ${theme.colors.palette.charcoal100};
   }
 
+  .disabled{
+    visibility: hidden;
+  }
+
+  &:hover .disabled{
+    visibility: visible;
+  }
+
   td {
     word-break: break-word;
   }
   cursor: pointer;
 `;
+
+const DETAILS_PANE = 0;
+const COMMENTS_PANE = 1;
 
 export const DetailDrawer: React.FC<{
   columns: ColumnDescriptor[],
@@ -71,106 +93,48 @@ export const DetailDrawer: React.FC<{
   model: ILookmlModel,
   field: ILookmlModelExploreField,
   shownColumns: string[],
-}> = ({ columns, explore, field, model, shownColumns }) => {
+  tab: number,
+  setTab: (i: number) => void,
+  comments: ExploreComments,
+  updateComments: (i: string) => void,
+  commentAuthors: IUser[],
+  me: IUser,
+}> = ({ columns, 
+        explore, 
+        field, 
+        model, 
+        shownColumns, 
+        tab, 
+        setTab,
+        comments,
+        updateComments,
+        commentAuthors,
+        me
+  }) => {
+  function detailsPane() {
+    setTab(DETAILS_PANE);
+  }
+  function commentsPane() {
+    setTab(COMMENTS_PANE);
+  }
+
   return (
     <DrawerManager
       content={
-        <ModalContent>
-          <Heading as="h3" fontWeight="semiBold">
-            {field.label_short}
-          </Heading>
-          <Flex flexDirection="column">
-            { field.description &&
-              <FlexItem pb="xlarge">
-                <Paragraph>{field.description}</Paragraph>
-              </FlexItem>
-            }
-            <FlexItem>
-              <Heading
-                as="h4"
-                fontSize="small"
-                fontWeight="semiBold"
-                mb="small"
-                style={{marginTop: '2em'}}
-              >
-                About this Field
-              </Heading>
-            </FlexItem>
-            <FlexItem pb="xlarge">
-              <Table width="100%">
-                <TableBody fontSize="small">
-                  { columns.map(column => {
-                    if (column.rowValueDescriptor !== 'description') {
-                      return (
-                        <DetailDrawerRow
-                          key={column.rowValueDescriptor}
-                          column={column}
-                          field={field}
-                        />
-                      )
-                    }
-                  })}
-                </TableBody>
-              </Table>
-            </FlexItem>
-
-            <QueryChart
-              disabledText={'Distributions can only be shown for numeric dimensions on a view with a count measure.'}
-              enabled={canGetDistribution({model, explore, field})}
-              type={{
-                type: "Distribution",
-                model,
-                explore,
-                field
-              }}
-
-            />
-
-            <QueryChart
-              disabledText={'Values can only be shown for dimensions on a view with a count measure.'}
-              enabled={canGetTopValues({ model, explore, field })}
-              type={{
-                type: "Values",
-                model,
-                explore,
-                field
-              }}
-            />
-
-            <FlexItem
-              borderTop={`1px solid ${
-                theme.colors.palette.charcoal200
-                }`}
-              pb="xlarge"
-              pt="xlarge"
-            >
-              <Flex alignItems="center" justifyContent="center">
-                <ExternalLink target="_blank" href={field.lookml_link}>
-                  <ButtonTransparent
-                    mr="small"
-                    ml="small"
-                    iconBefore="LogoRings"
-                  >
-                    Go to LookML
-                  </ButtonTransparent>
-                </ExternalLink>
-
-
-                <ExternalLink target="_blank" href={exploreFieldURL(explore, field)}>
-                  <ButtonTransparent
-                    mr="small"
-                    ml="small"
-                    iconBefore="Explore"
-                  >
-                    Explore with Field
-                  </ButtonTransparent>
-                </ExternalLink>
-
-
-              </Flex>
-            </FlexItem>
-          </Flex>
-        </ModalContent>
+        <FieldMetadata
+          field={field}
+          columns={columns}
+          explore={explore}
+          key={field.name}
+          model={model}
+          shownColumns={shownColumns}
+          tab={tab}
+          setTab={setTab}
+          allComments={comments}
+          setComments={updateComments}
+          commentAuthors={commentAuthors}
+          me={me}
+        />
       }
     >
       {onClick => (
@@ -185,10 +149,11 @@ export const DetailDrawer: React.FC<{
                   key={column.rowValueDescriptor}
                   maxWidth={column.maxWidth}
                   minWidth={column.minWidth}
+                  onClick={column.rowValueDescriptor === "comment" ? commentsPane : detailsPane}
                 >
-                  {/*
-                    // @ts-ignore */}
-                  {column.formatter(field[column.rowValueDescriptor], true, field)}
+                  {/* 
+                  // @ts-ignore */}
+                  { column.formatter(field[column.rowValueDescriptor], true, field, comments[field.name] && comments[field.name].length > 0 ? comments[field.name].length : null) }
                 </TableDataCell>
               )
             }

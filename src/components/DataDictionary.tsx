@@ -24,7 +24,7 @@
 
  */
 
-import React, { PureComponent, useState } from "react";
+import React, { PureComponent, useState, useEffect, useContext } from "react";
 import {
   Chip,
   Flex,
@@ -32,23 +32,44 @@ import {
   Heading,
   Spinner,
   theme,
+  Icon,
 } from "@looker/components";
 import humanize from 'humanize-string'
 import styled, { ThemeProvider } from "styled-components";
-import { useAllModels } from "../utils/fetchers";
+import { useAllModels, getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
 import "./styles.css";
+import * as semver from 'semver'
+import {
+  ExtensionContext,
+  ExtensionContextData,
+} from '@looker/extension-sdk-react'
 import { PanelFields } from "./PanelFields";
 import SidebarToggle from "./SidebarToggle";
 import { useCurrentModel, useCurrentExplore } from "../utils/routes"
-import { ColumnDescriptor } from "./interfaces";
+import { ColumnDescriptor, AllComments } from "./interfaces";
 import { SQLSnippet } from "./SQLSnippet";
 import { Sidebar } from './Sidebar'
+import { CommentIcon } from './CommentIcon'
 import { SidebarStyleProps } from "./interfaces";
 import { NoModelsAvailable } from "./NoModelsAvailable";
 import { ILookmlModelExploreField } from "@looker/sdk";
 import { CategorizedLabel } from './CategorizedLabel'
 
 export const columns: ColumnDescriptor[] = [
+  {
+    name: 'comment-icon',
+    label: ' ',
+    rowValueDescriptor: 'comment',
+    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField, commentCount: number) => {
+      if (isRow) {
+        return <CommentIcon count={commentCount}/>
+      } else {
+        return null
+      }
+    },
+    minWidth: '1em',
+    default: true,
+  },
   {
     name: 'field-label',
     label: 'Field Label',
@@ -60,7 +81,8 @@ export const columns: ColumnDescriptor[] = [
         return x
       }
     },
-    minWidth: '12em',
+    minWidth: '8em',
+    default: true,
   },
   {
     name: 'category',
@@ -70,6 +92,7 @@ export const columns: ColumnDescriptor[] = [
       return <CategorizedLabel label={x} category={field.category} />
     },
     minWidth: '12em',
+    default: false,
   },
   {
     name: 'description',
@@ -82,6 +105,7 @@ export const columns: ColumnDescriptor[] = [
       return x
     },
     maxWidth: '20em',
+    default: true,
   },
   {
     name: 'lookml-name',
@@ -90,7 +114,8 @@ export const columns: ColumnDescriptor[] = [
     formatter: (x: any) => {
       return x.replace(/\./g, '.\u200B');
     },
-    minWidth: '15em',
+    minWidth: '8em',
+    default: true,
   },
   {
     name: 'type',
@@ -98,6 +123,7 @@ export const columns: ColumnDescriptor[] = [
     rowValueDescriptor: 'type',
     formatter: (x: any) => humanize(x),
     minWidth: '8em',
+    default: true,
   },
   {
     label: 'SQL',
@@ -107,6 +133,7 @@ export const columns: ColumnDescriptor[] = [
     },
     maxWidth: '20em',
     name: 'sql',
+    default: true,
   },
   {
     name: 'tags',
@@ -117,6 +144,7 @@ export const columns: ColumnDescriptor[] = [
         <Chip disabled>{tag}</Chip>
       ))
     },
+    default: false,
   },
 ]
 
@@ -126,6 +154,12 @@ export const DataDictionary: React.FC<{}> = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
+
+  const { exploreComments, updateComments } = getExploreComments(currentExplore, loadingExplore)
+  let comments = JSON.parse(exploreComments)
+  const { authorIds } = getAuthorIds(comments)
+  const commentAuthors = getAuthorData(authorIds)
+  const me = getMe()
 
   let models
 
@@ -177,6 +211,10 @@ export const DataDictionary: React.FC<{}> = () => {
               currentModel={currentModel}
               loadingExplore={loadingExplore}
               model={currentModel}
+              comments={comments}
+              updateComments={updateComments}
+              commentAuthors={commentAuthors}
+              me={me}
             />
           </PageContent>
         </PageLayout>

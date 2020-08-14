@@ -24,41 +24,42 @@
 
  */
 
-import { ILookmlModelExploreField } from '@looker/sdk'
+import React from "react";
+import {
+  Box,
+  Flex,
+  FlexItem,
+  Heading,
+  Space,
+  Text,
+  Table,
+  ButtonTransparent,
+  TableHead,
+  TableHeaderCell,
+  Icon,
+  IconButton,
+  TableRow,
+  TableBody,
+  Tooltip,
+  theme
+} from "@looker/components";
+import styled from "styled-components";
 
-export interface ColumnDescriptor {
-  name: string
-  label: string
-  rowValueDescriptor: string
-  formatter: (x: string, isRow?: boolean, field?: ILookmlModelExploreField, commentCount?: number) => string | JSX.Element
-  minWidth?: string
-  maxWidth?: string
-  default?: boolean
-}
+import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField} from "@looker/sdk";
+import {ColumnDescriptor} from "./interfaces";
+import { DetailDrawer } from "./DetailDrawer";
 
-export interface SidebarStyleProps {
-  open: boolean;
-}
-
-export interface FieldComments {
-  author: number,
-  timestamp: number,
-  content: string,
-  edited: boolean,
-  pk: string,
-}
-
-export interface ExploreComments {
-  [field_name: string]: FieldComments[]
-}
-
-export interface UserData {
-  display_name: string,
-  avatar_url: string,
-  first_name: string,
-  last_name: string,
-}
-
-export interface AllComments {
-  [explore_name: string]: ExploreComments
-}
+export const CommentIcon: React.FC<{
+    count: any
+}> = ({
+    count,
+}) => {
+    return (
+        <FlexItem> {
+        count !== null ? 
+        <Tooltip content="View Comments"><ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">{count}</ButtonTransparent></Tooltip> : 
+        <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
+        }
+        </FlexItem>
+    );
+};
