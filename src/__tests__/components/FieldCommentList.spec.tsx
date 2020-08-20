@@ -26,52 +26,29 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {mockModels, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
-import {
-  ExtensionContext,
-  ExtensionContextData,
-} from '@looker/extension-sdk-react'
-
-import { DataDictionary } from '../../components/DataDictionary'
-
-jest.mock('../../utils/fetchers', () => {
-  return {
-    useAllModels: jest.fn(() => {
-      return mockModels
-    }),
-  }
-})
-
-jest.mock('../../utils/routes', () => {
-  return {
-    useCurrentModel: jest.fn(() => {
-      return mockCurrentModel
-    }),
-    useCurrentExplore: jest.fn(() => {
-      return mockCurrentExplore
-    }),
-  }
-})
-
-jest.mock('../../../node_modules/@looker', () => {
-  return {
-    ExtensionContext: jest.fn(() => {
-      return ExtensionContext
-    }),
-  }
-})
-
-jest.mock("../../components/PanelFields", () => ({
-  PanelFields: () => "PanelFields"
-}))
-
-jest.mock("../../components/Sidebar", () => ({
-  Sidebar: () => "Sidebar"
-}))
+import { mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
+import { columns } from '../../components/DataDictionary'
+import { defaultShowColumns } from "../../components/PanelFields";
+import { theme} from "@looker/components"
+import { ThemeProvider } from "styled-components"
+import { FieldCommentList } from '../../components/FieldCommentList'
 
 it('renders correctly', () => {
   const tree = renderer
-    .create(<DataDictionary/>)
+    .create(
+      <ThemeProvider theme={theme}>
+        <FieldCommentList 
+            comments={"\"{'foo':{}}\""}
+            addComment={()=>{}}
+            editComment={()=>{}}
+            deleteComment={()=>{}}
+            explore={{}}
+            field={{}}
+            commentAuthors={[]}
+            me={{}}
+        />
+      </ThemeProvider>
+    )
     .toJSON();
   expect(tree).toMatchSnapshot();
 })

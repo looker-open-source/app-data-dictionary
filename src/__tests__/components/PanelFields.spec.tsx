@@ -47,7 +47,7 @@ jest.mock("../../components/ViewOptions", () => ({
 }))
 
 // @ts-ignore
-mockComponents.Box = jest.fn(() => 'Box')
+// mockComponents.Box = jest.fn(() => 'Box')
 
 jest.mock('../../utils/routes', () => {
   return {
@@ -70,6 +70,12 @@ it('renders correctly', () => {
         loadingExplore={null}
         columns={columns}
         model={mockCurrentModel}
+        comments={"{}"}
+        addComment={()=>{}}
+        editComment={()=>{}}
+        deleteComment={()=>{}}
+        authors={[]}
+        me={{}}
       />
     </ThemeProvider>
   ).toJSON();

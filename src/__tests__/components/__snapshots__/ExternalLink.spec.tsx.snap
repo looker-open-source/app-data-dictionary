@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <a
-  className="Link-sc-9w9yc8 hgzBvv"
+  className="Link-sc-165dqum-0 bGMCPg"
   color="palette.blue500"
   href="looker.com"
   onClick={[Function]}

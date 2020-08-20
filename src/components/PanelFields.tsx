@@ -46,9 +46,8 @@ import toPairs from "lodash/toPairs"
 import orderBy from "lodash/orderBy"
 import { ExternalLink } from "./ExternalLink";
 import { exploreURL } from "../utils/urls";
-import {ColumnDescriptor, ExploreComments} from "./interfaces";
+import { ColumnDescriptor } from "./interfaces";
 import { ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
 import { QuickSearch } from "./QuickSearch";
 import humanize from 'humanize-string'
 import { DIMENSION, MEASURE } from "./CategorizedLabel";
@@ -81,15 +80,25 @@ export const ExploreSearch = styled(InputSearch)`
   margin-top: 0;
 `
 
+export const defaultShowColumns = [
+  'label_short',
+  'description',
+  'name',
+  'type',
+  'sql',
+]
+
 export const PanelFields: React.FC<{
   columns: ColumnDescriptor[],
   currentExplore: ILookmlModelExplore | null,
   currentModel: ILookmlModel | null
   loadingExplore: string,
   model: ILookmlModel,
-  comments: ExploreComments,
-  updateComments: (i: string) => void,
-  commentAuthors: IUser[],
+  comments: string,
+  addComment: (i: string, j: string) => void,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  authors: IUser[],
   me: IUser,
 }> = ({ columns, 
         currentExplore, 
@@ -97,9 +106,11 @@ export const PanelFields: React.FC<{
         loadingExplore, 
         model,
         comments,
-        updateComments,
-        commentAuthors,
-        me
+        addComment,
+        editComment,
+        deleteComment,
+        authors,
+        me,
        }) => {
   const [search, setSearch] = useState('')
   const [shownColumns, setShownColumns] = useState([...columns.filter(d => { return d.default }).map(d => d.rowValueDescriptor)])
@@ -221,8 +232,10 @@ export const PanelFields: React.FC<{
                   search={search}
                   shownColumns={shownColumns}
                   comments={comments}
-                  updateComments={updateComments}
-                  commentAuthors={commentAuthors}
+                  addComment={addComment}
+                  editComment={editComment}
+                  deleteComment={deleteComment}
+                  authors={authors}
                   me={me}
                 />
               )

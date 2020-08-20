@@ -36,13 +36,8 @@ import {
 } from "@looker/components";
 import humanize from 'humanize-string'
 import styled, { ThemeProvider } from "styled-components";
-import { useAllModels, getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
+import { useAllModels } from "../utils/fetchers";
 import "./styles.css";
-import * as semver from 'semver'
-import {
-  ExtensionContext,
-  ExtensionContextData,
-} from '@looker/extension-sdk-react'
 import { PanelFields } from "./PanelFields";
 import SidebarToggle from "./SidebarToggle";
 import { useCurrentModel, useCurrentExplore } from "../utils/routes"
@@ -52,8 +47,14 @@ import { Sidebar } from './Sidebar'
 import { CommentIcon } from './CommentIcon'
 import { SidebarStyleProps } from "./interfaces";
 import { NoModelsAvailable } from "./NoModelsAvailable";
-import { ILookmlModelExploreField } from "@looker/sdk";
+import { ILookmlModelExploreField, IUser, ILookmlModelExplore } from "@looker/sdk";
 import { CategorizedLabel } from './CategorizedLabel'
+import { getAuthorIds, loadUsers, getMyUser } from "../utils/fetchers";
+import {
+  ExtensionContext,
+  ExtensionContextData,
+} from '@looker/extension-sdk-react'
+import * as semver from 'semver'
 
 export const columns: ColumnDescriptor[] = [
   {
@@ -67,7 +68,7 @@ export const columns: ColumnDescriptor[] = [
         return null
       }
     },
-    minWidth: '1em',
+    maxWidth: '4em',
     default: true,
   },
   {
@@ -81,7 +82,7 @@ export const columns: ColumnDescriptor[] = [
         return x
       }
     },
-    minWidth: '8em',
+    minWidth: '6em',
     default: true,
   },
   {
@@ -114,7 +115,7 @@ export const columns: ColumnDescriptor[] = [
     formatter: (x: any) => {
       return x.replace(/\./g, '.\u200B');
     },
-    minWidth: '8em',
+    minWidth: '6em',
     default: true,
   },
   {
@@ -122,7 +123,7 @@ export const columns: ColumnDescriptor[] = [
     label: 'Type',
     rowValueDescriptor: 'type',
     formatter: (x: any) => humanize(x),
-    minWidth: '8em',
+    minWidth: '6em',
     default: true,
   },
   {
@@ -154,12 +155,121 @@ export const DataDictionary: React.FC<{}> = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
+  const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
+  const { extensionSDK, initializeError } = extensionContext
+  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(
+    false
+  )
+  const { coreSDK } = useContext(ExtensionContext)
+  const [contextCopy, setContextCopy] = React.useState("{}")
+  const [authors, setAuthors] = React.useState<IUser[]>([])
+  const [comments, setComments] = React.useState("{}")
+  const [me, setMe] = React.useState<IUser>()
 
-  const { exploreComments, updateComments } = getExploreComments(currentExplore, loadingExplore)
-  let comments = JSON.parse(exploreComments)
-  const { authorIds } = getAuthorIds(comments)
-  const commentAuthors = getAuthorData(authorIds)
-  const me = getMe()
+
+  const addComment = async (newCommentStr: string, field: string): Promise<boolean> => {
+    let revivedComments = JSON.parse(contextCopy)
+    let newComment = JSON.parse(newCommentStr)
+    
+    if (revivedComments[currentExplore.name][field]) {
+      let revivedFields = revivedComments[currentExplore.name][field]
+      revivedFields.push(newComment)
+      revivedComments[currentExplore.name][field] = revivedFields
+    } else {
+      revivedComments[currentExplore.name][field] = [newComment]
+    }
+
+    if (canPersistContextData) {
+      try {
+        console.log(revivedComments)
+        setComments(JSON.stringify(revivedComments))
+        setContextCopy(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+        return true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return false
+  }
+
+  const editComment = async (modCommentStr: string, field: string): Promise<boolean> => {
+    let revivedComments = JSON.parse(contextCopy)
+    let modComment = JSON.parse(modCommentStr)
+
+    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: any) => {
+      return d.pk !== modComment.pk
+    })
+    newFieldComments.push(modComment)
+    revivedComments[currentExplore.name][field] = newFieldComments
+
+    if (canPersistContextData) {
+      try {
+        console.log(revivedComments)
+        setComments(JSON.stringify(revivedComments))
+        setContextCopy(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+        return true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return false
+  }
+
+  const deleteComment = async (delCommentStr: string, field: string): Promise<boolean> => {
+    let revivedComments = JSON.parse(contextCopy)
+    let delComment = JSON.parse(delCommentStr)
+
+    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: any) => {
+      return d.pk !== delComment.pk
+    })
+    revivedComments[currentExplore.name][field] = newFieldComments
+
+    if (canPersistContextData) {
+      try {
+        console.log(revivedComments)
+        setComments(JSON.stringify(revivedComments))
+        setContextCopy(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+        return true
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    return false
+  }
+  
+  useEffect(() => {
+    const initialize = async () => {
+      // Context requires Looker version 7.14.0. If not supported provide
+      // default configuration object and disable saving of context data.
+      let context
+      if (
+        semver.intersects(
+          '>=7.14.0',
+          extensionSDK.lookerHostData?.lookerVersion || '7.0.0',
+          true
+        )
+      ) {
+        try {
+          context = await extensionSDK.getContextData()
+          setCanPersistContextData(true)
+          setContextCopy(context)
+          let authorIds = getAuthorIds(context)
+          let contextObj = JSON.parse(context)
+          currentExplore && contextObj[currentExplore.name] ? null : contextObj[currentExplore.name] = {}
+          setContextCopy(JSON.stringify(contextObj))
+          setComments(JSON.stringify(contextObj))
+          setAuthors(await loadUsers(coreSDK, authorIds))
+          setMe(await getMyUser(coreSDK))
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    }
+    initialize()
+  }, [currentExplore])
 
   let models
 
@@ -212,8 +322,10 @@ export const DataDictionary: React.FC<{}> = () => {
               loadingExplore={loadingExplore}
               model={currentModel}
               comments={comments}
-              updateComments={updateComments}
-              commentAuthors={commentAuthors}
+              addComment={addComment}
+              editComment={editComment}
+              deleteComment={deleteComment}
+              authors={authors}
               me={me}
             />
           </PageContent>
@@ -223,7 +335,7 @@ export const DataDictionary: React.FC<{}> = () => {
   );
 }
 
-
+// @ts-ignore
 const PageHeader = styled(Flex)`
   background-color: ${theme.colors.palette.purple400};
   background-position: 100% 0;
@@ -237,6 +349,7 @@ const PageHeader = styled(Flex)`
   }
 `;
 
+// @ts-ignore
 const PageLayout = styled.div<SidebarStyleProps>`
   display: grid;
   grid-template-rows: 1fr;
@@ -246,11 +359,13 @@ const PageLayout = styled.div<SidebarStyleProps>`
   position: relative;
 `;
 
+// @ts-ignore
 const PageContent = styled.div`
   grid-area: main;
   position: relative;
 `;
 
+// @ts-ignore
 const LayoutSidebar = styled.aside`
   position: absolute;
   top: 0;
@@ -260,6 +375,7 @@ const LayoutSidebar = styled.aside`
   z-index: 0;
 `;
 
+// @ts-ignore
 const SidebarDivider = styled.div<SidebarStyleProps>`
   transition: border 0.3s;
   border-left: 1px solid

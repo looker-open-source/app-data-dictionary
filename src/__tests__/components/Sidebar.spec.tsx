@@ -45,7 +45,7 @@ jest.mock("../../components/ExploreList", () => ({
 }))
 
 // @ts-ignore
-mockComponents.FieldSelect = jest.fn(() => 'FieldSelect')
+// mockComponents.FieldSelect = jest.fn(() => 'FieldSelect')
 
 it('renders correctly', () => {
   const tree = renderer

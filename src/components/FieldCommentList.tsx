@@ -34,25 +34,34 @@ import {
   FieldTextArea,
   Space,
 } from "@looker/components";
-import styled from "styled-components";
 
-import { IUser } from "@looker/sdk";
-import { ExploreComments, UserData } from "./interfaces";
+import { IUser, ILookmlModelExploreField, ILookmlModelExplore } from "@looker/sdk";
+import { UserData, FieldComments } from "./interfaces";
 import { FieldComment } from "./FieldComment";
 
+export const NOT_EDITING_COMMENT = ""
+
+
 export const FieldCommentList: React.FC<{
-  allComments: ExploreComments,
-  setComments: (i: string) => void,
-  fieldName: string,
+  comments: string,
+  addComment: (i: string, j: string) => void,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  explore: ILookmlModelExplore,
+  field: ILookmlModelExploreField,
   commentAuthors: IUser[],
   me: IUser,
-}> = ({ allComments, 
-        setComments, 
-        fieldName, 
+}> = ({ comments, 
+        addComment, 
+        editComment,
+  	    deleteComment,
+        explore,
+        field, 
         commentAuthors,
-        me }) => {
+        me 
+    }) => {
     const [addingNew, setAddingNew] = React.useState(false)
-    const [editingComment, setEditingComment] = React.useState(0)
+    const [editingComment, setEditingComment] = React.useState("")
     const [commentContent, setCommentContent] = React.useState("")
     const toggleNew = () => {
         setAddingNew(!addingNew)
@@ -60,7 +69,7 @@ export const FieldCommentList: React.FC<{
     const handleChange = (e: any) => {
         setCommentContent(e.target.value)
     }
-    const addComment = () => {
+    const addToComments = () => {
         let generated_timestamp = Date.now()
         let comment = {
             author: me.id,
@@ -69,19 +78,9 @@ export const FieldCommentList: React.FC<{
             content: commentContent,
             pk: `${generated_timestamp}::${me.id}`,
         }
-
-        let commentObj: ExploreComments = {};
-        Object.assign(commentObj, allComments)
-        if (allComments[fieldName]) {
-            commentObj[fieldName].push(comment)
-        } else {
-            commentObj[fieldName] = [comment]
-        }
-
-        setComments(JSON.stringify(commentObj));
-        toggleNew();
+        addComment(JSON.stringify(comment), field.name);
+        setAddingNew(false);
     }
-
     const getCommentAuthorData = (author_id: number) => {
         let commentAuthor = commentAuthors && commentAuthors.filter(d => {
             return d.id === author_id;
@@ -106,14 +105,16 @@ export const FieldCommentList: React.FC<{
                 avatar_url: commentAuthor[0].avatar_url,
                 first_name: commentAuthor[0].first_name,
                 last_name: commentAuthor[0].last_name,
-                display_name: commentAuthor[0].display_name
+                display_name: commentAuthor[0].display_name,
             }
         }
         return authorData;
     }
+    let commentObj = JSON.parse(comments)
+    let fieldComments = commentObj[explore.name][field.name] ? commentObj[explore.name][field.name] : []
     return (
         <Flex flexDirection="column">
-            { allComments[fieldName] && allComments[fieldName].sort((x,y) => { return x.timestamp - y.timestamp }).map(comment => {
+            { fieldComments && fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp }).map((comment: FieldComments) => {
                 return (
                     <FlexItem pb="small">
                         <FieldComment
@@ -121,10 +122,10 @@ export const FieldCommentList: React.FC<{
                             editingComment={editingComment}
                             setEditingComment={setEditingComment}
                             setCommentContent={setCommentContent}
-                            allComments={allComments}
-                            setComments={setComments}
+                            editComment={editComment}
+	                        deleteComment={deleteComment}
                             commentContent={commentContent}
-                            fieldName={fieldName}
+                            field={field}
                             authorData={getCommentAuthorData(comment.author)}
                             me={me}
                             addingNew={addingNew}
@@ -132,16 +133,15 @@ export const FieldCommentList: React.FC<{
                     </FlexItem>
                 )
             })}
-            {/* Could add something like editingComment === 0 &&  to "disable" adding new comment while editing */}
             { addingNew ?
                 <FlexItem pb="small">
                     <FieldTextArea autoFocus onChange={handleChange} />
                     <Space pt="small" gap="xsmall" reverse>
-                        <Button size="medium" onClick={addComment}>Comment</Button>
+                        <Button size="medium" onClick={addToComments}>Comment</Button>
                         <ButtonOutline size="medium" color="neutral" onClick={toggleNew}>Cancel</ButtonOutline>
                     </Space>
                 </FlexItem> :
-                editingComment === 0 ? <Button fullWidth onClick={toggleNew}>Add Comment</Button> : null
+                editingComment === NOT_EDITING_COMMENT ? <Button fullWidth onClick={toggleNew}>Add Comment</Button> : null
             }
         </Flex>
     );

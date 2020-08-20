@@ -46,6 +46,7 @@ export interface FieldComments {
   content: string,
   edited: boolean,
   pk: string,
+  deleted?: boolean,
 }
 
 export interface ExploreComments {
@@ -57,6 +58,7 @@ export interface UserData {
   avatar_url: string,
   first_name: string,
   last_name: string,
+  color?: string,
 }
 
 export interface AllComments {

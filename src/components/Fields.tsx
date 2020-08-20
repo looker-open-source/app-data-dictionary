@@ -38,12 +38,11 @@ import {
   theme
 } from "@looker/components";
 import styled from "styled-components";
-import {ColumnDescriptor, FieldComments, ExploreComments} from "./interfaces";
-import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
+import {ColumnDescriptor} from "./interfaces";
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser} from "@looker/sdk";
-import {ColumnDescriptor, ExploreComments} from "./interfaces";
 import { DetailDrawer } from "./DetailDrawer";
 
+// @ts-ignore
 export const TableWrapper = styled(Box)`
   border-bottom: 1px solid ${theme.colors.palette.charcoal200};
 
@@ -53,6 +52,7 @@ export const TableWrapper = styled(Box)`
 `;
 
 // Sticky Table Header
+// @ts-ignore
 export const StickyHeader = styled(TableHeaderCell)`
   @supports (position: sticky) {
     position: sticky;
@@ -70,9 +70,11 @@ export const Fields: React.FC<{
   fields: ILookmlModelExploreField[],
   search: string,
   shownColumns: string[],
-  comments: ExploreComments,
-  updateComments: (i: string) => void,
-  commentAuthors: IUser[],
+  comments: string,
+  addComment: (i: string, j: string) => void,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  authors: IUser[],
   me: IUser,
 }> = ({
   columns,
@@ -83,9 +85,11 @@ export const Fields: React.FC<{
   search,
   shownColumns,
   comments,
-  updateComments,
-  commentAuthors,
-  me
+  addComment,
+  editComment,
+  deleteComment,
+  authors,
+  me,
 }) => {
   const [tab, setTab] = React.useState(DETAILS_PANE)
   return (
@@ -137,8 +141,10 @@ export const Fields: React.FC<{
                     tab={tab}
                     setTab={setTab}
                     comments={comments}
-                    updateComments={updateComments}
-                    commentAuthors={commentAuthors}
+                    addComment={addComment}
+                    editComment={editComment}
+                    deleteComment={deleteComment}
+                    authors={authors}
                     me={me}
                   />
                 )

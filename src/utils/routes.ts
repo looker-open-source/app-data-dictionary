@@ -1,5 +1,5 @@
 import { useRouteMatch } from "react-router-dom"
-import { useAllModels, useExplore, getComments } from "./fetchers"
+import { useAllModels, useExplore } from "./fetchers"
 
 export function internalExploreURL({
   model,

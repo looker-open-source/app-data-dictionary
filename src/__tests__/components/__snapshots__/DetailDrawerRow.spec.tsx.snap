@@ -2,26 +2,24 @@
 
 exports[`renders correctly 1`] = `
 <tr
-  className="TableRow-sc-16332ku iaBpXn"
+  className="TableRow-sc-1tgwedx-0 eGJTVe"
 >
   <td
-    className="TableDataCell-sc-1rh91s3 fskiHy"
+    className="TableDataCell-sc-1ehugof-0 dVINWI"
     color="palette.charcoal700"
   >
-    Field Label
+     
   </td>
   <td
-    className="TableDataCell-sc-1rh91s3 fskiHy break"
+    className="TableDataCell-sc-1ehugof-0 dVINWI break"
     color="palette.charcoal700"
   >
     <code
-      className="TextBase-sc-1rkc9wq Code-sc-1ccl49 jodBJW break"
+      className="TextBase-sc-1sjok63-0 Code-sc-1b6zsy0-0 irpflq break"
       color="palette.charcoal700"
       fontFamily="code"
       fontSize="small"
-    >
-      Comment
-    </code>
+    />
   </td>
 </tr>
 `;

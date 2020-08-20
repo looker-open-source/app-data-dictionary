@@ -3,18 +3,18 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="FlexItem-sc-1re6mwg fxCVEF"
+    className="FlexItem-sc-1xhpm9o-0 jawPEc"
   >
     <ul
-      className="List-sc-1dd290l VHTwG"
+      className="List-q1s69i-0 fMptPS"
       type="none"
     >
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -23,19 +23,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -44,19 +48,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Ad Group
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Ad Group
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -65,19 +73,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Keyword
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Keyword
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -86,19 +98,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Geo
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Geo
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -107,19 +123,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Age Range
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Age Range
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -128,19 +148,23 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Audience
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Audience
+            </div>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-sc-16mi6gz ejtiuJ"
+        className="ListItem-dmbyyb-0 sLeBB"
       >
         <li
           bg="#FFFFFF"
-          className="MenuItemListItem-sc-t4lwjd dOUswS sc-bdVaJa gjuDgd"
+          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
           color="#4C535B"
           fontSize="small"
           fontWeight="normal"
@@ -149,10 +173,14 @@ Array [
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sc-f5mc0o iUjhjR"
+            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            AdWord Impressions by Video
+            <div
+              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
+            >
+              AdWord Impressions by Video
+            </div>
           </button>
         </li>
       </li>

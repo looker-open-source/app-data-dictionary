@@ -24,7 +24,7 @@
 
  */
 
-import React from "react";
+import React, { PureComponent, useState, useEffect, useContext } from "react";
 import {
   theme,
   AvatarIcon,
@@ -52,17 +52,11 @@ import {
 import styled from "styled-components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import {ColumnDescriptor, FieldComments, ExploreComments} from "./interfaces";
-import { getAuthorData, getMe, getAuthorIds, getExploreComments } from "../utils/fetchers";
-import { ExternalLink } from "./ExternalLink";
-import { exploreFieldURL } from "../utils/urls";
-import { canGetDistribution, canGetTopValues } from "../utils/queries";
-import { QueryChart } from './QueryChart'
-import { DetailDrawerRow } from "./DetailDrawerRow";
+import {ColumnDescriptor} from "./interfaces";
 import { FieldMetadata } from "./FieldMetadata";
 
 
-// Page Header
+// @ts-ignore
 const TableRowCustom = styled(TableRow)`
   transition: background-color 0.3s ease;
   &.active,
@@ -95,9 +89,11 @@ export const DetailDrawer: React.FC<{
   shownColumns: string[],
   tab: number,
   setTab: (i: number) => void,
-  comments: ExploreComments,
-  updateComments: (i: string) => void,
-  commentAuthors: IUser[],
+  comments: string,
+  addComment: (i: string, j: string) => void,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  authors: IUser[],
   me: IUser,
 }> = ({ columns, 
         explore, 
@@ -107,15 +103,29 @@ export const DetailDrawer: React.FC<{
         tab, 
         setTab,
         comments,
-        updateComments,
-        commentAuthors,
-        me
+        addComment,
+        editComment,
+        deleteComment,
+        authors,
+        me,
   }) => {
   function detailsPane() {
     setTab(DETAILS_PANE);
   }
   function commentsPane() {
     setTab(COMMENTS_PANE);
+  }
+
+  let parsedComments = JSON.parse(comments)
+
+  const getFieldCommentsLength = (field: string) => {
+    let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
+    let commentFields = Object.keys(exploreComments)
+    if (commentFields.includes(field) && exploreComments[field].length > 0) {
+      return exploreComments[field].length
+    } else {
+      return null
+    }
   }
 
   return (
@@ -127,12 +137,14 @@ export const DetailDrawer: React.FC<{
           explore={explore}
           key={field.name}
           model={model}
-          shownColumns={shownColumns}
           tab={tab}
           setTab={setTab}
-          allComments={comments}
-          setComments={updateComments}
-          commentAuthors={commentAuthors}
+          comments={comments}
+          addComment={addComment}
+          editComment={editComment}
+	        deleteComment={deleteComment}
+          fieldCommentLength={getFieldCommentsLength(field.name)}
+          commentAuthors={authors}
           me={me}
         />
       }
@@ -153,7 +165,7 @@ export const DetailDrawer: React.FC<{
                 >
                   {/* 
                   // @ts-ignore */}
-                  { column.formatter(field[column.rowValueDescriptor], true, field, comments[field.name] && comments[field.name].length > 0 ? comments[field.name].length : null) }
+                  { column.formatter(field[column.rowValueDescriptor], true, field, getFieldCommentsLength(field.name)) }
                 </TableDataCell>
               )
             }

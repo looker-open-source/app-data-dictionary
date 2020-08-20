@@ -55,6 +55,14 @@ it('renders correctly', () => {
           model={mockCurrentModel}
           field={mockCurrentExplore.fields.dimensions[0]}
           shownColumns={defaultShowColumns}
+          tab={0}
+          setTab={()=>{}}
+          comments={"{}"}
+          addComment={()=>{}}
+          editComment={()=>{}}
+	        deleteComment={()=>{}}
+          authors={[]}
+          me={{}}
         />
       </ThemeProvider>
     )

@@ -51,10 +51,9 @@ import {
   TabPanels,
   Text,
 } from "@looker/components";
-import styled from "styled-components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import {ColumnDescriptor, FieldComments, ExploreComments } from "./interfaces";
+import { ColumnDescriptor } from "./interfaces";
 import { ExternalLink } from "./ExternalLink";
 import { exploreFieldURL } from "../utils/urls";
 import { canGetDistribution, canGetTopValues } from "../utils/queries";
@@ -67,25 +66,29 @@ export const FieldMetadata: React.FC<{
   explore: ILookmlModelExplore,
   model: ILookmlModel,
   field: ILookmlModelExploreField,
-  shownColumns: string[],
   tab: number,
   setTab: (i: number) => void,
-  allComments: ExploreComments,
-  setComments: (i: string) => void,
+  comments: string,
+  addComment: (i: string, j: string) => void,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  fieldCommentLength: number,
   commentAuthors: IUser[],
   me: IUser,
 }> = ({ columns, 
         explore, 
         field, 
         model, 
-        shownColumns, 
         tab, 
         setTab, 
-        allComments, 
-        setComments, 
+        comments, 
+        addComment,
+        editComment,
+  	    deleteComment,
+        fieldCommentLength,
         commentAuthors,
-        me }) => {
-    let commentCountLabel = allComments[field.name] && allComments[field.name].length > 0 ? " (" + allComments[field.name].length.toString() + ")" : null
+        me 
+    }) => {
     return (
             <ModalContent>
             <Heading as="h3" fontWeight="semiBold" pb="small">
@@ -95,7 +98,7 @@ export const FieldMetadata: React.FC<{
             you cannot control the Tab's selectedIndex with the Tabs component. Will refactor following an uncoming release of components. */}
             <TabList selectedIndex={tab} onSelectTab={setTab}>
                 <Tab>Details</Tab>
-                <Tab>Comments{ commentCountLabel }</Tab>
+                <Tab>Comments{ fieldCommentLength > 0 ? " ("+fieldCommentLength+")" : null }</Tab>
             </TabList>
             <TabPanels selectedIndex={tab}>
                 <TabPanel>
@@ -193,9 +196,12 @@ export const FieldMetadata: React.FC<{
             </TabPanel>
             <TabPanel>
                 <FieldCommentList 
-                    allComments={allComments}
-                    setComments={setComments}
-                    fieldName={field.name}
+                    comments={comments}
+                    addComment={addComment}
+                    editComment={editComment}
+	                deleteComment={deleteComment}
+                    explore={explore}
+                    field={field}
                     commentAuthors={commentAuthors}
                     me={me}
                 />

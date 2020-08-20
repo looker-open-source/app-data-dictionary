@@ -4,7 +4,6 @@ import { Looker31SDK as LookerSDK, Looker31SDK } from '@looker/sdk/lib/sdk/3.1/m
 import { ILookmlModel, ILookmlModelExplore, IUser } from "@looker/sdk/lib/sdk/4.0/models"
 import { DelimArray } from "@looker/sdk/lib/rtl/delimArray"
 import { ExploreComments, AllComments, FieldComments } from "../../src/components/interfaces";
-import * as semver from 'semver'
 
 const globalCache: any = {}
 
@@ -37,15 +36,16 @@ export const loadCachedExplore = async (
 }
 
 export const loadUsers = async (
-  sdk: LookerSDK,
+  coreSDK: LookerSDK,
   ids: number[],
 ) => {
+  // keeping this if needed in future
   let typed_ids: DelimArray<number> = new DelimArray<number>(
     ids
   )
   // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
-  return sdk.ok(sdk.all_users({ids: ids.toString() }))
+  return coreSDK.ok(coreSDK.all_users({ids: ids.toString() }))
 }
 
 export const loadAllModels = async (sdk: LookerSDK) => {
@@ -66,34 +66,6 @@ export function useAllModels() {
     fetcher()
   }, [coreSDK])
   return allModels
-}
-
-export function getMe() {
-  const { coreSDK } = useContext(ExtensionContext)
-  const [me, meSetter] = useState<IUser | undefined>(undefined)
-  useEffect(() => {
-    async function fetcher() {
-      meSetter(await getMyUser(coreSDK))
-    }
-    fetcher()
-  }, [coreSDK])
-  return me
-}
-
-export function getAuthorData(ids: number[]) {
-  const { coreSDK } = useContext(ExtensionContext)
-  const [commentAuthors, commentAuthorSetter] = useState<IUser[] | undefined>(undefined)
-  useEffect(() => {
-    async function fetcher() {
-      if (ids.length > 0) {
-        commentAuthorSetter(await loadUsers(coreSDK, ids))
-      } else {
-        commentAuthorSetter(undefined)
-      }
-    }
-    fetcher()
-  }, [coreSDK, ids])
-  return commentAuthors
 }
 
 export function useExplore(modelName?: string, exploreName?: string) {
@@ -147,73 +119,22 @@ export function useModelDetail(modelName?: string) {
   return modelDetail
 }
 
-export function getExploreComments(currentExplore: ILookmlModelExplore, loadingExplore: string) {
-  const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
-  const { extensionSDK, initializeError } = extensionContext
-  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(
-    false
-  )
-  const [exploreComments, setExploreComments] = React.useState("{}")
-  const [contextCopy, setContextCopy] = React.useState("{}")
-  
-  useEffect(() => {
-    const initialize = async () => {
-      // Context requires Looker version 7.14.0. If not supported provide
-      // default configuration object and disable saving of context data.
-      let context
-      if (
-        semver.intersects(
-          '>=7.14.0',
-          extensionSDK.lookerHostData?.lookerVersion || '7.0.0',
-          true
-        )
-      ) {
-        try {
-          context = await extensionSDK.getContextData()
-          setCanPersistContextData(true)
-          setContextCopy(context)
-        } catch (error) {
-          console.error(error)
-        }
-      }
-    }
-    initialize()
-  }, [])
-  let contextObj = JSON.parse(contextCopy)
-  let exploreRef = currentExplore ? currentExplore.name : loadingExplore
-  let exploreContent = contextObj[exploreRef] ? JSON.stringify(contextObj[exploreRef]) : "{}"
-  exploreContent !== exploreComments ? setExploreComments(exploreContent) : null
-
-  const updateComments = async (newExploreComments: string): Promise<boolean> => {
-    console.log(newExploreComments)
-    let comments = JSON.parse(contextCopy)
-    comments[currentExplore.name] = JSON.parse(newExploreComments)
-    if (canPersistContextData) {
-      try {
-        setContextCopy(JSON.stringify(comments))
-        await extensionSDK.saveContextData(JSON.stringify(comments))
-        return true
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    return false
-  }
-
-  return { exploreComments, updateComments }
-}
-
-export function getAuthorIds(comments: ExploreComments) {
+export function getAuthorIds(commentString: string) {
+  let comments = JSON.parse(commentString)
   let authorIds: number[] = [];
-  let commentFields = Object.keys(comments);
-  commentFields.forEach(i => {
-    comments[i].forEach(j => {
-      if (!authorIds.includes(j.author)) {
-        authorIds.push(j.author)
-      }
+
+  let commentExplores = Object.keys(comments);
+  commentExplores.forEach(i => {
+    let commentExploreFields = Object.keys(comments[i]);
+    commentExploreFields.forEach(j => {
+      comments[i][j].forEach((c: FieldComments) => {
+        if (!authorIds.includes(c.author)) {
+          authorIds.push(c.author)
+        }
+      })
     })
   })
-  return { authorIds }
+  return authorIds
 }
 
 export interface DetailedModel {

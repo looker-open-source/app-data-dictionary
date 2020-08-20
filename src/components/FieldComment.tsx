@@ -49,8 +49,10 @@ import {
 } from "@looker/components";
 import styled from "styled-components";
 
-import {IUser} from "@looker/sdk";
-import { FieldComments, ExploreComments, UserData } from "./interfaces";
+import {IUser, ILookmlModelExploreField} from "@looker/sdk";
+import { FieldComments, UserData } from "./interfaces";
+
+const ReactMarkdown = require('react-markdown')
 
 const CustomCommentCard = styled(Card)`
   .show {
@@ -66,15 +68,17 @@ const CustomCommentCard = styled(Card)`
   }
 `;
 
+export const NOT_EDITING_COMMENT = ""
+
 export const FieldComment: React.FC<{
   comment: FieldComments,
-  editingComment: Number,
-  setEditingComment: (i: number) => void,
+  editingComment: string,
+  setEditingComment: (i: string) => void,
   commentContent: string,
   setCommentContent: (i: string) => void,
-  allComments: ExploreComments,
-  setComments: (i: string) => void,
-  fieldName: string,
+  editComment: (i: string, j: string) => void,
+  deleteComment: (i: string, j: string) => void,
+  field: ILookmlModelExploreField,
   authorData: UserData,
   me: IUser,
   addingNew: boolean,
@@ -82,9 +86,9 @@ export const FieldComment: React.FC<{
         editingComment, 
         setEditingComment, 
         setCommentContent, 
-        allComments, 
-        setComments, 
-        fieldName, 
+        editComment,
+        deleteComment, 
+        field, 
         commentContent, 
         authorData,
         me,
@@ -97,35 +101,28 @@ export const FieldComment: React.FC<{
         return "hide";
     }
     const toggleEdit = () => {
-        editingComment === 0 ? setEditingComment(comment.timestamp) : setEditingComment(0)
+        editingComment === NOT_EDITING_COMMENT ? setEditingComment(comment.pk) : setEditingComment(NOT_EDITING_COMMENT)
     }
     const endEdit = () => {
-        setEditingComment(0)
+        setEditingComment(NOT_EDITING_COMMENT)
     }
     const handleChange = (e: any) => {
         setCommentContent(e.target.value)
     }
-    const editComment = () => {
-        let newComments = allComments[fieldName].filter(d => {
-            return d.timestamp !== comment.timestamp;
-        })
-        newComments.push({
-            author: me.id,
+    const addToComments = () => {
+        let newComment = {
+            author: comment.author,
             edited: true,
             timestamp: comment.timestamp,
             content: commentContent,
             pk: comment.pk,
-        })
-        allComments[fieldName] = newComments
-        setComments(JSON.stringify(allComments));
+        }
+        editComment(JSON.stringify(newComment), field.name);
         toggleEdit();
     }
-    function handleConfirm(close: any) {
-        let newComments = allComments[fieldName].filter(d => {
-            return d.timestamp !== comment.timestamp;
-        })
-        allComments[fieldName] = newComments
-        setComments(JSON.stringify(allComments));
+    function deleteCommentWrapper(close: any) {
+        comment.deleted = true;
+        deleteComment(JSON.stringify(comment), field.name);
         close();
     }
     
@@ -134,7 +131,7 @@ export const FieldComment: React.FC<{
         buttonColor: 'danger',
         title: `Delete Comment?`,
         message: 'Deleting this comment will permanently remove it. You cannot undo this later.',
-        onConfirm: handleConfirm,
+        onConfirm: deleteCommentWrapper,
     })
 
     let timestamp = new Date(comment.timestamp);
@@ -142,11 +139,11 @@ export const FieldComment: React.FC<{
     return (
         <FlexItem>
         { confirmationDialog }
-        { editingComment && comment.timestamp === editingComment ?
+        { editingComment && comment.pk === editingComment ?
         <FlexItem>
         <FieldTextArea autoFocus onChange={handleChange} defaultValue={comment.content}/>
         <Space pt="small" gap="xsmall" reverse>
-            <Button size="medium" onClick={editComment}>Save</Button>
+            <Button size="medium" onClick={addToComments}>Save</Button>
             <ButtonOutline size="medium" color="neutral" onClick={endEdit}>Cancel</ButtonOutline>
         </Space>
         </FlexItem> :
@@ -158,13 +155,17 @@ export const FieldComment: React.FC<{
                     <AvatarUser user={authorData} size="xsmall"/>
                 </FlexItem>
                 <FlexItem flexBasis="80%">
-                    <Heading as="h5" fontWeight="semiBold">
+                    <FlexItem>
+                    <Text fontSize="small" fontWeight="semiBold">
                         {authorData.display_name}
-                    </Heading>
-                    <Text fontSize="xxsmall" variant="secondary">
+                    </Text>
+                    </FlexItem>
+                    <FlexItem>
+                    <Text fontSize="xsmall" variant="secondary">
                         { timestamp.toLocaleString() }
                         { comment.edited ? " (edited)" : null }
                     </Text>
+                    </FlexItem>
                 </FlexItem>
                 <FlexItem flexBasis="10%">
                     <SpaceVertical align="end">
@@ -180,7 +181,7 @@ export const FieldComment: React.FC<{
                     </SpaceVertical>
                 </FlexItem>
             </Flex> 
-            <Text fontSize="xsmall">
+            <Text fontSize="small">
                 {comment.content}
             </Text>
             </FlexItem>
