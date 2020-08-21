@@ -41,7 +41,6 @@ import { FieldComment } from "./FieldComment";
 
 export const NOT_EDITING_COMMENT = ""
 
-
 export const FieldCommentList: React.FC<{
   comments: string,
   addComment: (i: string, j: string) => void,

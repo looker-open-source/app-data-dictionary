@@ -26,28 +26,14 @@
 
 import React from "react";
 import {
-  Box,
-  Flex,
   FlexItem,
-  Heading,
-  Space,
-  Text,
-  Table,
   ButtonTransparent,
-  TableHead,
-  TableHeaderCell,
-  Icon,
   IconButton,
   TableRow,
   TableBody,
   Tooltip,
   theme
 } from "@looker/components";
-import styled from "styled-components";
-
-import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField} from "@looker/sdk";
-import {ColumnDescriptor} from "./interfaces";
-import { DetailDrawer } from "./DetailDrawer";
 
 export const CommentIcon: React.FC<{
     count: any
@@ -56,9 +42,9 @@ export const CommentIcon: React.FC<{
 }) => {
     return (
         <FlexItem> {
-        count !== null ? 
-        <Tooltip content="View Comments"><ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">{count}</ButtonTransparent></Tooltip> : 
-        <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
+        count !== null
+        ? <Tooltip content="View Comments"><ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">{count}</ButtonTransparent></Tooltip>
+        : <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
         }
         </FlexItem>
     );

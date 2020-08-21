@@ -24,30 +24,12 @@
 
  */
 
-import React, { PureComponent, useState, useEffect, useContext } from "react";
+import React from "react";
 import {
   theme,
-  AvatarIcon,
-  ButtonOutline,
-  ButtonTransparent,
-  Card,
-  CardContent,
   DrawerManager,
-  Flex,
-  FlexItem,
-  Heading,
-  ModalContent,
-  Paragraph,
-  Table,
   TableRow,
   TableDataCell,
-  TableBody,
-  Tabs,
-  TabList,
-  Tab,
-  TabPanel,
-  TabPanels,
-  Text,
 } from "@looker/components";
 import styled from "styled-components";
 
