@@ -71,9 +71,9 @@ export const Fields: React.FC<{
   search: string,
   shownColumns: string[],
   comments: string,
-  addComment: (i: string, j: string) => void,
-  editComment: (i: string, j: string) => void,
-  deleteComment: (i: string, j: string) => void,
+  addComment: (newCommentStr: string, field: string) => void,
+  editComment: (newCommentStr: string, field: string) => void,
+  deleteComment: (newCommentStr: string, field: string) => void,
   authors: IUser[],
   me: IUser,
 }> = ({
@@ -126,9 +126,9 @@ export const Fields: React.FC<{
           <TableBody fontSize="small">
             {fields.map((field) => {
               if (!search ||
-                  (field.label_short && field.label_short.toLowerCase().includes(search.toLowerCase())) ||
-                  (field.description && field.description.toLowerCase().includes(search.toLowerCase())) || 
-                  (field.field_group_label && field.field_group_label.toLowerCase().includes(search.toLowerCase())))
+                (field.label_short && field.label_short.toLowerCase().includes(search.toLowerCase())) ||
+                (field.description && field.description.toLowerCase().includes(search.toLowerCase())) || 
+                (field.field_group_label && field.field_group_label.toLowerCase().includes(search.toLowerCase())))
              {
                 return (
                   <DetailDrawer

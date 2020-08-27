@@ -36,7 +36,7 @@ import styled from "styled-components";
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
 import {ColumnDescriptor} from "./interfaces";
 import { FieldMetadata } from "./FieldMetadata";
-
+import { DETAILS_PANE, COMMENTS_PANE } from "../utils/constants";
 
 // @ts-ignore
 const TableRowCustom = styled(TableRow)`
@@ -60,9 +60,6 @@ const TableRowCustom = styled(TableRow)`
   cursor: pointer;
 `;
 
-const DETAILS_PANE = 0;
-const COMMENTS_PANE = 1;
-
 export const DetailDrawer: React.FC<{
   columns: ColumnDescriptor[],
   explore: ILookmlModelExplore,
@@ -70,11 +67,11 @@ export const DetailDrawer: React.FC<{
   field: ILookmlModelExploreField,
   shownColumns: string[],
   tab: number,
-  setTab: (i: number) => void,
+  setTab: (tabIndex: number) => void,
   comments: string,
-  addComment: (i: string, j: string) => void,
-  editComment: (i: string, j: string) => void,
-  deleteComment: (i: string, j: string) => void,
+  addComment: (newCommentStr: string, field: string) => void,
+  editComment: (newCommentStr: string, field: string) => void,
+  deleteComment: (newCommentStr: string, field: string) => void,
   authors: IUser[],
   me: IUser,
 }> = ({ columns, 
@@ -101,13 +98,14 @@ export const DetailDrawer: React.FC<{
   let parsedComments = JSON.parse(comments)
 
   const getFieldCommentsLength = (field: string) => {
-    let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
-    let commentFields = Object.keys(exploreComments)
-    if (commentFields.includes(field) && exploreComments[field].length > 0) {
-      return exploreComments[field].length
-    } else {
-      return null
-    }
+    // let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
+    // let commentFields = Object.keys(exploreComments)
+    // if (commentFields.includes(field) && exploreComments[field].length > 0) {
+    //   return exploreComments[field].length
+    // } else {
+    //   return null
+    // }
+    return (parsedComments[explore.name][field] || []).length
   }
 
   return (

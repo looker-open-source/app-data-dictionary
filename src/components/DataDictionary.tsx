@@ -41,15 +41,15 @@ import "./styles.css";
 import { PanelFields } from "./PanelFields";
 import SidebarToggle from "./SidebarToggle";
 import { useCurrentModel, useCurrentExplore } from "../utils/routes"
-import { ColumnDescriptor, AllComments } from "./interfaces";
+import { ColumnDescriptor, FieldComments } from "./interfaces";
 import { SQLSnippet } from "./SQLSnippet";
 import { Sidebar } from './Sidebar'
 import { CommentIcon } from './CommentIcon'
 import { SidebarStyleProps } from "./interfaces";
 import { NoModelsAvailable } from "./NoModelsAvailable";
-import { ILookmlModelExploreField, IUser, ILookmlModelExplore } from "@looker/sdk";
+import { ILookmlModelExploreField, IUser } from "@looker/sdk";
 import { CategorizedLabel } from './CategorizedLabel'
-import { getAuthorIds, loadUsers, getMyUser } from "../utils/fetchers";
+import { getAuthorIds, getMyUser, loadUsers } from "../utils/fetchers";
 import {
   ExtensionContext,
   ExtensionContextData,
@@ -157,9 +157,7 @@ export const DataDictionary: React.FC<{}> = () => {
   const { currentExplore, loadingExplore } = useCurrentExplore()
   const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
   const { extensionSDK, initializeError } = extensionContext
-  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(
-    false
-  )
+  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(false)
   const { coreSDK } = useContext(ExtensionContext)
   const [contextCopy, setContextCopy] = React.useState("{}")
   const [authors, setAuthors] = React.useState<IUser[]>([])
@@ -174,14 +172,13 @@ export const DataDictionary: React.FC<{}> = () => {
     if (revivedComments[currentExplore.name][field]) {
       let revivedFields = revivedComments[currentExplore.name][field]
       revivedFields.push(newComment)
-      revivedComments[currentExplore.name][field] = revivedFields
+      // revivedComments[currentExplore.name][field] = revivedFields
     } else {
       revivedComments[currentExplore.name][field] = [newComment]
     }
 
     if (canPersistContextData) {
       try {
-        console.log(revivedComments)
         setComments(JSON.stringify(revivedComments))
         setContextCopy(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))
@@ -197,7 +194,7 @@ export const DataDictionary: React.FC<{}> = () => {
     let revivedComments = JSON.parse(contextCopy)
     let modComment = JSON.parse(modCommentStr)
 
-    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: any) => {
+    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: FieldComments) => {
       return d.pk !== modComment.pk
     })
     newFieldComments.push(modComment)
@@ -205,7 +202,6 @@ export const DataDictionary: React.FC<{}> = () => {
 
     if (canPersistContextData) {
       try {
-        console.log(revivedComments)
         setComments(JSON.stringify(revivedComments))
         setContextCopy(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))
@@ -228,7 +224,6 @@ export const DataDictionary: React.FC<{}> = () => {
 
     if (canPersistContextData) {
       try {
-        console.log(revivedComments)
         setComments(JSON.stringify(revivedComments))
         setContextCopy(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))

@@ -39,11 +39,6 @@ export const loadUsers = async (
   coreSDK: LookerSDK,
   ids: number[],
 ) => {
-  // keeping this if needed in future
-  let typed_ids: DelimArray<number> = new DelimArray<number>(
-    ids
-  )
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   return coreSDK.ok(coreSDK.all_users({ids: ids.toString() }))
 }

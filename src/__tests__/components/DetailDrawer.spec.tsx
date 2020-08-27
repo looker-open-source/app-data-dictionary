@@ -60,7 +60,7 @@ it('renders correctly', () => {
           comments={"{}"}
           addComment={()=>{}}
           editComment={()=>{}}
-	        deleteComment={()=>{}}
+          deleteComment={()=>{}}
           authors={[]}
           me={{}}
         />

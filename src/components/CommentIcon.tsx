@@ -25,27 +25,23 @@
  */
 
 import React from "react";
-import {
-  FlexItem,
-  ButtonTransparent,
-  IconButton,
-  TableRow,
-  TableBody,
-  Tooltip,
-  theme
-} from "@looker/components";
+import { FlexItem, ButtonTransparent, IconButton, TableRow, TableBody, Tooltip, theme } from "@looker/components";
 
 export const CommentIcon: React.FC<{
-    count: any
+  count: number,
 }> = ({
-    count,
+  count,
 }) => {
-    return (
-        <FlexItem> {
-        count !== null
-        ? <Tooltip content="View Comments"><ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">{count}</ButtonTransparent></Tooltip>
-        : <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
-        }
-        </FlexItem>
-    );
+  return (
+    <FlexItem> {
+    count !== null ?
+    <Tooltip content="View Comments">
+      <ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">
+        {count}
+      </ButtonTransparent>
+    </Tooltip> :
+    <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
+    }
+    </FlexItem>
+  );
 };
