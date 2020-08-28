@@ -52,12 +52,14 @@ import { QuickSearch } from "./QuickSearch";
 import humanize from 'humanize-string'
 import { DIMENSION, MEASURE } from "./CategorizedLabel";
 
+//@ts-ingore
 export const Main = styled(Box)`
   position: relative;
   width: 100%;
   min-height: 93vh;
 `;
 
+//@ts-ingore
 const FullPage = styled(Box)`
   position: relative;
   display: flex;
@@ -69,17 +71,18 @@ const FullPage = styled(Box)`
   flex-direction: column;
 `;
 
+//@ts-ingore
 const IntroText = styled(Paragraph)`
   text-align: center;
   margin-top: 5em;
   max-width: 40%;
   color: ${theme.colors.palette.charcoal500};
 `
-
+//@ts-ingore
 export const ExploreSearch = styled(InputSearch)`
   margin-top: 0;
 `
-
+//@ts-ingore
 export const defaultShowColumns = [
   'label_short',
   'description',

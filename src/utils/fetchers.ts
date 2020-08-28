@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from "react"
 import { ExtensionContext, ExtensionContextData } from "@looker/extension-sdk-react"
 import { Looker31SDK as LookerSDK, Looker31SDK } from '@looker/sdk/lib/sdk/3.1/methods'
 import { ILookmlModel, ILookmlModelExplore, IUser } from "@looker/sdk/lib/sdk/4.0/models"
-import { DelimArray } from "@looker/sdk/lib/rtl/delimArray"
-import { ExploreComments, AllComments, FieldComments } from "../../src/components/interfaces";
+import { FieldComments } from "../../src/components/interfaces";
 
 const globalCache: any = {}
 
@@ -135,4 +134,101 @@ export function getAuthorIds(commentString: string) {
 export interface DetailedModel {
   model: ILookmlModel
   explores: ILookmlModelExplore[]
+}
+
+export function getComments(currentExplore: ILookmlModelExplore) {
+  const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
+  const { extensionSDK, initializeError } = extensionContext
+  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(false)
+  const { coreSDK } = useContext(ExtensionContext)
+  const [authors, setAuthors] = React.useState<IUser[]>([])
+  const [comments, setComments] = React.useState("{}")
+  const [me, setMe] = React.useState<IUser>()
+
+  const addComment = async (newCommentStr: string, field: string): Promise<void> => {
+    let revivedComments = JSON.parse(comments)
+    let newComment = JSON.parse(newCommentStr)
+    revivedComments[currentExplore.name] ? null : revivedComments[currentExplore.name] = {}
+    if (revivedComments[currentExplore.name][field]) {
+      let revivedFields = revivedComments[currentExplore.name][field]
+      revivedFields.push(newComment)
+      revivedComments[currentExplore.name][field] = revivedFields
+    } else {
+      revivedComments[currentExplore.name][field] = [newComment]
+    }
+    if (canPersistContextData) {
+      try {
+        setComments(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  const editComment = async (modCommentStr: string, field: string): Promise<void> => {
+    let revivedComments = JSON.parse(comments)
+    let modComment = JSON.parse(modCommentStr)
+
+    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: FieldComments) => {
+      return d.pk !== modComment.pk
+    })
+    newFieldComments.push(modComment)
+    revivedComments[currentExplore.name][field] = newFieldComments
+
+    if (canPersistContextData) {
+      try {
+        setComments(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  const deleteComment = async (delCommentStr: string, field: string): Promise<void> => {
+    let revivedComments = JSON.parse(comments)
+    let delComment = JSON.parse(delCommentStr)
+
+    let newFieldComments = revivedComments[currentExplore.name][field].filter((d: any) => {
+      return d.pk !== delComment.pk
+    })
+    revivedComments[currentExplore.name][field] = newFieldComments
+
+    if (canPersistContextData) {
+      try {
+        setComments(JSON.stringify(revivedComments))
+        await extensionSDK.saveContextData(JSON.stringify(revivedComments))
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
+
+  useEffect(() => {
+    const initialize = async () => {
+      // Context requires Looker version 7.14.0. If not supported provide
+      // default configuration object and disable saving of context data.
+      let context
+      try {
+        context = await extensionSDK.getContextData()
+        setCanPersistContextData(true)
+        let authorIds = getAuthorIds(context)
+        let contextObj = JSON.parse(context)
+        if (currentExplore !== undefined) {
+          if(!contextObj[currentExplore.name]) {
+            contextObj[currentExplore.name] = {}
+          }
+        }
+        setComments(JSON.stringify(contextObj))
+        setAuthors(await loadUsers(coreSDK, authorIds))
+        setMe(await getMyUser(coreSDK))
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    initialize()
+  }, [typeof currentExplore])
+
+  return { comments, authors, me, addComment, editComment, deleteComment }
 }

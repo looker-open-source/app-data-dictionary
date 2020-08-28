@@ -44,7 +44,7 @@ import {
 } from "@looker/components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import { ColumnDescriptor } from "./interfaces";
+import { ColumnDescriptor, FieldComments } from "./interfaces";
 import { ExternalLink } from "./ExternalLink";
 import { exploreFieldURL } from "../utils/urls";
 import { canGetDistribution, canGetTopValues } from "../utils/queries";
@@ -59,7 +59,7 @@ export const FieldMetadata: React.FC<{
   field: ILookmlModelExploreField,
   tab: number,
   setTab: (tabIndex: number) => void,
-  comments: string,
+  sortedComments: FieldComments[],
   addComment: (newCommentStr: string, field: string) => void,
   editComment: (newCommentStr: string, field: string) => void,
   deleteComment: (newCommentStr: string, field: string) => void,
@@ -72,7 +72,7 @@ export const FieldMetadata: React.FC<{
         model, 
         tab, 
         setTab, 
-        comments, 
+        sortedComments, 
         addComment,
         editComment,
         deleteComment,
@@ -179,7 +179,7 @@ export const FieldMetadata: React.FC<{
         </TabPanel>
         <TabPanel>
           <FieldCommentList 
-            comments={comments}
+            sortedComments={sortedComments}
             addComment={addComment}
             editComment={editComment}
             deleteComment={deleteComment}

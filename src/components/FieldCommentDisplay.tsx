@@ -27,6 +27,7 @@
 import React from "react";
 import { FlexItem, Card, CardContent, Flex, AvatarUser, Text, IconButton, SpaceVertical, Menu, MenuDisclosure, MenuList, MenuItem, Icon } from "@looker/components";
 import { FieldComments, UserData } from "./interfaces";
+import styled from "styled-components";
 
 // @ts-ignore
 const CustomCommentCard = styled(Card)`

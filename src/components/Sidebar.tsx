@@ -60,8 +60,6 @@ export const Sidebar: React.FC<{
         <FieldSelect
           name="select-model"
           label="Select a Model"
-          // labelFontSize="xsmall"
-          // labelFontWeight="normal"
           options={models.map(
             m => ({ value: m.name, label: m.label })
           )}

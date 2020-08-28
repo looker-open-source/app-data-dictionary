@@ -41,7 +41,7 @@ import { FieldComment } from "./FieldComment";
 import { NOT_EDITING_COMMENT } from "../utils/constants";
 
 export const FieldCommentList: React.FC<{
-  comments: string,
+  sortedComments: FieldComments[],
   addComment: (newCommentStr: string, field: string) => void,
   editComment: (newCommentStr: string, field: string) => void,
   deleteComment: (newCommentStr: string, field: string) => void,
@@ -49,7 +49,7 @@ export const FieldCommentList: React.FC<{
   field: ILookmlModelExploreField,
   commentAuthors: IUser[],
   me: IUser,
-}> = ({ comments, 
+}> = ({ sortedComments, 
         addComment, 
         editComment,
   	    deleteComment,
@@ -108,9 +108,7 @@ export const FieldCommentList: React.FC<{
       }
       return authorData;
     }
-    let commentObj = JSON.parse(comments)
-    let fieldComments = commentObj[explore.name][field.name] || []
-    let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
+    
     return (
       <Flex flexDirection="column">
         { sortedComments.map((comment: FieldComments) => {

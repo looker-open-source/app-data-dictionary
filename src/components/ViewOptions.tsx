@@ -62,8 +62,6 @@ export const ViewOptions: React.FC<{
                 key={column.name}
                 name={column.name}
                 label={column.label}
-                // labelFontSize="small"
-                // labelFontWeight="normal"
                 onChange={checkChange(setShownColumns, shownColumns, column.rowValueDescriptor)}
                 checked={shownColumns.includes(column.rowValueDescriptor)}
               />

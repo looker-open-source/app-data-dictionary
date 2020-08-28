@@ -34,7 +34,7 @@ import {
 import styled from "styled-components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import {ColumnDescriptor} from "./interfaces";
+import { ColumnDescriptor, FieldComments } from "./interfaces";
 import { FieldMetadata } from "./FieldMetadata";
 import { DETAILS_PANE, COMMENTS_PANE } from "../utils/constants";
 
@@ -98,15 +98,19 @@ export const DetailDrawer: React.FC<{
   let parsedComments = JSON.parse(comments)
 
   const getFieldCommentsLength = (field: string) => {
-    // let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
-    // let commentFields = Object.keys(exploreComments)
-    // if (commentFields.includes(field) && exploreComments[field].length > 0) {
-    //   return exploreComments[field].length
-    // } else {
-    //   return null
-    // }
-    return (parsedComments[explore.name][field] || []).length
+    let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
+    let commentFields = Object.keys(exploreComments)
+    if (commentFields.includes(field) && exploreComments[field].length > 0) {
+      return exploreComments[field].length
+    } else {
+      return null
+    }
+    // return (parsedComments[explore.name][field] || []).length
   }
+
+  let commentObj = JSON.parse(comments)
+  let fieldComments = commentObj[explore.name] && commentObj[explore.name][field.name] || []
+  let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
 
   return (
     <DrawerManager
@@ -119,7 +123,7 @@ export const DetailDrawer: React.FC<{
           model={model}
           tab={tab}
           setTab={setTab}
-          comments={comments}
+          sortedComments={sortedComments}
           addComment={addComment}
           editComment={editComment}
 	        deleteComment={deleteComment}
