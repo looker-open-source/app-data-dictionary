@@ -105,7 +105,6 @@ export const DetailDrawer: React.FC<{
     } else {
       return null
     }
-    // return (parsedComments[explore.name][field] || []).length
   }
 
   let commentObj = JSON.parse(comments)
@@ -126,7 +125,7 @@ export const DetailDrawer: React.FC<{
           sortedComments={sortedComments}
           addComment={addComment}
           editComment={editComment}
-	        deleteComment={deleteComment}
+          deleteComment={deleteComment}
           fieldCommentLength={getFieldCommentsLength(field.name)}
           commentAuthors={authors}
           me={me}
