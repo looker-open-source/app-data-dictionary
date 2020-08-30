@@ -26,28 +26,48 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
+import { theme } from "@looker/components"
 import { ThemeProvider } from "styled-components"
-import { FieldCommentList } from '../../components/FieldCommentList'
+import { FieldCommentDisplay } from '../../components/FieldCommentDisplay'
 
-jest.mock("../../components/FieldComment", () => ({
-  FieldComment: () => "FieldComment"
+jest.mock("@looker/components", () => ({
+  FlexItem: () => "FlexItem",
+  Card: () => "Card",
+  CardContent: () => "CardContent",
+  Flex: () => "Flex",
+  AvatarUser: () => "AvatarUser",
+  Text: () => "Text",
+  IconButton: () => "IconButton",
+  SpaceVertical: () => "SpaceVertical",
+  Menu: () => "Menu",
+  MenuDisclosure: () => "MenuDisclosure",
+  MenuList: () => "MenuList",
+  MenuItem: () => "Heading",
+  Icon: () => "Icon",
 }))
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={theme}>
-        <FieldCommentList 
-            sortedComments={[]}
-            addComment={()=>{}}
-            editComment={()=>{}}
-            deleteComment={()=>{}}
-            explore={{}}
-            field={{}}
-            commentAuthors={[]}
-            me={{}}
-        />
+      <ThemeProvider theme={{}}>
+        <FieldCommentDisplay
+          authorData={{
+            display_name: "Mr. Foo Bar",
+            first_name: "Foo",
+            last_name: "Bar",
+            avatar_url: "imgsrv.com/foo/bar"
+          }}
+          comment={{
+            pk: "timestamp::author",
+            author: 1,
+            content: "This is my comment.",
+            timestamp: 7171717171,
+            edited: false
+          }}
+          showDetails={()=>""}
+          toggleEdit={()=>{}}
+          openDialog={()=>{}}
+      />
       </ThemeProvider>
     )
     .toJSON();

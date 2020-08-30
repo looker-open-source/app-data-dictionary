@@ -26,28 +26,24 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
+import { FlexItem, ButtonTransparent, IconButton, Tooltip, theme } from "@looker/components";
 import { ThemeProvider } from "styled-components"
-import { FieldCommentList } from '../../components/FieldCommentList'
+import { CommentIcon } from '../../components/CommentIcon'
 
-jest.mock("../../components/FieldComment", () => ({
-  FieldComment: () => "FieldComment"
+jest.mock("@looker/components", () => ({
+  FlexItem: () => "FlexItem",
+  ButtonTransparent: () => "ButtonTransparent",
+  IconButton: () => "IconButton",
+  Tooltip: () => "Tooltip",
 }))
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={theme}>
-        <FieldCommentList 
-            sortedComments={[]}
-            addComment={()=>{}}
-            editComment={()=>{}}
-            deleteComment={()=>{}}
-            explore={{}}
-            field={{}}
-            commentAuthors={[]}
-            me={{}}
-        />
+      <ThemeProvider theme={{}}>
+        <CommentIcon
+          count={10}
+          />
       </ThemeProvider>
     )
     .toJSON();

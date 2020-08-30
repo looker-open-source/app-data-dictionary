@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="Flex-sc-1ak395a-0 jkAspJ"
+>
+  <button
+    className="ButtonBase__ButtonOuter-sc-1bpio6j-0 eEzlBO ButtonBase-sc-1bpio6j-1 Button-sc-18euc9m-0 eJUCXp"
+    onBlur={[Function]}
+    onClick={[Function]}
+    onKeyUp={[Function]}
+    size="medium"
+  >
+    Add Comment
+  </button>
+</div>
+`;

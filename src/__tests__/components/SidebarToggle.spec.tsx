@@ -26,15 +26,20 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
+import { theme } from "@looker/components"
 import { ThemeProvider } from "styled-components"
 
 import SidebarToggle from '../../components/SidebarToggle'
 
+jest.mock("@looker/components", () => ({
+  IconButton: () => "IconButton",
+  IconNames: () => "IconNames",
+}))
+
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{}}>
         <SidebarToggle
           isOpen={true}
           onClick={() => {}}

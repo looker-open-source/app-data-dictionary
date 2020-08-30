@@ -30,6 +30,7 @@ import {
   Flex,
   FlexItem,
   Heading,
+  Button,
   Spinner,
   theme,
 } from "@looker/components";
@@ -148,7 +149,7 @@ export const DataDictionary: React.FC<{}> = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
-  const { comments, authors, me, addComment, editComment, deleteComment } = getComments(currentExplore)
+  const { comments, authors, me, canPersistContextData, addComment, editComment, deleteComment } = getComments(currentExplore)
 
   let models
 
@@ -168,6 +169,10 @@ export const DataDictionary: React.FC<{}> = () => {
   return (
     <ThemeProvider theme={theme}>
       <div style={{minWidth: "1200px"}}>
+        {canPersistContextData || 
+        // Button for now, will get message banner when we upgrade components
+        <Button>Warning: Comments could not be retrieved. Update your Looker instance to 7.14.0 or higher for field comment functionality.</Button>
+        }
         <PageHeader>
           <FlexItem>
             <Heading as="h1" fontSize="xlarge" fontWeight="semiBold" mb="xsmall">

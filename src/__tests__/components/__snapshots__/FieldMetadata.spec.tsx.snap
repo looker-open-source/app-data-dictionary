@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="ModalContent__Outer-z2w4x3-0 kiyovO undefined false"
+>
+  <div
+    className="ModalContent__Inner-z2w4x3-1 itHGxK"
+  >
+    <h3
+      className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 OuCMn"
+      fontSize="large"
+      fontWeight="semiBold"
+    />
+    <div
+      className="TabList__TabListContainer-sc-1xnjj79-0 isCvG"
+    >
+      <button
+        className="Tab__TabStyle-eojndt-0 fyMAIM Tab-eojndt-1 fcAqxo"
+        fontSize="small"
+        fontWeight="semiBold"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        selected={true}
+      >
+        Details
+      </button>
+      <button
+        className="Tab__TabStyle-eojndt-0 mbXbb Tab-eojndt-1 fcAqxo"
+        fontSize="small"
+        fontWeight="semiBold"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onKeyUp={[Function]}
+        selected={false}
+      >
+        Comments
+      </button>
+    </div>
+    <div
+      className="TabPanels-sc-15ef4fm-0 ehykXR"
+      pt="large"
+    >
+      <div
+        className="Flex-sc-1ak395a-0 jkAspJ"
+      >
+        <div
+          className="FlexItem-sc-1xhpm9o-0 OYTOK"
+        >
+          <h4
+            className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 HeNvP"
+            fontSize="small"
+            fontWeight="semiBold"
+            style={
+              Object {
+                "marginTop": "2em",
+              }
+            }
+          >
+            About this Field
+          </h4>
+        </div>
+        <div
+          className="FlexItem-sc-1xhpm9o-0 cjqkbG"
+        >
+          <table
+            className="Table-sc-1x77f3i-0 gPNKQ"
+            width="100%"
+          >
+            <tbody
+              className="TableBody-sc-17lboeq-0 eEdzRf"
+              fontSize="small"
+            />
+          </table>
+        </div>
+        QueryChart
+        QueryChart
+        <div
+          className="FlexItem-sc-1xhpm9o-0 kVdJcP"
+        >
+          <div
+            className="Flex-sc-1ak395a-0 uZzrR"
+          >
+            ExternalLink
+            ExternalLink
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

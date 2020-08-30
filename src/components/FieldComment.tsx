@@ -24,7 +24,7 @@
 
  */
 
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import {
   theme,
   AvatarUser,
@@ -95,6 +95,7 @@ export const FieldComment: React.FC<{
     }
 
     const handleChange = (e: any) => {
+      console.log(typeof e)
       setCommentContent(e.target.value)
     }
 

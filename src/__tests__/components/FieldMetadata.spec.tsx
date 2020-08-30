@@ -28,25 +28,43 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { theme} from "@looker/components"
 import { ThemeProvider } from "styled-components"
-import { FieldCommentList } from '../../components/FieldCommentList'
+import { FieldMetadata } from '../../components/FieldMetadata'
 
-jest.mock("../../components/FieldComment", () => ({
-  FieldComment: () => "FieldComment"
+jest.mock("../../components/DetailDrawerRow", () => ({
+  DetailDrawerRow: () => "DetailDrawerRow"
+}))
+
+jest.mock("../../components/QueryChart", () => ({
+  QueryChart: () => "QueryChart"
+}))
+
+jest.mock("../../components/ExternalLink", () => ({
+  ExternalLink: () => "ExternalLink"
+}))
+
+jest.mock("../../components/FieldCommentList", () => ({
+  FieldCommentList: () => "FieldCommentList"
 }))
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
       <ThemeProvider theme={theme}>
-        <FieldCommentList 
-            sortedComments={[]}
-            addComment={()=>{}}
-            editComment={()=>{}}
-            deleteComment={()=>{}}
-            explore={{}}
-            field={{}}
-            commentAuthors={[]}
-            me={{}}
+        <FieldMetadata
+          field={{}}
+          columns={[]}
+          explore={{}}
+          key={""}
+          model={{}}
+          tab={0}
+          setTab={()=>{}}
+          sortedComments={[]}
+          addComment={()=>{}}
+          editComment={()=>{}}
+          deleteComment={()=>{}}
+          fieldCommentLength={0}
+          commentAuthors={[]}
+          me={{}}
         />
       </ThemeProvider>
     )

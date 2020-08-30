@@ -230,5 +230,5 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     initialize()
   }, [typeof currentExplore])
 
-  return { comments, authors, me, addComment, editComment, deleteComment }
+  return { comments, authors, me, canPersistContextData, addComment, editComment, deleteComment }
 }

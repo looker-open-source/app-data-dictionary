@@ -27,7 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { mockCurrentExplore, mockModels } from "../MockData/MockData";
-import { theme} from "@looker/components"
+import { theme } from "@looker/components"
 import { ThemeProvider } from "styled-components"
 
 import { ExploreList } from '../../components/ExploreList'

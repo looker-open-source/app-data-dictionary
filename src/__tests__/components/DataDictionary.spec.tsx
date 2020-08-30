@@ -26,18 +26,18 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import {mockModels, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
-import {
-  ExtensionContext,
-  ExtensionContextData,
-} from '@looker/extension-sdk-react'
-
+import {mockModels, mockComments, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
+import { theme } from "@looker/components"
+import { ThemeProvider } from "styled-components"
 import { DataDictionary } from '../../components/DataDictionary'
 
 jest.mock('../../utils/fetchers', () => {
   return {
     useAllModels: jest.fn(() => {
       return mockModels
+    }),
+    getComments: jest.fn(() => {
+      return mockComments
     }),
   }
 })
@@ -53,14 +53,6 @@ jest.mock('../../utils/routes', () => {
   }
 })
 
-jest.mock('../../../node_modules/@looker', () => {
-  return {
-    ExtensionContext: jest.fn(() => {
-      return ExtensionContext
-    }),
-  }
-})
-
 jest.mock("../../components/PanelFields", () => ({
   PanelFields: () => "PanelFields"
 }))
@@ -69,9 +61,17 @@ jest.mock("../../components/Sidebar", () => ({
   Sidebar: () => "Sidebar"
 }))
 
+jest.mock("@looker/components", () => ({
+  Chip: () => "Chip",
+  Flex: () => "Flex",
+  FlexItem: () => "FlexItem",
+  Heading: () => "Heading",
+  Spinner: () => "Spinner",
+}))
+
 it('renders correctly', () => {
   const tree = renderer
-    .create(<DataDictionary/>)
+    .create(<ThemeProvider theme={theme}><DataDictionary/></ThemeProvider>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 })

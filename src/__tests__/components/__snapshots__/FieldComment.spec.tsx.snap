@@ -2,8 +2,8 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="sc-bdVaJa gxqRIQ"
+  className="FlexItem-sc-1xhpm9o-0 OYTOK"
 >
-  IconButton
+  FieldCommentDisplay
 </div>
 `;

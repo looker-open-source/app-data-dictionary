@@ -1,131 +1,128 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-Array [
+<div
+  className="Flex-sc-1ak395a-0 imfLHZ"
+>
   <div
-    className="Flex-sc-1ak395a-0 imfLHZ"
+    className="FlexItem-sc-1xhpm9o-0 fQYcnn"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 fQYcnn"
+      className="Field-m8c1e2-3 eryfiy FieldSelect-sc-60bbtf-0 hBpmaK"
     >
-      <div
-        className="Field-m8c1e2-3 eryfiy FieldSelect-sc-60bbtf-0 hBpmaK"
+      <label
+        className="Label-sc-1vkvm3d-0 gsvwuY"
+        color="palette.charcoal700"
+        fontSize="xsmall"
+        fontWeight="semiBold"
+        htmlFor="96070ac8-4e3b-4440-bd4b-7f46e868c0a1"
+        id="96070ac8-4e3b-4440-bd4b-7f46e868c0a1-labeledby"
       >
-        <label
-          className="Label-sc-1vkvm3d-0 gsvwuY"
-          color="palette.charcoal700"
-          fontSize="xsmall"
-          fontWeight="semiBold"
-          htmlFor="cab63505-0544-4aee-88b3-d275b883eae8"
-          id="cab63505-0544-4aee-88b3-d275b883eae8-labeledby"
-        >
-          Select a Model
-        </label>
+        Select a Model
+      </label>
+      <div
+        className="Field__InputArea-m8c1e2-1 jOEEBC"
+      >
         <div
-          className="Field__InputArea-m8c1e2-1 jOEEBC"
+          aria-expanded={false}
+          aria-haspopup="listbox"
+          aria-owns="listbox-96070ac8-4e3b-4440-bd4b-7f46e868c0a1"
+          className="Box-sc-5738oh-0 grXgYp Combobox-sc-1xpy5b5-0 ggVXrE Select-sc-1grg5v4-0 bXRVgt FieldSelect-sc-60bbtf-0 hBpmaK"
+          display="flex"
+          id="96070ac8-4e3b-4440-bd4b-7f46e868c0a1"
+          name="select-model"
+          role="combobox"
+          width="100%"
         >
           <div
-            aria-expanded={false}
-            aria-haspopup="listbox"
-            aria-owns="listbox-cab63505-0544-4aee-88b3-d275b883eae8"
-            className="Box-sc-5738oh-0 grXgYp Combobox-sc-1xpy5b5-0 ggVXrE Select-sc-1grg5v4-0 bXRVgt FieldSelect-sc-60bbtf-0 hBpmaK"
-            display="flex"
-            id="cab63505-0544-4aee-88b3-d275b883eae8"
-            name="select-model"
-            role="combobox"
+            aria-invalid={false}
+            className="Flex-sc-1ak395a-0 iozYUX InputSearchBase-sc-12k8y4q-0 ldtxxn ComboboxInput-kxdvwm-0 fAIQYO"
+            fontSize="small"
+            onClick={[Function]}
+            onMouseDown={[Function]}
             width="100%"
           >
             <div
-              aria-invalid={false}
-              className="Flex-sc-1ak395a-0 iozYUX InputSearchBase-sc-12k8y4q-0 ldtxxn ComboboxInput-kxdvwm-0 fAIQYO"
-              fontSize="small"
+              className="InputText__InputLayout-sc-6cvg1f-0 labsIn InputText-sc-6cvg1f-2 kuNpyS"
               onClick={[Function]}
-              onMouseDown={[Function]}
-              width="100%"
+            >
+              <input
+                aria-autocomplete="both"
+                aria-describedby="96070ac8-4e3b-4440-bd4b-7f46e868c0a1-describedby"
+                autoComplete="off"
+                id="listbox-96070ac8-4e3b-4440-bd4b-7f46e868c0a1"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                readOnly={true}
+                type="text"
+                value="Snowflake Usage"
+              />
+            </div>
+            <div
+              className="AdvancedInputControls__SearchControlGrid-sc-1e7uo3l-0 cMySRA"
             >
               <div
-                className="InputText__InputLayout-sc-6cvg1f-0 labsIn InputText-sc-6cvg1f-2 kuNpyS"
-                onClick={[Function]}
+                className="Icon__Styled-sc-7y0t4i-0 ehWKRF Icon-sc-7y0t4i-1 gZGYmq"
+                color="palette.charcoal500"
+                size={18}
               >
-                <input
-                  aria-autocomplete="both"
-                  aria-describedby="cab63505-0544-4aee-88b3-d275b883eae8-describedby"
-                  autoComplete="off"
-                  id="listbox-cab63505-0544-4aee-88b3-d275b883eae8"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  readOnly={true}
-                  type="text"
-                  value="Snowflake Usage"
-                />
-              </div>
-              <div
-                className="AdvancedInputControls__SearchControlGrid-sc-1e7uo3l-0 cMySRA"
-              >
-                <div
-                  className="Icon__Styled-sc-7y0t4i-0 ehWKRF Icon-sc-7y0t4i-1 gZGYmq"
-                  color="palette.charcoal500"
-                  size={18}
+                <svg
+                  fill="currentColor"
+                  height="100%"
+                  viewBox="0 0 24 24"
+                  width="100%"
                 >
-                  <svg
+                  <title>
+                    Caret Down
+                  </title>
+                  <path
+                    d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
                     fill="currentColor"
-                    height="100%"
-                    viewBox="0 0 24 24"
-                    width="100%"
-                  >
-                    <title>
-                      Caret Down
-                    </title>
-                    <path
-                      d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"
-                      fill="currentColor"
-                    />
-                  </svg>
-                </div>
+                  />
+                </svg>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="Field__MessageArea-m8c1e2-2 gOFoCE"
-          id="cab63505-0544-4aee-88b3-d275b883eae8-describedby"
+      </div>
+      <div
+        className="Field__MessageArea-m8c1e2-2 gOFoCE"
+        id="96070ac8-4e3b-4440-bd4b-7f46e868c0a1-describedby"
+      />
+    </div>
+  </div>
+  <div
+    className="FlexItem-sc-1xhpm9o-0 jRBIYT"
+  >
+    <h5
+      className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 hOyRWo"
+      color="palette.charcoal900"
+      fontSize="small"
+      fontWeight="semiBold"
+    >
+      Explores
+    </h5>
+    <div
+      className="Flex-sc-1ak395a-0 MpoNu InputSearchBase-sc-12k8y4q-0 ldtxxn"
+      fontSize="small"
+      onMouseDown={[Function]}
+      width="100%"
+    >
+      <div
+        className="InputText__InputLayout-sc-6cvg1f-0 labsIn InputText-sc-6cvg1f-2 kuNpyS"
+        onClick={[Function]}
+      >
+        <input
+          onChange={[Function]}
+          placeholder="Search Model"
+          type="text"
+          value=""
         />
       </div>
     </div>
-    <div
-      className="FlexItem-sc-1xhpm9o-0 jRBIYT"
-    >
-      <h5
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 hOyRWo"
-        color="palette.charcoal900"
-        fontSize="small"
-        fontWeight="semiBold"
-      >
-        Explores
-      </h5>
-      <div
-        className="Flex-sc-1ak395a-0 MpoNu InputSearchBase-sc-12k8y4q-0 ldtxxn"
-        fontSize="small"
-        onMouseDown={[Function]}
-        width="100%"
-      >
-        <div
-          className="InputText__InputLayout-sc-6cvg1f-0 labsIn InputText-sc-6cvg1f-2 kuNpyS"
-          onClick={[Function]}
-        >
-          <input
-            onChange={[Function]}
-            placeholder="Search Model"
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-    ExploreList
-  </div>,
-  ")",
-]
+  </div>
+  ExploreList
+</div>
 `;

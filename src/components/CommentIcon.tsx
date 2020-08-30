@@ -25,7 +25,7 @@
  */
 
 import React from "react";
-import { FlexItem, ButtonTransparent, IconButton, TableRow, TableBody, Tooltip, theme } from "@looker/components";
+import { FlexItem, ButtonTransparent, IconButton, Tooltip, theme } from "@looker/components";
 
 export const CommentIcon: React.FC<{
   count: number,

@@ -28,7 +28,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {mockCurrentExplore, mockCurrentModel, mockModels} from "../MockData/MockData";
 import { ThemeProvider } from "styled-components"
-import * as mockComponents from '@looker/components'
+import { theme } from "@looker/components"
 
 import { Sidebar } from '../../components/Sidebar'
 
@@ -44,13 +44,18 @@ jest.mock("../../components/ExploreList", () => ({
   ExploreList: () => "ExploreList"
 }))
 
-// @ts-ignore
-// mockComponents.FieldSelect = jest.fn(() => 'FieldSelect')
+jest.mock("@looker/components", () => ({
+  FieldSelect: () => "FieldSelect",
+  Flex: () => "Flex",
+  FlexItem: () => "FlexItem",
+  Heading: () => "Heading",
+  InputSearch: () => "InputSearch",
+}))
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={mockComponents.theme}>
+      <ThemeProvider theme={{}}>
         <Sidebar
           currentExplore={mockCurrentExplore}
           currentModel={mockCurrentModel}
@@ -58,7 +63,7 @@ it('renders correctly', () => {
           models={mockModels}
           search={''}
           setSearch={() => {}}
-        />)
+        />
       </ThemeProvider>
     ).toJSON();
   expect(tree).toMatchSnapshot();

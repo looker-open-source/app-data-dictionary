@@ -46,6 +46,14 @@ jest.mock("../../components/ViewOptions", () => ({
   ViewOptions: () => "ViewOptions"
 }))
 
+jest.mock("../../components/ExternalLink", () => ({
+  ExternalLink: () => "ExternalLink"
+}))
+
+jest.mock("../../components/QuickSearch", () => ({
+  QuickSearch: () => "QuickSearch"
+}))
+
 // @ts-ignore
 // mockComponents.Box = jest.fn(() => 'Box')
 

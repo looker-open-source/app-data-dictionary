@@ -9,13 +9,13 @@ exports[`renders correctly 1`] = `
   }
 >
   <div
-    className="Flex-sc-vm49hu sc-EHOje hiPUDH"
+    className="Flex-sc-1ak395a-0 sc-EHOje gSCRgP"
   >
     <div
-      className="FlexItem-sc-1re6mwg eLXSKG"
+      className="FlexItem-sc-1xhpm9o-0 OYTOK"
     >
       <h1
-        className="TextBase-sc-1rkc9wq Heading-sc-cg3kf8 cbeLsS"
+        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 hxOrSe"
         fontSize="xlarge"
         fontWeight="semiBold"
       >
@@ -37,10 +37,11 @@ exports[`renders correctly 1`] = `
       open={true}
     >
       <div
-        className="sc-bdVaJa fENiVh"
+        className="sc-bdVaJa lkhppj"
       >
         <button
-          className="ButtonOuter-sc-wugisi eFTclI ButtonBase-sc-18wmtoc ButtonTransparent-sc-1gse89j cYulav IconButton-sc-1yur21t cnuNGW"
+          aria-describedby="82de79a2-f8e5-4a54-995e-f204863c7933"
+          className="ButtonBase__ButtonOuter-sc-1bpio6j-0 dWAVXU ButtonBase-sc-1bpio6j-1 ButtonTransparent-sc-799h13-0 ePpZxh IconButton-n9jti8-1 kdvuxi"
           color="neutral"
           onBlur={[Function]}
           onClick={[Function]}
@@ -54,13 +55,13 @@ exports[`renders correctly 1`] = `
           width={28}
         >
           <div
-            className="VisuallyHidden-sc-10j76d8 gsEqg"
+            className="VisuallyHidden-sc-1e4iwld-0 cYKvhz"
           >
             Close Sidebar
           </div>
           <div
             aria-hidden={true}
-            className="Styled-sc-1rq5u7z eqQSq Icon-sc-1079d6u cWvDzp"
+            className="Icon__Styled-sc-7y0t4i-0 kLuNgO Icon-sc-7y0t4i-1 gZGYmq"
             size={22}
           >
             <svg
