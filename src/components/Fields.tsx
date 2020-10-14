@@ -44,7 +44,7 @@ import { DetailDrawer } from "./DetailDrawer";
 
 // @ts-ignore
 export const TableWrapper = styled(Box)`
-  border-bottom: 1px solid ${theme.colors.palette.charcoal200};
+  border-bottom: .5px solid ${theme.colors.ui2};
 
   &:last-child {
     border-bottom: none;
@@ -110,8 +110,9 @@ export const Fields: React.FC<{
                   return (
                     <StickyHeader
                       key={column.label}
-                      backgroundColor="palette.charcoal100"
-                      color="palette.charcoal800"
+                      backgroundColor="ui1"
+                      fontWeight="medium"
+                      color="text"
                       fontSize="small"
                       p="medium"
                       pl="small"

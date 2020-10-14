@@ -24,7 +24,7 @@
 
  */
 
-import React from "react";
+import React, {useEffect} from "react";
 import {
   theme,
   ButtonOutline,
@@ -33,12 +33,15 @@ import {
   FlexItem,
   FieldTextArea,
   Space,
+  Text
 } from "@looker/components";
 
 import { IUser, ILookmlModelExploreField, ILookmlModelExplore } from "@looker/sdk";
 import { UserData, FieldComments } from "./interfaces";
 import { FieldComment } from "./FieldComment";
 import { NOT_EDITING_COMMENT } from "../utils/constants";
+import { internalExploreURL, useCurrentModel } from "../utils/routes"
+import { useHistory } from "react-router"
 
 export const FieldCommentList: React.FC<{
   sortedComments: FieldComments[],
@@ -61,6 +64,7 @@ export const FieldCommentList: React.FC<{
     const [addingNew, setAddingNew] = React.useState(false)
     const [editingComment, setEditingComment] = React.useState("")
     const [commentContent, setCommentContent] = React.useState("")
+    
     const toggleNew = () => {
       setAddingNew(!addingNew)
     }
@@ -142,6 +146,7 @@ export const FieldCommentList: React.FC<{
             <Button fullWidth onClick={toggleNew}>Add Comment</Button> : 
             null
         }
+        <Text pt="large" fontSize="xsmall" variant="secondary">These comments are unique to fields in the Data Dictionary and are not saved to any LookML description.</Text>
         </Flex>
     );
 };

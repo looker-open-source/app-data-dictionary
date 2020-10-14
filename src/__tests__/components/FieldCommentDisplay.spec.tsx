@@ -49,7 +49,7 @@ jest.mock("@looker/components", () => ({
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={{}}>
+      <ThemeProvider theme={theme}>
         <FieldCommentDisplay
           authorData={{
             display_name: "Mr. Foo Bar",

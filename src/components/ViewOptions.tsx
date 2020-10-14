@@ -70,16 +70,11 @@ export const ViewOptions: React.FC<{
         </PopoverContent>
       }
     >
-      {(onClick: any, ref: any, className: any) => (
-        <ButtonOutline
-          aria-haspopup="true"
-          onClick={onClick}
-          ref={ref}
-          className={className}
-        >
-          View Options
-        </ButtonOutline>
-      )}
+      <ButtonOutline
+        aria-haspopup="true"
+      >
+        View Options
+      </ButtonOutline>
     </Popover>
   );
 };

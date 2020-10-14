@@ -3,184 +3,142 @@
 exports[`renders correctly 1`] = `
 Array [
   <div
-    className="FlexItem-sc-1xhpm9o-0 jawPEc"
+    className="FlexItem-sc-1xhpm9o-0 jlvSfb"
   >
     <ul
-      className="List-q1s69i-0 fMptPS"
+      className="List-q1s69i-0 dtzGkH"
       type="none"
     >
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Ad Group
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Keyword
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Geo
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Age Range
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Audience
-            </div>
+            </span>
           </button>
         </li>
       </li>
       <li
-        className="ListItem-dmbyyb-0 sLeBB"
+        className="ListItem-dmbyyb-0 cDQhkd"
       >
         <li
-          bg="#FFFFFF"
-          className="MenuItemListItem-sc-16xvrb6-0 guPpPC sc-bdVaJa gjuDgd"
-          color="#4C535B"
-          fontSize="small"
-          fontWeight="normal"
+          className="MenuItemLayout-na7wpk-1 enoKcE MenuItem-sc-13x060p-1 sc-bdVaJa cGuZFJ"
           onBlur={[Function]}
           onClick={[Function]}
+          onKeyDown={[Function]}
           onKeyUp={[Function]}
         >
           <button
-            className="MenuItemButton-sgjyqv-0 kFHkpD"
             role="menuitem"
           >
-            <div
-              className="MenuItem__MenuItemGrid-sc-1ux796b-0 cpchit"
-            >
+            <span>
               AdWord Impressions by Video
-            </div>
+            </span>
           </button>
         </li>
       </li>

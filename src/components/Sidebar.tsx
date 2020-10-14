@@ -52,10 +52,10 @@ export const Sidebar: React.FC<{
   return (
     <Flex flexDirection="column" pt="xxlarge" pb="xxlarge">
       <FlexItem
-        borderBottom={`1px solid ${theme.colors.palette.charcoal200}`}
+        borderBottom={`1px solid ${theme.colors.ui2}`}
         ml="large"
         mr="xlarge"
-        pb="xsmall"
+        pb="medium"
       >
         <FieldSelect
           name="select-model"
@@ -72,7 +72,7 @@ export const Sidebar: React.FC<{
       <FlexItem ml="large" mr="xlarge" pt="medium">
         <Heading
           as="h5"
-          color="palette.charcoal900"
+          color="text"
           fontWeight="semiBold"
         >
           Explores

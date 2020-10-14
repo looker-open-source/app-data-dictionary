@@ -88,8 +88,8 @@ export const FieldCommentDisplay: React.FC<{
                     <IconButton icon="DotsVert" label="More Options" className={showDetails()} />
                   </MenuDisclosure>
                   <MenuList>
-                    <MenuItem onClick={toggleEdit}><Icon name="Edit" />Edit Comment</MenuItem>
-                    <MenuItem onClick={openDialog}><Icon name="Trash" />Delete Comment</MenuItem>
+                    <MenuItem onClick={toggleEdit}><Icon name="Edit" size="small" color="neutral" mr="small" />Edit Comment</MenuItem>
+                    <MenuItem onClick={openDialog}><Icon name="Trash" size="small" color="neutral" mr="small" />Delete Comment</MenuItem>
                   </MenuList>
                 </Menu>
               </SpaceVertical>

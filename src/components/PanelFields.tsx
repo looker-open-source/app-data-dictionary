@@ -52,14 +52,12 @@ import { QuickSearch } from "./QuickSearch";
 import humanize from 'humanize-string'
 import { DIMENSION, MEASURE } from "./CategorizedLabel";
 
-//@ts-ingore
 export const Main = styled(Box)`
   position: relative;
   width: 100%;
   min-height: 93vh;
 `;
 
-//@ts-ingore
 const FullPage = styled(Box)`
   position: relative;
   display: flex;
@@ -71,18 +69,17 @@ const FullPage = styled(Box)`
   flex-direction: column;
 `;
 
-//@ts-ingore
 const IntroText = styled(Paragraph)`
   text-align: center;
   margin-top: 5em;
   max-width: 40%;
-  color: ${theme.colors.palette.charcoal500};
+  color: ${theme.colors.text1};
 `
-//@ts-ingore
+
 export const ExploreSearch = styled(InputSearch)`
   margin-top: 0;
 `
-//@ts-ingore
+
 export const defaultShowColumns = [
   'label_short',
   'description',
@@ -119,6 +116,7 @@ export const PanelFields: React.FC<{
   const [shownColumns, setShownColumns] = useState([...columns.filter(d => { return d.default }).map(d => d.rowValueDescriptor)])
   const [hasDescription, setHasDescription] = useState([])
   const [hasTags, setHasTags] = useState([])
+  const [hasComments, setHasComments] = useState([])
   const [fieldTypes, setFieldTypes] = useState([])
   const [selectedFields, setSelectedFields] = useState([])
 
@@ -136,18 +134,23 @@ export const PanelFields: React.FC<{
     )
   }
 
-  if (currentModel && currentExplore) {
+  if ((currentModel && currentExplore) && (currentModel.name === currentExplore.model_name)) {
     const fields = flatten(values(currentExplore.fields)).map(
       f => typeMaker(f)
     ).filter(
       (value, index, self) => self.indexOf(value) === index
     )
 
-    const allFilters = hasDescription.concat(hasTags, fieldTypes, selectedFields)
+    let revivedComments = JSON.parse(comments)
+    let encExplores = Object.keys(revivedComments)
+    let commentObj = encExplores.includes(currentExplore.name) ? revivedComments[currentExplore.name] : revivedComments[currentExplore.name] = {}
+
+    const allFilters = hasDescription.concat(hasTags, hasComments, fieldTypes, selectedFields)
     const groups = orderBy(
       toPairs(
         groupBy(
           flatten(values(currentExplore.fields)).filter(f => {
+            let commentFlag = commentObj[f.name] && commentObj[f.name].length > 0 ? true : false
             return !f.hidden && (allFilters.length === 0 || (
               (
                 hasDescription.length === 0 || ((hasDescription.includes('yes') && f.description) || (
@@ -157,6 +160,11 @@ export const PanelFields: React.FC<{
               (
                 hasTags.length === 0 || (
                   (hasTags.includes('yes') && f.tags.length > 0) || (hasTags.includes('no') && f.tags.length === 0)
+                )
+              ) &&
+              (
+                hasComments.length === 0 || (
+                  (hasComments.includes('yes') && commentFlag) || (hasComments.includes('no') && !commentFlag)
                 )
               ) &&
               (
@@ -215,10 +223,12 @@ export const PanelFields: React.FC<{
           fieldTypes={fieldTypes}
           hasDescription={hasDescription}
           hasTags={hasTags}
+          hasComments={hasComments}
           setSelectedFields={setSelectedFields}
           setFieldTypes={setFieldTypes}
           setHasDescription={setHasDescription}
           setHasTags={setHasTags}
+          setHasComments={setHasComments}
         />
 
         <Box>
@@ -252,7 +262,7 @@ export const PanelFields: React.FC<{
     return (
       <FullPage>
         <div style={{width: '30%'}}>
-          <img src={'https://berlin-test-2.s3-us-west-1.amazonaws.com/data_dictionary_2x.png'} alt="Empty Image" />
+          <img src={'https://marketplace-api.looker.com/app-icons/data_dictionary_2x3.png'} alt="Empty Image" />
         </div>
         <IntroText>
           Click on one of the Explores to the left to begin searching through your data. You’ll see labels, descriptions, SQL definitions, and more for each field.

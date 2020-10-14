@@ -27,7 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {mockModels, mockComments, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
-import { theme } from "@looker/components"
+import { ComponentsProvider } from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { DataDictionary } from '../../components/DataDictionary'
 
@@ -71,7 +71,7 @@ jest.mock("@looker/components", () => ({
 
 it('renders correctly', () => {
   const tree = renderer
-    .create(<ThemeProvider theme={theme}><DataDictionary/></ThemeProvider>)
+    .create(<ComponentsProvider><DataDictionary/></ComponentsProvider>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 })

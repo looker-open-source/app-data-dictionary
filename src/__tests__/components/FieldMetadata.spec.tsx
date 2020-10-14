@@ -57,7 +57,8 @@ it('renders correctly', () => {
           key={""}
           model={{}}
           tab={0}
-          setTab={()=>{}}
+          detailsPane={()=>{}}
+          commentsPane={()=>{}}
           sortedComments={[]}
           addComment={()=>{}}
           editComment={()=>{}}

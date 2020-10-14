@@ -24,14 +24,14 @@
 
  */
 
-import React from "react";
+import React, {useEffect} from "react";
 import {
   theme,
   ButtonTransparent,
   Flex,
   FlexItem,
   Heading,
-  ModalContent,
+  DialogContent,
   Paragraph,
   Table,
   TableBody,
@@ -58,7 +58,8 @@ export const FieldMetadata: React.FC<{
   model: ILookmlModel,
   field: ILookmlModelExploreField,
   tab: number,
-  setTab: (tabIndex: number) => void,
+  detailsPane: (tabIndex: number) => void,
+  commentsPane: (tabIndex: number) => void,
   sortedComments: FieldComments[],
   addComment: (newCommentStr: string, field: string) => void,
   editComment: (newCommentStr: string, field: string) => void,
@@ -71,7 +72,8 @@ export const FieldMetadata: React.FC<{
         field, 
         model, 
         tab, 
-        setTab, 
+        detailsPane,
+        commentsPane, 
         sortedComments, 
         addComment,
         editComment,
@@ -80,32 +82,31 @@ export const FieldMetadata: React.FC<{
         commentAuthors,
         me 
     }) => {
-    return (
-      <ModalContent>
-      <Heading as="h3" fontWeight="semiBold" pb="small">
-          {field.label_short}
-      </Heading>
-      {/* // The following TabList and TabPanels components are without their parent Tabs component. At this moment,
-      you cannot control the Tab's selectedIndex with the Tabs component. Will refactor following an incoming release of components, before shipping. */}
-      <TabList selectedIndex={tab} onSelectTab={setTab}>
-        <Tab>Details</Tab>
-        <Tab>Comments{ fieldCommentLength > 0 && ` (${fieldCommentLength})` }</Tab>
-      </TabList>
-      <TabPanels selectedIndex={tab}>
-        <TabPanel>
-          <Flex flexDirection="column">
+      return (<DialogContent>
+        <FlexItem>
+        <Heading as="h3" fontWeight="semiBold" pb="small">
+            {field.label_short}
+        </Heading>
+        <Tabs index={tab} onChange={tab ? detailsPane : commentsPane} >
+        <TabList distribute>
+          <Tab>Details</Tab>
+          <Tab>Comments{ fieldCommentLength > 0 && ` (${fieldCommentLength})` }</Tab>
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <Flex flexDirection="column">
               { field.description &&
-                <FlexItem pb="xlarge">
-                  <Paragraph>{field.description}</Paragraph>
-                </FlexItem>
+              <FlexItem pb="xlarge">
+                <Paragraph>{field.description}</Paragraph>
+              </FlexItem>
               }
               <FlexItem>
                 <Heading
-                    as="h4"
-                    fontSize="small"
-                    fontWeight="semiBold"
-                    mb="small"
-                    style={{marginTop: '2em'}}
+                  as="h4"
+                  fontSize="small"
+                  fontWeight="semiBold"
+                  mb="small"
+                  style={{marginTop: '2em'}}
                 >
                   About this Field
                 </Heading>
@@ -149,10 +150,10 @@ export const FieldMetadata: React.FC<{
               />
               <FlexItem
               borderTop={`1px solid ${
-                  theme.colors.palette.charcoal200
+                  theme.colors.ui3
                   }`}
-              pb="xlarge"
-              pt="xlarge"
+              pt="small"
+              mb="xlarge"
               >
                 <Flex alignItems="center" justifyContent="center">
                   <ExternalLink target="_blank" href={field.lookml_link}>
@@ -175,21 +176,22 @@ export const FieldMetadata: React.FC<{
                   </ExternalLink>
                 </Flex>
               </FlexItem>
-          </Flex>
-        </TabPanel>
-        <TabPanel>
-          <FieldCommentList 
-            sortedComments={sortedComments}
-            addComment={addComment}
-            editComment={editComment}
-            deleteComment={deleteComment}
-            explore={explore}
-            field={field}
-            commentAuthors={commentAuthors}
-            me={me}
-          />
-        </TabPanel>
-      </TabPanels>
-    </ModalContent>
-    );
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <FieldCommentList 
+              sortedComments={sortedComments}
+              addComment={addComment}
+              editComment={editComment}
+              deleteComment={deleteComment}
+              explore={explore}
+              field={field}
+              commentAuthors={commentAuthors}
+              me={me}
+            />
+          </TabPanel>
+        </TabPanels>
+        </Tabs>
+      </FlexItem></DialogContent>
+      );
 };

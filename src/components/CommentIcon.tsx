@@ -36,11 +36,11 @@ export const CommentIcon: React.FC<{
     <FlexItem> {
     count !== null ?
     <Tooltip content="View Comments">
-      <ButtonTransparent iconBefore="IdeFileDocument" color="neutral" size="small">
+      <ButtonTransparent iconBefore="Comment" color="neutral" size="small">
         {count}
       </ButtonTransparent>
     </Tooltip> :
-    <IconButton label="Add Comment" icon="Plus" color="neutral" className="disabled"/>
+    <IconButton label="Add Comment" icon="AddComment" color="neutral" className="disabled"/>
     }
     </FlexItem>
   );

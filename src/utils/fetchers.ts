@@ -50,6 +50,10 @@ export const getMyUser = async (sdk: LookerSDK) => {
   return sdk.ok(sdk.me())
 }
 
+export const getGroups = async (sdk: LookerSDK) => {
+  return sdk.ok(sdk.search_groups({name: "DD Comments Disabled"}))
+}
+
 export function useAllModels() {
   const { coreSDK } = useContext(ExtensionContext)
   const [allModels, allModelsSetter] = useState<ILookmlModel[] | undefined>(undefined)
@@ -213,8 +217,8 @@ export function getComments(currentExplore: ILookmlModelExplore) {
       try {
         context = await extensionSDK.getContextData()
         setCanPersistContextData(true)
-        let authorIds = getAuthorIds(context)
-        let contextObj = JSON.parse(context)
+        let authorIds = getAuthorIds(context || "{}")
+        let contextObj = JSON.parse(context || "{}")
         if (currentExplore !== undefined) {
           if(!contextObj[currentExplore.name]) {
             contextObj[currentExplore.name] = {}
@@ -223,6 +227,8 @@ export function getComments(currentExplore: ILookmlModelExplore) {
         setComments(JSON.stringify(contextObj))
         setAuthors(await loadUsers(coreSDK, authorIds))
         setMe(await getMyUser(coreSDK))
+        let groups = await getGroups(coreSDK)
+        console.log(groups)
       } catch (error) {
         console.error(error)
       }

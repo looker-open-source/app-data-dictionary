@@ -2,88 +2,113 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="ModalContent__Outer-z2w4x3-0 kiyovO undefined false"
+  className="DialogContent__Outer-rfzesr-0 hfRyYp undefined false"
 >
   <div
-    className="ModalContent__Inner-z2w4x3-1 itHGxK"
+    className="DialogContent__Inner-rfzesr-1 jOOuLS"
   >
-    <h3
-      className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 OuCMn"
-      fontSize="large"
-      fontWeight="semiBold"
-    />
     <div
-      className="TabList__TabListContainer-sc-1xnjj79-0 isCvG"
+      className="FlexItem-sc-1xhpm9o-0 kMlFTp"
     >
-      <button
-        className="Tab__TabStyle-eojndt-0 fyMAIM Tab-eojndt-1 fcAqxo"
-        fontSize="small"
+      <h3
+        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 fowNUs"
+        fontFamily="brand"
+        fontSize="large"
         fontWeight="semiBold"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onKeyUp={[Function]}
-        selected={true}
-      >
-        Details
-      </button>
-      <button
-        className="Tab__TabStyle-eojndt-0 mbXbb Tab-eojndt-1 fcAqxo"
-        fontSize="small"
-        fontWeight="semiBold"
-        onBlur={[Function]}
-        onClick={[Function]}
-        onKeyUp={[Function]}
-        selected={false}
-      >
-        Comments
-      </button>
-    </div>
-    <div
-      className="TabPanels-sc-15ef4fm-0 ehykXR"
-      pt="large"
-    >
+      />
       <div
-        className="Flex-sc-1ak395a-0 jkAspJ"
+        aria-label="Tabs"
+        className="TabList-sc-1xnjj79-0 jBVGaO"
+        role="tablist"
+      >
+        <button
+          aria-controls="panel-0"
+          aria-orientation="horizontal"
+          aria-selected={true}
+          className="Tab__TabStyle-eojndt-0 fakVaL Tab-eojndt-1 fcAqxo"
+          fontSize="small"
+          fontWeight="medium"
+          id="tab-0"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          role="tab"
+          selected={true}
+          tabIndex={0}
+        >
+          Details
+        </button>
+        <button
+          aria-controls="panel-1"
+          aria-orientation="horizontal"
+          aria-selected={false}
+          className="Tab__TabStyle-eojndt-0 huNeLD Tab-eojndt-1 fcAqxo"
+          fontSize="small"
+          fontWeight="medium"
+          id="tab-1"
+          onBlur={[Function]}
+          onClick={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          role="tab"
+          selected={false}
+          tabIndex={-1}
+        >
+          Comments
+        </button>
+      </div>
+      <div
+        aria-labelledby="tab-0"
+        className="TabPanels-sc-15ef4fm-0 cwomds"
+        id="panel-0"
+        pt="large"
+        role="tabpanel"
       >
         <div
-          className="FlexItem-sc-1xhpm9o-0 OYTOK"
-        >
-          <h4
-            className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 HeNvP"
-            fontSize="small"
-            fontWeight="semiBold"
-            style={
-              Object {
-                "marginTop": "2em",
-              }
-            }
-          >
-            About this Field
-          </h4>
-        </div>
-        <div
-          className="FlexItem-sc-1xhpm9o-0 cjqkbG"
-        >
-          <table
-            className="Table-sc-1x77f3i-0 gPNKQ"
-            width="100%"
-          >
-            <tbody
-              className="TableBody-sc-17lboeq-0 eEdzRf"
-              fontSize="small"
-            />
-          </table>
-        </div>
-        QueryChart
-        QueryChart
-        <div
-          className="FlexItem-sc-1xhpm9o-0 kVdJcP"
+          className="Flex-sc-1ak395a-0 hRsXhY"
         >
           <div
-            className="Flex-sc-1ak395a-0 uZzrR"
+            className="FlexItem-sc-1xhpm9o-0 kMlFTp"
           >
-            ExternalLink
-            ExternalLink
+            <h4
+              className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 cDhxpL"
+              fontFamily="brand"
+              fontSize="small"
+              fontWeight="semiBold"
+              style={
+                Object {
+                  "marginTop": "2em",
+                }
+              }
+            >
+              About this Field
+            </h4>
+          </div>
+          <div
+            className="FlexItem-sc-1xhpm9o-0 cwjHPp"
+          >
+            <table
+              className="Table-sc-1x77f3i-0 duowXd"
+              width="100%"
+            >
+              <tbody
+                className="TableBody-sc-17lboeq-0 iCKLkT"
+                fontSize="small"
+              />
+            </table>
+          </div>
+          QueryChart
+          QueryChart
+          <div
+            className="FlexItem-sc-1xhpm9o-0 rShhP"
+          >
+            <div
+              className="Flex-sc-1ak395a-0 gWdrjA"
+            >
+              ExternalLink
+              ExternalLink
+            </div>
           </div>
         </div>
       </div>

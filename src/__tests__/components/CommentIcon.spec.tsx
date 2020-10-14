@@ -40,7 +40,7 @@ jest.mock("@looker/components", () => ({
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={{}}>
+      <ThemeProvider theme={theme}>
         <CommentIcon
           count={10}
           />

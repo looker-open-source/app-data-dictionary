@@ -29,13 +29,12 @@ import styled from "styled-components"
 import { theme } from '@looker/components'
 import humanize from 'humanize-string'
 
-
 const Dimension = styled.div`
-  color: ${theme.colors.palette.charcoal600}
+  color: ${theme.colors.text3}
 `
 
 const Measure = styled.div`
-  color: ${theme.colors.palette.yellow700}
+color: ${theme.colors.text3}
 `
 
 export const DIMENSION = 'dimension'

@@ -24,10 +24,10 @@
 
  */
 
-import React from "react";
+import React, { useEffect } from "react";
 import {
   theme,
-  DrawerManager,
+  Drawer,
   TableRow,
   TableDataCell,
 } from "@looker/components";
@@ -37,13 +37,15 @@ import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } fro
 import { ColumnDescriptor, FieldComments } from "./interfaces";
 import { FieldMetadata } from "./FieldMetadata";
 import { DETAILS_PANE, COMMENTS_PANE } from "../utils/constants";
+import { internalExploreURL, useCurrentModel, usePathNames } from "../utils/routes"
+import { useHistory } from "react-router"
 
 // @ts-ignore
 const TableRowCustom = styled(TableRow)`
   transition: background-color 0.3s ease;
   &.active,
   &:hover {
-    background-color: ${theme.colors.palette.charcoal100};
+    background-color: ${theme.colors.ui1};
   }
 
   .disabled{
@@ -88,59 +90,87 @@ export const DetailDrawer: React.FC<{
         authors,
         me,
   }) => {
-  function detailsPane() {
-    setTab(DETAILS_PANE);
-  }
-  function commentsPane() {
-    setTab(COMMENTS_PANE);
-  }
-
-  let parsedComments = JSON.parse(comments)
-
-  const getFieldCommentsLength = (field: string) => {
-    let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
-    let commentFields = Object.keys(exploreComments)
-    if (commentFields.includes(field) && exploreComments[field].length > 0) {
-      return exploreComments[field].length
-    } else {
-      return null
+    const history = useHistory()
+    const path = usePathNames()
+    
+    function paneUrl(pane: number) {
+      field && history.push(
+        internalExploreURL({
+          model: explore.model_name,
+          explore: explore.name,
+          field: field.name,
+          tab: pane.toString()
+        })
+      )
     }
-  }
 
-  let commentObj = JSON.parse(comments)
-  let fieldComments = commentObj[explore.name] && commentObj[explore.name][field.name] || []
-  let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
+    function closePaneUrl() {
+      field && history.push(
+        internalExploreURL({
+          model: explore.model_name,
+          explore: explore.name,
+        })
+      )
+    }
 
-  return (
-    <DrawerManager
-      content={
-        <FieldMetadata
-          field={field}
-          columns={columns}
-          explore={explore}
-          key={field.name}
-          model={model}
-          tab={tab}
-          setTab={setTab}
-          sortedComments={sortedComments}
-          addComment={addComment}
-          editComment={editComment}
-          deleteComment={deleteComment}
-          fieldCommentLength={getFieldCommentsLength(field.name)}
-          commentAuthors={authors}
-          me={me}
-        />
+    function detailsPane() {
+      paneUrl(DETAILS_PANE);
+      setTab(DETAILS_PANE);
+    }
+    function commentsPane() {
+      paneUrl(COMMENTS_PANE);
+      setTab(COMMENTS_PANE);
+    }
+
+    let parsedComments = JSON.parse(comments)
+
+    const getFieldCommentsLength = (field: string) => {
+      let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
+      let commentFields = Object.keys(exploreComments)
+      if (commentFields.includes(field) && exploreComments[field].length > 0) {
+        return exploreComments[field].length
+      } else {
+        return null
       }
-    >
-      {onClick => (
-        <TableRowCustom onClick={onClick}>
+    }
+
+    let commentObj = JSON.parse(comments)
+    let fieldComments = commentObj[explore.name] && commentObj[explore.name][field.name] || []
+    let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
+
+    return (
+      <Drawer
+        content={(
+          <FieldMetadata
+            field={field}
+            columns={columns}
+            explore={explore}
+            key={field.name}
+            model={model}
+            tab={path.detailPane ? parseInt(path.detailPane) : tab}
+            detailsPane={detailsPane}
+            commentsPane={commentsPane}
+            sortedComments={sortedComments}
+            addComment={addComment}
+            editComment={editComment}
+            deleteComment={deleteComment}
+            fieldCommentLength={getFieldCommentsLength(field.name)}
+            commentAuthors={authors}
+            me={me}
+          />
+        )}
+        isOpen={field.name === path.fieldName}
+        onClose={closePaneUrl}
+      >
+        <TableRowCustom>
           { columns.map(column => {
             if (shownColumns.includes(column.rowValueDescriptor)) {
               return (
                 <TableDataCell
-                  color="palette.charcoal700"
+                  color="text3"
                   p="medium"
                   pl="small"
+                  fontWeight="normal"
                   key={column.rowValueDescriptor}
                   maxWidth={column.maxWidth}
                   minWidth={column.minWidth}
@@ -154,7 +184,6 @@ export const DetailDrawer: React.FC<{
             }
           })}
         </TableRowCustom>
-      )}
-    </DrawerManager>
-  );
+      </Drawer>
+    );
 };

@@ -32,6 +32,7 @@ import {
   Heading,
   Button,
   Spinner,
+  MessageBar,
   theme,
 } from "@looker/components";
 import humanize from 'humanize-string'
@@ -76,7 +77,7 @@ export const columns: ColumnDescriptor[] = [
         return x
       }
     },
-    minWidth: '6em',
+    minWidth: '12em',
     default: true,
   },
   {
@@ -86,7 +87,7 @@ export const columns: ColumnDescriptor[] = [
     formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField) => {
       return <CategorizedLabel label={x} category={field.category} />
     },
-    minWidth: '12em',
+    minWidth: '10em',
     default: false,
   },
   {
@@ -99,7 +100,7 @@ export const columns: ColumnDescriptor[] = [
       }
       return x
     },
-    maxWidth: '20em',
+    minWidth: '10em',
     default: true,
   },
   {
@@ -109,7 +110,7 @@ export const columns: ColumnDescriptor[] = [
     formatter: (x: any) => {
       return x.replace(/\./g, '.\u200B');
     },
-    minWidth: '6em',
+    minWidth: '8em',
     default: true,
   },
   {
@@ -117,7 +118,7 @@ export const columns: ColumnDescriptor[] = [
     label: 'Type',
     rowValueDescriptor: 'type',
     formatter: (x: any) => humanize(x),
-    minWidth: '6em',
+    minWidth: '8em',
     default: true,
   },
   {
@@ -126,7 +127,7 @@ export const columns: ColumnDescriptor[] = [
     formatter: (x: any, isRow: boolean) => {
       return (<SQLSnippet isRow={isRow} src={x} />)
     },
-    maxWidth: '20em',
+    minWidth: '10em',
     name: 'sql',
     default: true,
   },
@@ -151,6 +152,8 @@ export const DataDictionary: React.FC<{}> = () => {
   const { currentExplore, loadingExplore } = useCurrentExplore()
   const { comments, authors, me, canPersistContextData, addComment, editComment, deleteComment } = getComments(currentExplore)
 
+  console.log(me)
+
   let models
 
   if (unfilteredModels) {
@@ -166,12 +169,13 @@ export const DataDictionary: React.FC<{}> = () => {
 
   const toggleFn = () => setSidebarOpen(!sidebarOpen);
 
+  console.log(theme)
+
   return (
     <ThemeProvider theme={theme}>
       <div style={{minWidth: "1200px"}}>
-        {canPersistContextData || 
-        // Button for now, will get message banner when we upgrade components
-        <Button>Warning: Comments could not be retrieved. Update your Looker instance to 7.14.0 or higher for field comment functionality.</Button>
+        {canPersistContextData ||
+        <MessageBar intent="warn">We've introduced comments to Data Dictionary. Update Looker to version 7.16.0 or greater for this functionality.</MessageBar>
         }
         <PageHeader>
           <FlexItem>
@@ -221,7 +225,7 @@ export const DataDictionary: React.FC<{}> = () => {
 
 // @ts-ignore
 const PageHeader = styled(Flex)`
-  background-color: ${theme.colors.palette.purple400};
+  background-color: ${theme.colors.key};
   background-position: 100% 0;
   background-repeat: no-repeat;
   background-size: 836px 120px;
@@ -229,7 +233,7 @@ const PageHeader = styled(Flex)`
   background-image: url('https://berlin-test-2.s3-us-west-1.amazonaws.com/spirals.png');
 
   h1 {
-    color: ${theme.colors.palette.white};
+    color: ${theme.colors.keyText};
   }
 `;
 
@@ -264,7 +268,7 @@ const SidebarDivider = styled.div<SidebarStyleProps>`
   transition: border 0.3s;
   border-left: 1px solid
     ${({ theme, open }) =>
-      open ? theme.colors.palette.charcoal200 : "transparent"};
+      open ? theme.colors.ui2 : "transparent"};
   grid-area: divider;
   overflow: visible;
   position: relative;
@@ -272,7 +276,7 @@ const SidebarDivider = styled.div<SidebarStyleProps>`
     border-left: 1px solid
       ${({ theme, open }) =>
         open
-          ? theme.colors.palette.charcoal300
-          : theme.colors.palette.charcoal200};
+          ? theme.colors.ui2
+          : theme.colors.ui4};
   }
 `;

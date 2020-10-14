@@ -119,7 +119,7 @@ export const FieldComment: React.FC<{
     
     const [confirmationDialog, openDialog] = useConfirm({
       confirmLabel: 'Delete',
-      buttonColor: 'danger',
+      buttonColor: 'critical',
       title: `Delete Comment?`,
       message: 'Deleting this comment will permanently remove it. You cannot undo this later.',
       onConfirm: deleteFromComments,
