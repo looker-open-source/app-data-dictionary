@@ -26,7 +26,7 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { theme } from "@looker/components"
+import { theme, ComponentsProvider } from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { FieldCommentDisplay } from '../../components/FieldCommentDisplay'
 
@@ -49,7 +49,7 @@ jest.mock("@looker/components", () => ({
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={theme}>
+      <ComponentsProvider theme={theme}>
         <FieldCommentDisplay
           authorData={{
             display_name: "Mr. Foo Bar",
@@ -68,7 +68,7 @@ it('renders correctly', () => {
           toggleEdit={()=>{}}
           openDialog={()=>{}}
       />
-      </ThemeProvider>
+      </ComponentsProvider>
     )
     .toJSON();
   expect(tree).toMatchSnapshot();

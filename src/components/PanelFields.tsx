@@ -46,7 +46,7 @@ import toPairs from "lodash/toPairs"
 import orderBy from "lodash/orderBy"
 import { ExternalLink } from "./ExternalLink";
 import { exploreURL } from "../utils/urls";
-import { ColumnDescriptor } from "./interfaces";
+import { ColumnDescriptor, CommentPermissions } from "./interfaces";
 import { ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
 import { QuickSearch } from "./QuickSearch";
 import humanize from 'humanize-string'
@@ -100,6 +100,7 @@ export const PanelFields: React.FC<{
   deleteComment: (newCommentStr: string, field: string) => void,
   authors: IUser[],
   me: IUser,
+  permissions: CommentPermissions,
 }> = ({ columns, 
         currentExplore, 
         currentModel, 
@@ -111,6 +112,7 @@ export const PanelFields: React.FC<{
         deleteComment,
         authors,
         me,
+        permissions,
        }) => {
   const [search, setSearch] = useState('')
   const [shownColumns, setShownColumns] = useState([...columns.filter(d => { return d.default }).map(d => d.rowValueDescriptor)])
@@ -229,6 +231,7 @@ export const PanelFields: React.FC<{
           setHasDescription={setHasDescription}
           setHasTags={setHasTags}
           setHasComments={setHasComments}
+          showComments={!permissions.disabled}
         />
 
         <Box>
@@ -250,6 +253,7 @@ export const PanelFields: React.FC<{
                   deleteComment={deleteComment}
                   authors={authors}
                   me={me}
+                  permissions={permissions}
                 />
               )
             }
@@ -262,7 +266,7 @@ export const PanelFields: React.FC<{
     return (
       <FullPage>
         <div style={{width: '30%'}}>
-          <img src={'https://marketplace-api.looker.com/app-icons/data_dictionary_2x3.png'} alt="Empty Image" />
+          <img src={'https://marketplace-api.looker.com/app-assets/data_dictionary_2x.png'} alt="Empty Image" />
         </div>
         <IntroText>
           Click on one of the Explores to the left to begin searching through your data. You’ll see labels, descriptions, SQL definitions, and more for each field.

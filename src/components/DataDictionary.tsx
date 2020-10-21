@@ -42,7 +42,7 @@ import "./styles.css";
 import { PanelFields } from "./PanelFields";
 import SidebarToggle from "./SidebarToggle";
 import { useCurrentModel, useCurrentExplore } from "../utils/routes"
-import { ColumnDescriptor } from "./interfaces";
+import { ColumnDescriptor, CommentPermissions } from "./interfaces";
 import { SQLSnippet } from "./SQLSnippet";
 import { Sidebar } from './Sidebar'
 import { CommentIcon } from './CommentIcon'
@@ -56,8 +56,9 @@ export const columns: ColumnDescriptor[] = [
     name: 'comment-icon',
     label: ' ',
     rowValueDescriptor: 'comment',
-    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField, commentCount: number) => {
-      if (isRow) {
+    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField, commentCount: number, canComment: boolean, reader: boolean) => {
+      let showIcon = !reader || commentCount > 0
+      if (canComment && isRow && showIcon) {
         return <CommentIcon count={commentCount}/>
       } else {
         return null
@@ -150,10 +151,8 @@ export const DataDictionary: React.FC<{}> = () => {
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
   const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
-  const { comments, authors, me, canPersistContextData, addComment, editComment, deleteComment } = getComments(currentExplore)
-
-  console.log(me)
-
+  const { comments, authors, me, permissions, addComment, editComment, deleteComment } = getComments(currentExplore)
+  
   let models
 
   if (unfilteredModels) {
@@ -169,14 +168,9 @@ export const DataDictionary: React.FC<{}> = () => {
 
   const toggleFn = () => setSidebarOpen(!sidebarOpen);
 
-  console.log(theme)
-
   return (
     <ThemeProvider theme={theme}>
       <div style={{minWidth: "1200px"}}>
-        {canPersistContextData ||
-        <MessageBar intent="warn">We've introduced comments to Data Dictionary. Update Looker to version 7.16.0 or greater for this functionality.</MessageBar>
-        }
         <PageHeader>
           <FlexItem>
             <Heading as="h1" fontSize="xlarge" fontWeight="semiBold" mb="xsmall">
@@ -215,6 +209,7 @@ export const DataDictionary: React.FC<{}> = () => {
               deleteComment={deleteComment}
               authors={authors}
               me={me}
+              permissions={permissions}
             />
           </PageContent>
         </PageLayout>
@@ -230,7 +225,7 @@ const PageHeader = styled(Flex)`
   background-repeat: no-repeat;
   background-size: 836px 120px;
   padding: ${theme.space.large};
-  background-image: url('https://berlin-test-2.s3-us-west-1.amazonaws.com/spirals.png');
+  background-image: url('https://marketplace-api.looker.com/app-assets/spirals.png');
 
   h1 {
     color: ${theme.colors.keyText};

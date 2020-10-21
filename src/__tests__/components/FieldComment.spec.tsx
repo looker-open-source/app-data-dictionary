@@ -61,6 +61,7 @@ it('renders correctly', () => {
           }}
           me={{}}
           addingNew={false}
+          permissions={{}}
           />
       </ThemeProvider>
     )

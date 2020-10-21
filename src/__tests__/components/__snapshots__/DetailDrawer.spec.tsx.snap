@@ -2,38 +2,45 @@
 
 exports[`renders correctly 1`] = `
 <tr
-  className="TableRow-sc-1tgwedx-0 sc-bwzfXH edIRrd"
+  aria-expanded={false}
+  className="TableRow-sc-1tgwedx-0 sc-bwzfXH iVTkPz"
   onClick={[Function]}
+  role="button"
 >
   <td
-    className="TableDataCell-sc-1ehugof-0 dRELuJ"
-    color="palette.charcoal700"
+    className="TableDataCell-sc-1ehugof-0 jlZKfG"
+    color="text3"
+    fontWeight="normal"
     onClick={[Function]}
   >
     Comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 dfiTDJ"
-    color="palette.charcoal700"
+    className="TableDataCell-sc-1ehugof-0 iJUoME"
+    color="text3"
+    fontWeight="normal"
     onClick={[Function]}
   />
   <td
-    className="TableDataCell-sc-1ehugof-0 dRELuJ"
-    color="palette.charcoal700"
+    className="TableDataCell-sc-1ehugof-0 fKXWHW"
+    color="text3"
+    fontWeight="normal"
     onClick={[Function]}
   >
     databases.​comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 dRELuJ"
-    color="palette.charcoal700"
+    className="TableDataCell-sc-1ehugof-0 fKXWHW"
+    color="text3"
+    fontWeight="normal"
     onClick={[Function]}
   >
     String
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 dfiTDJ"
-    color="palette.charcoal700"
+    className="TableDataCell-sc-1ehugof-0 iJUoME"
+    color="text3"
+    fontWeight="normal"
     onClick={[Function]}
   >
     <pre

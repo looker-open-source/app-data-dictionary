@@ -84,6 +84,7 @@ it('renders correctly', () => {
         deleteComment={()=>{}}
         authors={[]}
         me={{}}
+        permissions={{}}
       />
     </ThemeProvider>
   ).toJSON();

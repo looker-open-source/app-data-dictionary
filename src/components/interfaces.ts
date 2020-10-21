@@ -30,7 +30,7 @@ export interface ColumnDescriptor {
   name: string
   label: string
   rowValueDescriptor: string
-  formatter: (x: string, isRow?: boolean, field?: ILookmlModelExploreField, commentCount?: number) => string | JSX.Element
+  formatter: (x: string, isRow?: boolean, field?: ILookmlModelExploreField, commentCount?: number, canComment?: boolean, reader?: boolean) => string | JSX.Element
   minWidth?: string
   maxWidth?: string
   default?: boolean
@@ -63,4 +63,11 @@ export interface UserData {
 
 export interface AllComments {
   [explore_name: string]: ExploreComments
+}
+
+export interface CommentPermissions {
+  disabled?: boolean
+  reader?: boolean
+  writer?: boolean
+  manager?: boolean
 }

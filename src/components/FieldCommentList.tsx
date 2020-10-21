@@ -37,7 +37,7 @@ import {
 } from "@looker/components";
 
 import { IUser, ILookmlModelExploreField, ILookmlModelExplore } from "@looker/sdk";
-import { UserData, FieldComments } from "./interfaces";
+import { UserData, FieldComments, CommentPermissions } from "./interfaces";
 import { FieldComment } from "./FieldComment";
 import { NOT_EDITING_COMMENT } from "../utils/constants";
 import { internalExploreURL, useCurrentModel } from "../utils/routes"
@@ -52,6 +52,7 @@ export const FieldCommentList: React.FC<{
   field: ILookmlModelExploreField,
   commentAuthors: IUser[],
   me: IUser,
+  permissions: CommentPermissions,
 }> = ({ sortedComments, 
         addComment, 
         editComment,
@@ -59,7 +60,8 @@ export const FieldCommentList: React.FC<{
         explore,
         field, 
         commentAuthors,
-        me 
+        me,
+        permissions,
     }) => {
     const [addingNew, setAddingNew] = React.useState(false)
     const [editingComment, setEditingComment] = React.useState("")
@@ -130,6 +132,7 @@ export const FieldCommentList: React.FC<{
                 authorData={getCommentAuthorData(comment.author)}
                 me={me}
                 addingNew={addingNew}
+                permissions={permissions}
               />
             </FlexItem>
           )
@@ -142,11 +145,11 @@ export const FieldCommentList: React.FC<{
                 <ButtonOutline size="medium" color="neutral" onClick={toggleNew}>Cancel</ButtonOutline>
               </Space>
           </FlexItem> :
-            editingComment === NOT_EDITING_COMMENT ? 
+            editingComment === NOT_EDITING_COMMENT && !permissions.reader ? 
             <Button fullWidth onClick={toggleNew}>Add Comment</Button> : 
             null
         }
-        <Text pt="large" fontSize="xsmall" variant="secondary">These comments are unique to fields in the Data Dictionary and are not saved to any LookML description.</Text>
+        <Text pt="small" fontSize="xsmall" variant="secondary">These comments are unique to fields in the Data Dictionary and are not saved to any LookML description.</Text>
         </Flex>
     );
 };

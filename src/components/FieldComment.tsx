@@ -50,7 +50,7 @@ import {
 import styled from "styled-components";
 
 import {IUser, ILookmlModelExploreField} from "@looker/sdk";
-import { FieldComments, UserData } from "./interfaces";
+import { FieldComments, UserData, CommentPermissions } from "./interfaces";
 import { NOT_EDITING_COMMENT } from "../utils/constants";
 import { FieldCommentDisplay } from "./FieldCommentDisplay";
 
@@ -66,6 +66,7 @@ export const FieldComment: React.FC<{
   authorData: UserData,
   me: IUser,
   addingNew: boolean,
+  permissions: CommentPermissions,
 }> = ({ comment, 
         editingComment, 
         setEditingComment, 
@@ -77,10 +78,11 @@ export const FieldComment: React.FC<{
         authorData,
         me,
         addingNew,
+        permissions
     }) => {
 
     const showDetails = () => {
-      if (comment.author === me.id && !addingNew) {
+      if (permissions.manager || (comment.author === me.id && !addingNew)) {
         return "show";
       }
       return "hide";
@@ -94,9 +96,9 @@ export const FieldComment: React.FC<{
       setEditingComment(NOT_EDITING_COMMENT)
     }
 
-    const handleChange = (e: any) => {
-      console.log(typeof e)
-      setCommentContent(e.target.value)
+    const handleChange = (e: SyntheticEvent) => {
+      const target = e.target as HTMLTextAreaElement;
+      setCommentContent(target.value)
     }
 
     const addToComments = () => {

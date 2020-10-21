@@ -14,7 +14,7 @@ exports[`renders correctly 1`] = `
     Add Comment
   </button>
   <span
-    className="TextBase-sc-1sjok63-0 Text-sc-1wcc5y1-0 hMFGVC"
+    className="TextBase-sc-1sjok63-0 Text-sc-1wcc5y1-0 cGDhtY"
     fontSize="xsmall"
   >
     These comments are unique to fields in the Data Dictionary and are not saved to any LookML description.

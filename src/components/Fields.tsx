@@ -38,7 +38,7 @@ import {
   theme
 } from "@looker/components";
 import styled from "styled-components";
-import {ColumnDescriptor} from "./interfaces";
+import {ColumnDescriptor, CommentPermissions} from "./interfaces";
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser} from "@looker/sdk";
 import { DetailDrawer } from "./DetailDrawer";
 
@@ -76,6 +76,7 @@ export const Fields: React.FC<{
   deleteComment: (newCommentStr: string, field: string) => void,
   authors: IUser[],
   me: IUser,
+  permissions: CommentPermissions,
 }> = ({
   columns,
   explore,
@@ -90,6 +91,7 @@ export const Fields: React.FC<{
   deleteComment,
   authors,
   me,
+  permissions,
 }) => {
   const [tab, setTab] = React.useState(DETAILS_PANE)
   return (
@@ -147,6 +149,7 @@ export const Fields: React.FC<{
                     deleteComment={deleteComment}
                     authors={authors}
                     me={me}
+                    permissions={permissions}
                   />
                 )
               }

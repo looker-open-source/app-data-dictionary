@@ -44,7 +44,7 @@ import {
 } from "@looker/components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import { ColumnDescriptor, FieldComments } from "./interfaces";
+import { ColumnDescriptor, FieldComments, CommentPermissions } from "./interfaces";
 import { ExternalLink } from "./ExternalLink";
 import { exploreFieldURL } from "../utils/urls";
 import { canGetDistribution, canGetTopValues } from "../utils/queries";
@@ -67,6 +67,8 @@ export const FieldMetadata: React.FC<{
   fieldCommentLength: number,
   commentAuthors: IUser[],
   me: IUser,
+  permissions: CommentPermissions,
+  canViewComments: boolean,
 }> = ({ columns, 
         explore, 
         field, 
@@ -80,7 +82,9 @@ export const FieldMetadata: React.FC<{
         deleteComment,
         fieldCommentLength,
         commentAuthors,
-        me 
+        me,
+        permissions,
+        canViewComments,
     }) => {
       return (<DialogContent>
         <FlexItem>
@@ -90,7 +94,7 @@ export const FieldMetadata: React.FC<{
         <Tabs index={tab} onChange={tab ? detailsPane : commentsPane} >
         <TabList distribute>
           <Tab>Details</Tab>
-          <Tab>Comments{ fieldCommentLength > 0 && ` (${fieldCommentLength})` }</Tab>
+          {canViewComments ? <Tab>Comments{ fieldCommentLength > 0 && ` (${fieldCommentLength})` }</Tab> : <></>}
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -178,7 +182,7 @@ export const FieldMetadata: React.FC<{
               </FlexItem>
             </Flex>
           </TabPanel>
-          <TabPanel>
+          {canViewComments ? <TabPanel>
             <FieldCommentList 
               sortedComments={sortedComments}
               addComment={addComment}
@@ -188,8 +192,9 @@ export const FieldMetadata: React.FC<{
               field={field}
               commentAuthors={commentAuthors}
               me={me}
+              permissions={permissions}
             />
-          </TabPanel>
+          </TabPanel> : <></>}
         </TabPanels>
         </Tabs>
       </FlexItem></DialogContent>

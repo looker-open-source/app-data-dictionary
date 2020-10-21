@@ -66,6 +66,8 @@ it('renders correctly', () => {
           fieldCommentLength={0}
           commentAuthors={[]}
           me={{}}
+          permissions={{}}
+          canViewComments={true}
         />
       </ThemeProvider>
     )

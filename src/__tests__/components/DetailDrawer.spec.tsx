@@ -33,6 +33,17 @@ import { theme} from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { DetailDrawer } from '../../components/DetailDrawer'
 
+jest.mock('react-router', () => {
+  return {
+    useHistory: jest.fn(() => {
+      push: () => {}
+    }),
+    useRouteMatch: jest.fn(() => {
+      return ''
+    })
+  }
+})
+
 jest.mock("../../components/DetailDrawerRow", () => ({
   DetailDrawerRow: () => "DetailDrawerRow"
 }))
@@ -63,6 +74,7 @@ it('renders correctly', () => {
           deleteComment={()=>{}}
           authors={[]}
           me={{}}
+          permissions={{}}
         />
       </ThemeProvider>
     )

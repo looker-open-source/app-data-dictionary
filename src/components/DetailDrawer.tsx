@@ -34,7 +34,7 @@ import {
 import styled from "styled-components";
 
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser } from "@looker/sdk";
-import { ColumnDescriptor, FieldComments } from "./interfaces";
+import { ColumnDescriptor, FieldComments, CommentPermissions } from "./interfaces";
 import { FieldMetadata } from "./FieldMetadata";
 import { DETAILS_PANE, COMMENTS_PANE } from "../utils/constants";
 import { internalExploreURL, useCurrentModel, usePathNames } from "../utils/routes"
@@ -76,6 +76,7 @@ export const DetailDrawer: React.FC<{
   deleteComment: (newCommentStr: string, field: string) => void,
   authors: IUser[],
   me: IUser,
+  permissions: CommentPermissions,
 }> = ({ columns, 
         explore, 
         field, 
@@ -89,6 +90,7 @@ export const DetailDrawer: React.FC<{
         deleteComment,
         authors,
         me,
+        permissions,
   }) => {
     const history = useHistory()
     const path = usePathNames()
@@ -118,8 +120,8 @@ export const DetailDrawer: React.FC<{
       setTab(DETAILS_PANE);
     }
     function commentsPane() {
-      paneUrl(COMMENTS_PANE);
-      setTab(COMMENTS_PANE);
+      canViewComments() && paneUrl(COMMENTS_PANE);
+      canViewComments() && setTab(COMMENTS_PANE);
     }
 
     let parsedComments = JSON.parse(comments)
@@ -137,6 +139,14 @@ export const DetailDrawer: React.FC<{
     let commentObj = JSON.parse(comments)
     let fieldComments = commentObj[explore.name] && commentObj[explore.name][field.name] || []
     let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
+
+    const canViewComments = () => {
+      if (permissions.disabled) {
+        return false
+      } else {
+        return ((permissions.reader && sortedComments.length > 0) || permissions.writer || permissions.manager)
+      }
+    }
 
     return (
       <Drawer
@@ -157,6 +167,8 @@ export const DetailDrawer: React.FC<{
             fieldCommentLength={getFieldCommentsLength(field.name)}
             commentAuthors={authors}
             me={me}
+            permissions={permissions}
+            canViewComments={canViewComments()}
           />
         )}
         isOpen={field.name === path.fieldName}
@@ -178,7 +190,7 @@ export const DetailDrawer: React.FC<{
                 >
                   {/* 
                   // @ts-ignore */}
-                  { column.formatter(field[column.rowValueDescriptor], true, field, getFieldCommentsLength(field.name)) }
+                  { column.formatter(field[column.rowValueDescriptor], true, field, getFieldCommentsLength(field.name), canViewComments(), permissions.reader) }
                 </TableDataCell>
               )
             }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react"
 import { ExtensionContext, ExtensionContextData } from "@looker/extension-sdk-react"
 import { Looker31SDK as LookerSDK, Looker31SDK } from '@looker/sdk/lib/sdk/3.1/methods'
-import { ILookmlModel, ILookmlModelExplore, IUser } from "@looker/sdk/lib/sdk/4.0/models"
-import { FieldComments } from "../../src/components/interfaces";
+import { ILookmlModel, ILookmlModelExplore, IUser, IGroup } from "@looker/sdk/lib/sdk/4.0/models"
+import { FieldComments, CommentPermissions } from "../../src/components/interfaces";
 
 const globalCache: any = {}
 
@@ -51,7 +51,16 @@ export const getMyUser = async (sdk: LookerSDK) => {
 }
 
 export const getGroups = async (sdk: LookerSDK) => {
-  return sdk.ok(sdk.search_groups({name: "DD Comments Disabled"}))
+  let disabled = await sdk.ok(sdk.search_groups({name: "marketplace_data_dictionary_comments_disabled"}))
+  let reader = await sdk.ok(sdk.search_groups({name: "marketplace_data_dictionary_comments_reader"}))
+  let writer = await sdk.ok(sdk.search_groups({name: "marketplace_data_dictionary_comments_writer"}))
+  let manager = await sdk.ok(sdk.search_groups({name: "marketplace_data_dictionary_comments_manager"}))
+  return {
+    disabled: disabled[0],
+    reader: reader[0],
+    writer: writer[0],
+    manager: manager[0],
+  }
 }
 
 export function useAllModels() {
@@ -135,6 +144,26 @@ export function getAuthorIds(commentString: string) {
   return authorIds
 }
 
+export const determinePermissions = (me: IUser, groups: any) => {
+  // Order indicates write order. In this implementation, highest
+  // permission level wins if duplicates exist.
+  let perms = {reader: false, writer: true, manager: false, disabled: false};
+  if (groups.reader && me.group_ids.includes(groups.reader.id)) {
+    perms = {reader: true, writer: false, manager: false, disabled: false}
+  }
+  if (groups.writer && me.group_ids.includes(groups.writer.id)) {
+    perms = {writer: true, reader: false, manager: false, disabled: false}
+  }
+  if (groups.manager && me.group_ids.includes(groups.manager.id)) {
+    perms = {manager: true, writer: false, reader: false, disabled: false}
+  }
+  // Checks "disabled" last
+  if (groups.disabled && me.group_ids.includes(groups.disabled.id)) {
+    perms = {...perms, disabled: true}
+  }
+  return perms
+}
+
 export interface DetailedModel {
   model: ILookmlModel
   explores: ILookmlModelExplore[]
@@ -143,7 +172,7 @@ export interface DetailedModel {
 export function getComments(currentExplore: ILookmlModelExplore) {
   const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
   const { extensionSDK, initializeError } = extensionContext
-  const [canPersistContextData, setCanPersistContextData] = useState<boolean>(false)
+  const [permissions, setPermissions] = useState<CommentPermissions>({disabled: false, reader: false, writer: true, manager: false})
   const { coreSDK } = useContext(ExtensionContext)
   const [authors, setAuthors] = React.useState<IUser[]>([])
   const [comments, setComments] = React.useState("{}")
@@ -160,7 +189,7 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     } else {
       revivedComments[currentExplore.name][field] = [newComment]
     }
-    if (canPersistContextData) {
+    if (permissions.writer || permissions.manager) {
       try {
         setComments(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))
@@ -180,7 +209,7 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     newFieldComments.push(modComment)
     revivedComments[currentExplore.name][field] = newFieldComments
 
-    if (canPersistContextData) {
+    if (permissions.writer || permissions.manager) {
       try {
         setComments(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))
@@ -199,7 +228,7 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     })
     revivedComments[currentExplore.name][field] = newFieldComments
 
-    if (canPersistContextData) {
+    if (permissions.writer || permissions.manager) {
       try {
         setComments(JSON.stringify(revivedComments))
         await extensionSDK.saveContextData(JSON.stringify(revivedComments))
@@ -216,7 +245,6 @@ export function getComments(currentExplore: ILookmlModelExplore) {
       let context
       try {
         context = await extensionSDK.getContextData()
-        setCanPersistContextData(true)
         let authorIds = getAuthorIds(context || "{}")
         let contextObj = JSON.parse(context || "{}")
         if (currentExplore !== undefined) {
@@ -228,7 +256,7 @@ export function getComments(currentExplore: ILookmlModelExplore) {
         setAuthors(await loadUsers(coreSDK, authorIds))
         setMe(await getMyUser(coreSDK))
         let groups = await getGroups(coreSDK)
-        console.log(groups)
+        me && groups && setPermissions(determinePermissions(me, groups));
       } catch (error) {
         console.error(error)
       }
@@ -236,5 +264,5 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     initialize()
   }, [typeof currentExplore])
 
-  return { comments, authors, me, canPersistContextData, addComment, editComment, deleteComment }
+  return { comments, authors, me, permissions, addComment, editComment, deleteComment }
 }

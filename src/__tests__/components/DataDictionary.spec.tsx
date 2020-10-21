@@ -27,7 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import {mockModels, mockComments, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
-import { ComponentsProvider } from "@looker/components"
+import { ComponentsProvider, theme } from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { DataDictionary } from '../../components/DataDictionary'
 
@@ -61,6 +61,10 @@ jest.mock("../../components/Sidebar", () => ({
   Sidebar: () => "Sidebar"
 }))
 
+jest.mock("../../components/CategorizedLabel", () => ({
+  CategorizedLabel: () => "CategorizedLabel"
+}))
+
 jest.mock("@looker/components", () => ({
   Chip: () => "Chip",
   Flex: () => "Flex",
@@ -71,7 +75,7 @@ jest.mock("@looker/components", () => ({
 
 it('renders correctly', () => {
   const tree = renderer
-    .create(<ComponentsProvider><DataDictionary/></ComponentsProvider>)
+    .create(<ComponentsProvider theme={theme}><DataDictionary/></ComponentsProvider>)
     .toJSON();
   expect(tree).toMatchSnapshot();
 })

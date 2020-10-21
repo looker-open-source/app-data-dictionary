@@ -47,6 +47,7 @@ it('renders correctly', () => {
             field={{}}
             commentAuthors={[]}
             me={{}}
+            permissions={{}}
         />
       </ThemeProvider>
     )
