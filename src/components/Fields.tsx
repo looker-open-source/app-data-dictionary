@@ -41,6 +41,7 @@ import styled from "styled-components";
 import {ColumnDescriptor, CommentPermissions} from "./interfaces";
 import {ILookmlModel, ILookmlModelExplore, ILookmlModelExploreField, IUser} from "@looker/sdk";
 import { DetailDrawer } from "./DetailDrawer";
+import { DETAILS_PANE } from "../utils/constants";
 
 // @ts-ignore
 export const TableWrapper = styled(Box)`
@@ -59,8 +60,6 @@ export const StickyHeader = styled(TableHeaderCell)`
     top: 0;
 }
 `;
-
-const DETAILS_PANE = 0;
 
 export const Fields: React.FC<{
   columns: ColumnDescriptor[],

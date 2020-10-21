@@ -94,7 +94,30 @@ export const DetailDrawer: React.FC<{
   }) => {
     const history = useHistory()
     const path = usePathNames()
-    
+
+    let parsedComments = JSON.parse(comments)
+
+    const getFieldCommentsLength = (field: string) => {
+      let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
+      let commentFields = Object.keys(exploreComments)
+      if (commentFields.includes(field) && exploreComments[field].length > 0) {
+        return exploreComments[field].length
+      } else {
+        return null
+      }
+    }
+
+    let fieldComments = parsedComments[explore.name] && parsedComments[explore.name][field.name] || []
+    let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
+
+    const canViewComments = () => {
+      if (permissions.disabled) {
+        return false
+      } else {
+        return ((permissions.reader && sortedComments.length > 0) || permissions.writer || permissions.manager)
+      }
+    }
+
     function paneUrl(pane: number) {
       field && history.push(
         internalExploreURL({
@@ -119,33 +142,10 @@ export const DetailDrawer: React.FC<{
       paneUrl(DETAILS_PANE);
       setTab(DETAILS_PANE);
     }
+    
     function commentsPane() {
       canViewComments() && paneUrl(COMMENTS_PANE);
       canViewComments() && setTab(COMMENTS_PANE);
-    }
-
-    let parsedComments = JSON.parse(comments)
-
-    const getFieldCommentsLength = (field: string) => {
-      let exploreComments = parsedComments[explore.name] ? parsedComments[explore.name] : {}
-      let commentFields = Object.keys(exploreComments)
-      if (commentFields.includes(field) && exploreComments[field].length > 0) {
-        return exploreComments[field].length
-      } else {
-        return null
-      }
-    }
-
-    let commentObj = JSON.parse(comments)
-    let fieldComments = commentObj[explore.name] && commentObj[explore.name][field.name] || []
-    let sortedComments = fieldComments.sort((x: FieldComments, y: FieldComments) => { return x.timestamp - y.timestamp })
-
-    const canViewComments = () => {
-      if (permissions.disabled) {
-        return false
-      } else {
-        return ((permissions.reader && sortedComments.length > 0) || permissions.writer || permissions.manager)
-      }
     }
 
     return (
