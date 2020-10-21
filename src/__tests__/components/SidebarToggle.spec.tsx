@@ -27,7 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { theme, ComponentsProvider } from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import { assertSnapshot, renderWithTheme } from "@looker/components-test-utils"
 
 import SidebarToggle from '../../components/SidebarToggle'
 
@@ -37,16 +37,9 @@ jest.mock("@looker/components", () => ({
 }))
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ComponentsProvider theme={theme}>
-        <SidebarToggle
-          isOpen={true}
-          onClick={() => {}}
-          headerHeight="114px"
-        />
-      </ComponentsProvider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  assertSnapshot(<SidebarToggle
+    isOpen={true}
+    onClick={() => {}}
+    headerHeight="114px"
+  />)
 })

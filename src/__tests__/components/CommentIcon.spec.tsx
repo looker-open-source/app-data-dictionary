@@ -27,6 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { FlexItem, ButtonTransparent, IconButton, Tooltip, theme } from "@looker/components";
+import { assertSnapshot } from "@looker/components-test-utils"
 import { ThemeProvider } from "styled-components"
 import { CommentIcon } from '../../components/CommentIcon'
 
@@ -38,14 +39,7 @@ jest.mock("@looker/components", () => ({
 }))
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ThemeProvider theme={theme}>
-        <CommentIcon
-          count={10}
-          />
-      </ThemeProvider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  assertSnapshot(<CommentIcon
+    count={10}
+  />)
 })

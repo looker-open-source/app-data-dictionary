@@ -2,16 +2,16 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="Box-sc-5738oh-0 sc-htpNat gGVQvJ"
+  className="Box-sc-5738oh-0 sc-dlnjPT eqlWJo eWlZuf"
 >
   <div
-    className="Flex-sc-1ak395a-0 grYIav"
+    className="Flex-sc-1ak395a-0 kYivOg"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 kMlFTp"
+      className="FlexItem-sc-1xhpm9o-0 iunkBy"
     >
       <h1
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 boJsud"
+        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 jxVrDv hTEfbx"
         fontFamily="brand"
         fontSize="xxlarge"
         fontWeight="semiBold"
@@ -19,7 +19,7 @@ exports[`renders correctly 1`] = `
         Snowflake Usage
       </h1>
       <h4
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 kZKgGe"
+        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 ilTIhv lksPkV"
         fontFamily="brand"
         fontSize="medium"
         fontWeight="normal"
@@ -28,25 +28,25 @@ exports[`renders correctly 1`] = `
       </h4>
     </div>
     <div
-      className="FlexItem-sc-1xhpm9o-0 kMlFTp"
+      className="FlexItem-sc-1xhpm9o-0 iunkBy"
     >
       ExternalLink
       ViewOptions
     </div>
   </div>
   <div
-    className="Flex-sc-1ak395a-0 hOPKLd"
+    className="Flex-sc-1ak395a-0 cOonEg"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 dfcUCu"
+      className="FlexItem-sc-1xhpm9o-0 ijaGTj"
       width="350px"
     >
       <div
-        className="InputText-sc-6cvg1f-2 gKICAz sc-EHOje eXyQQA"
+        className="InputText-sc-6cvg1f-2 fFlyRR sc-jSFkmK iHdHnq"
         onMouseDown={[Function]}
       >
         <input
-          className="InputText__StyledInput-sc-6cvg1f-0 omBVT"
+          className="InputText__StyledInput-sc-6cvg1f-0 kPMZOS"
           onChange={[Function]}
           placeholder="Filter fields in this Explore"
           type="text"
@@ -57,7 +57,7 @@ exports[`renders correctly 1`] = `
   </div>
   QuickSearch
   <div
-    className="Box-sc-5738oh-0 jjlceT"
+    className="Box-sc-5738oh-0 hPsATA"
   >
     Fields
     Fields

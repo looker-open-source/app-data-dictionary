@@ -28,6 +28,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {mockModels, mockComments, mockCurrentModel, mockCurrentExplore} from "../MockData/MockData";
 import { ComponentsProvider, theme } from "@looker/components"
+import { assertSnapshot } from "@looker/components-test-utils"
 import { ThemeProvider } from "styled-components"
 import { DataDictionary } from '../../components/DataDictionary'
 
@@ -71,11 +72,10 @@ jest.mock("@looker/components", () => ({
   FlexItem: () => "FlexItem",
   Heading: () => "Heading",
   Spinner: () => "Spinner",
+  IconButton: () => "IconButton",
+  theme: {colors: {key:"purple"}, space: {large: "2em"}},
 }))
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(<ComponentsProvider theme={theme}><DataDictionary/></ComponentsProvider>)
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  assertSnapshot(<DataDictionary />)
 })

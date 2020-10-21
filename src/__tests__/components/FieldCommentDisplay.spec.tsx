@@ -27,7 +27,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 import { theme, ComponentsProvider } from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import { assertSnapshot } from "@looker/components-test-utils"
 import { FieldCommentDisplay } from '../../components/FieldCommentDisplay'
 
 jest.mock("@looker/components", () => ({
@@ -47,29 +47,22 @@ jest.mock("@looker/components", () => ({
 }))
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ComponentsProvider theme={theme}>
-        <FieldCommentDisplay
-          authorData={{
-            display_name: "Mr. Foo Bar",
-            first_name: "Foo",
-            last_name: "Bar",
-            avatar_url: "imgsrv.com/foo/bar"
-          }}
-          comment={{
-            pk: "timestamp::author",
-            author: 1,
-            content: "This is my comment.",
-            timestamp: 7171717171,
-            edited: false
-          }}
-          showDetails={()=>""}
-          toggleEdit={()=>{}}
-          openDialog={()=>{}}
-      />
-      </ComponentsProvider>
-    )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+  assertSnapshot(<FieldCommentDisplay
+    authorData={{
+      display_name: "Mr. Foo Bar",
+      first_name: "Foo",
+      last_name: "Bar",
+      avatar_url: "imgsrv.com/foo/bar"
+    }}
+    comment={{
+      pk: "timestamp::author",
+      author: 1,
+      content: "This is my comment.",
+      timestamp: 7171717171,
+      edited: false
+    }}
+    showDetails={()=>""}
+    toggleEdit={()=>{}}
+    openDialog={()=>{}}
+/>)
 })

@@ -28,6 +28,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import {mockCurrentExplore, mockCurrentModel, mockModels} from "../MockData/MockData";
 import { ThemeProvider } from "styled-components"
+import { assertSnapshot } from "@looker/components-test-utils"
 import { theme } from "@looker/components"
 
 import { Sidebar } from '../../components/Sidebar'
@@ -50,21 +51,16 @@ jest.mock("@looker/components", () => ({
   FlexItem: () => "FlexItem",
   Heading: () => "Heading",
   InputSearch: () => "InputSearch",
+  theme: {colors: {ui2:"#282828"}},
 }))
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ThemeProvider theme={theme}>
-        <Sidebar
-          currentExplore={mockCurrentExplore}
-          currentModel={mockCurrentModel}
-          loadingExplore={null}
-          models={mockModels}
-          search={''}
-          setSearch={() => {}}
-        />
-      </ThemeProvider>
-    ).toJSON();
-  expect(tree).toMatchSnapshot();
+    assertSnapshot(<Sidebar
+      currentExplore={mockCurrentExplore}
+      currentModel={mockCurrentModel}
+      loadingExplore={null}
+      models={mockModels}
+      search={''}
+      setSearch={() => {}}
+    />)
 })

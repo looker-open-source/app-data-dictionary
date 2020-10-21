@@ -2,30 +2,30 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="DialogContent__Outer-rfzesr-0 hfRyYp undefined false"
+  className="DialogContent__Outer-rfzesr-0 bfFwwb undefined false"
 >
   <div
-    className="DialogContent__Inner-rfzesr-1 jOOuLS"
+    className="DialogContent__Inner-rfzesr-1 dfpnOi"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 kMlFTp"
+      className="FlexItem-sc-1xhpm9o-0 iunkBy"
     >
       <h3
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 fowNUs"
+        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 iEEPBd hTEfbx"
         fontFamily="brand"
         fontSize="large"
         fontWeight="semiBold"
       />
       <div
         aria-label="Tabs"
-        className="TabList-sc-1xnjj79-0 jBVGaO"
+        className="TabList-sc-1xnjj79-0 ITjpV"
         role="tablist"
       >
         <button
           aria-controls="panel-0"
           aria-orientation="horizontal"
           aria-selected={true}
-          className="Tab__TabStyle-eojndt-0 fakVaL Tab-eojndt-1 fcAqxo"
+          className="Tab__TabStyle-eojndt-0 fNLSqh Tab-eojndt-1"
           fontSize="small"
           fontWeight="medium"
           id="tab-0"
@@ -43,7 +43,7 @@ exports[`renders correctly 1`] = `
           aria-controls="panel-1"
           aria-orientation="horizontal"
           aria-selected={false}
-          className="Tab__TabStyle-eojndt-0 huNeLD Tab-eojndt-1 fcAqxo"
+          className="Tab__TabStyle-eojndt-0 cPCNyG Tab-eojndt-1"
           fontSize="small"
           fontWeight="medium"
           id="tab-1"
@@ -60,19 +60,19 @@ exports[`renders correctly 1`] = `
       </div>
       <div
         aria-labelledby="tab-0"
-        className="TabPanels-sc-15ef4fm-0 cwomds"
+        className="TabPanels-sc-15ef4fm-0 cJHoxW"
         id="panel-0"
         pt="large"
         role="tabpanel"
       >
         <div
-          className="Flex-sc-1ak395a-0 hRsXhY"
+          className="Flex-sc-1ak395a-0 jAuRlG"
         >
           <div
-            className="FlexItem-sc-1xhpm9o-0 kMlFTp"
+            className="FlexItem-sc-1xhpm9o-0 iunkBy"
           >
             <h4
-              className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 cDhxpL"
+              className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 GIpSF hTEfbx"
               fontFamily="brand"
               fontSize="small"
               fontWeight="semiBold"
@@ -86,14 +86,14 @@ exports[`renders correctly 1`] = `
             </h4>
           </div>
           <div
-            className="FlexItem-sc-1xhpm9o-0 cwjHPp"
+            className="FlexItem-sc-1xhpm9o-0 ggJpVY"
           >
             <table
-              className="Table-sc-1x77f3i-0 duowXd"
+              className="Table-sc-1x77f3i-0 kuXVYl"
               width="100%"
             >
               <tbody
-                className="TableBody-sc-17lboeq-0 iCKLkT"
+                className="TableBody-sc-17lboeq-0 fxWXsB"
                 fontSize="small"
               />
             </table>
@@ -101,10 +101,10 @@ exports[`renders correctly 1`] = `
           QueryChart
           QueryChart
           <div
-            className="FlexItem-sc-1xhpm9o-0 rShhP"
+            className="FlexItem-sc-1xhpm9o-0 bZGkrM"
           >
             <div
-              className="Flex-sc-1ak395a-0 gWdrjA"
+              className="Flex-sc-1ak395a-0 kjrkAa"
             >
               ExternalLink
               ExternalLink

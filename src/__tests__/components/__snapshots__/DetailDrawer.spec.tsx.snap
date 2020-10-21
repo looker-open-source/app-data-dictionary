@@ -3,12 +3,12 @@
 exports[`renders correctly 1`] = `
 <tr
   aria-expanded={false}
-  className="TableRow-sc-1tgwedx-0 sc-bwzfXH iVTkPz"
+  className="TableRow-sc-1tgwedx-0 sc-gtssRu gYAnID crDTFH"
   onClick={[Function]}
   role="button"
 >
   <td
-    className="TableDataCell-sc-1ehugof-0 jlZKfG"
+    className="TableDataCell-sc-1ehugof-0 dgixgo"
     color="text3"
     fontWeight="normal"
     onClick={[Function]}
@@ -16,13 +16,13 @@ exports[`renders correctly 1`] = `
     Comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 iJUoME"
+    className="TableDataCell-sc-1ehugof-0 eINDZi"
     color="text3"
     fontWeight="normal"
     onClick={[Function]}
   />
   <td
-    className="TableDataCell-sc-1ehugof-0 fKXWHW"
+    className="TableDataCell-sc-1ehugof-0 eimCTP"
     color="text3"
     fontWeight="normal"
     onClick={[Function]}
@@ -30,7 +30,7 @@ exports[`renders correctly 1`] = `
     databases.​comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 fKXWHW"
+    className="TableDataCell-sc-1ehugof-0 eimCTP"
     color="text3"
     fontWeight="normal"
     onClick={[Function]}
@@ -38,7 +38,7 @@ exports[`renders correctly 1`] = `
     String
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 iJUoME"
+    className="TableDataCell-sc-1ehugof-0 eINDZi"
     color="text3"
     fontWeight="normal"
     onClick={[Function]}
@@ -51,7 +51,7 @@ exports[`renders correctly 1`] = `
       }
     >
       <code
-        className="sc-jTzLTM jjNMkh"
+        className="sc-dIsAE gNlDhJ"
         style={
           Object {
             "MozHyphens": "none",
