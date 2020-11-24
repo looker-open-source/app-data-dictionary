@@ -116,7 +116,7 @@ export const FieldMetadata: React.FC<{
             <TabPanel>
               <Flex flexDirection="column">
                 {field.description && (
-                  <FlexItem pb="xlarge">
+                  <FlexItem pb="small">
                     <Paragraph>{field.description}</Paragraph>
                   </FlexItem>
                 )}
@@ -131,7 +131,7 @@ export const FieldMetadata: React.FC<{
                     About this Field
                   </Heading>
                 </FlexItem>
-                <FlexItem pb="xlarge">
+                <FlexItem pb="medium">
                   <Table width="100%">
                     <TableBody fontSize="small">
                       {columns.map(column => {

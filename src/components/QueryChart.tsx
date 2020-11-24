@@ -141,7 +141,7 @@ export class QueryChart extends React.Component<
             aux={this.state.response.aux}
           >
             {this.state.response.histogram && (
-              <Box my="medium">
+              <Box>
                 <BarChart
                   width={259}
                   height={40}
@@ -152,7 +152,7 @@ export class QueryChart extends React.Component<
                 </BarChart>
               </Box>
             )}
-            <Box my="medium">
+            <Box>
               <Table>
                 <TableBody>
                   {this.state.response.data.map((row, i) => (
