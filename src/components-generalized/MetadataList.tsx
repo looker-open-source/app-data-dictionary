@@ -40,9 +40,9 @@ export const MetadataItem = ({
 }) => {
   if (compact) {
     return (
-      <Flex my="large">
+      <Flex mb="small">
         <FlexItem flex="0 0 auto">
-          <Text fontSize="small" fontWeight="bold">
+          <Text fontSize="medium" fontWeight="semiBold">
             {label}
           </Text>
         </FlexItem>
@@ -53,11 +53,11 @@ export const MetadataItem = ({
     )
   } else {
     return (
-      <Box my="large">
+      <Box mb="small">
         <Box>
-          <Flex my="large">
+          <Flex>
             <FlexItem flex="0 0 auto">
-              <Text fontSize="small" fontWeight="bold">
+              <Text fontSize="medium" fontWeight="semiBold">
                 {label}
               </Text>
             </FlexItem>
