@@ -73,7 +73,7 @@ export const FieldCommentList: React.FC<{
     setAddingNew(!addingNew)
   }
   const handleChange = (e: any) => {
-    setCommentContent(e.target.value)
+    setCommentContent(encodeURI(e.target.value))
   }
   const addToComments = () => {
     const generated_timestamp = Date.now()
