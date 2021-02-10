@@ -122,7 +122,7 @@ export const FieldCommentDisplay: React.FC<{
             </FlexItem>
           </Flex>
           <Text fontSize="small" aria-label="FieldCommentDisplayContent">
-            {comment.content}
+            {decodeURI(comment.content)}
           </Text>
         </FlexItem>
       </CardContent>
