@@ -85,7 +85,7 @@ export const FieldComment: React.FC<{
 
   const handleChange = (e: SyntheticEvent) => {
     const target = e.target as HTMLTextAreaElement
-    setCommentContent(target.value)
+    setCommentContent(encodeURI(target.value))
   }
 
   const addToComments = () => {
@@ -123,7 +123,7 @@ export const FieldComment: React.FC<{
           <FieldTextArea
             autoFocus
             onChange={handleChange}
-            defaultValue={comment.content}
+            defaultValue={decodeURI(comment.content)}
           />
           <Space pt="small" gap="xsmall" reverse>
             <Button size="medium" onClick={addToComments}>
