@@ -62,9 +62,9 @@ export function usePathNames(): {
   })
 
   return {
-    modelName: match && match.params.model,
-    exploreName: match2 && match2.params.explore,
-    fieldName: match3 && match3.params.field,
+    modelName: match && decodeURIComponent(match.params.model),
+    exploreName: match2 && decodeURIComponent(match2.params.explore),
+    fieldName: match3 && decodeURIComponent(match3.params.field),
     detailPane: match3 && match3.params.tab,
     isRelationships: !!relMatch,
   }
