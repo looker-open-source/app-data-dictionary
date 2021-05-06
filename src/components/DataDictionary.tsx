@@ -90,6 +90,7 @@ export const columns: ColumnDescriptor[] = [
     name: "category",
     label: "Category",
     rowValueDescriptor: "category",
+    // eslint-disable-next-line react/display-name
     formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField) => {
       return <CategorizedLabel label={x} category={field.category} />
     },
@@ -130,6 +131,7 @@ export const columns: ColumnDescriptor[] = [
   {
     label: "SQL",
     rowValueDescriptor: "sql",
+    // eslint-disable-next-line react/display-name
     formatter: (x: any, isRow: boolean) => {
       return <SQLSnippet isRow={isRow} src={x} />
     },
@@ -142,7 +144,11 @@ export const columns: ColumnDescriptor[] = [
     label: "Tags",
     rowValueDescriptor: "tags",
     formatter: (tags: any) => {
-      return tags.map((tag: string) => <Chip disabled>{tag}</Chip>)
+      return tags.map((tag: string) => (
+        <Chip disabled key={tag}>
+          {tag}
+        </Chip>
+      ))
     },
     default: false
   }

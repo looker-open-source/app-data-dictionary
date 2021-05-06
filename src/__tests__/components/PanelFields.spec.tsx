@@ -31,6 +31,7 @@ import { ThemeProvider } from "styled-components"
 import { columns } from '../../components/DataDictionary'
 import { mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
 import { PanelFields } from '../../components/PanelFields'
+import { ILookmlModelExplore } from '@looker/sdk/lib/3.1/models'
 
 jest.mock("../../components/DetailDrawer", () => ({
   DetailDrawer: () => "DetailDrawer"
@@ -69,7 +70,7 @@ it('renders correctly', () => {
     <ThemeProvider theme={theme}>
       <PanelFields
         currentModel={mockCurrentModel}
-        currentExplore={mockCurrentExplore}
+        currentExplore={mockCurrentExplore as ILookmlModelExplore}
         loadingExplore={null}
         columns={columns}
         model={mockCurrentModel}

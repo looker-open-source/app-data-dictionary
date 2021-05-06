@@ -2,7 +2,7 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="Box-sc-5738oh-0 sc-bdnylx fmGVSD fvPRTy"
+  className="Box-sc-5738oh-0 sc-bdnylx fmGVSD fmDPpa"
 >
   <div
     className="Flex-sc-1ak395a-0 eYyEcC"
@@ -34,7 +34,7 @@ exports[`renders correctly 1`] = `
           className="TableRow-sc-1tgwedx-0 gYAnID"
         >
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg csEUrh"
+            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
             color="text"
             fontSize="small"
             fontWeight="medium"
@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
             Field Label
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg csEUrh"
+            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
             color="text"
             fontSize="small"
             fontWeight="medium"
@@ -50,7 +50,7 @@ exports[`renders correctly 1`] = `
             Description
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg csEUrh"
+            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
             color="text"
             fontSize="small"
             fontWeight="medium"
@@ -58,7 +58,7 @@ exports[`renders correctly 1`] = `
             LookML Name
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg csEUrh"
+            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
             color="text"
             fontSize="small"
             fontWeight="medium"
@@ -66,7 +66,7 @@ exports[`renders correctly 1`] = `
             Type
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg csEUrh"
+            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
             color="text"
             fontSize="small"
             fontWeight="medium"

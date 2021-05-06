@@ -27,15 +27,16 @@
 import React from "react"
 import * as ReactDOM from "react-dom"
 import { Extension } from "./components/Extension"
-import { ExtensionProvider } from "@looker/extension-sdk-react"
+import { ExtensionProvider2 } from "@looker/extension-sdk-react"
+import { Looker40SDK } from '@looker/sdk'
 
 window.addEventListener("DOMContentLoaded", () => {
   const root = document.createElement("div")
   document.body.appendChild(root)
   ReactDOM.render(
-    <ExtensionProvider>
+    <ExtensionProvider2 type={Looker40SDK} chattyTimeout={500000}>
       <Extension />
-    </ExtensionProvider>,
+    </ExtensionProvider2>,
     root
   )
 })

@@ -24,12 +24,10 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {mockCurrentExplore, mockCurrentModel, mockModels} from "../MockData/MockData";
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import {mockCurrentExplore, mockCurrentModel, mockModels} from "../MockData/MockData"
 import { assertSnapshot } from "@looker/components-test-utils"
-import { theme } from "@looker/components"
+import { ILookmlModelExplore } from '@looker/sdk/lib/3.1/models'
 
 import { Sidebar } from '../../components/Sidebar'
 
@@ -56,7 +54,7 @@ jest.mock("@looker/components", () => ({
 
 it('renders correctly', () => {
     assertSnapshot(<Sidebar
-      currentExplore={mockCurrentExplore}
+      currentExplore={mockCurrentExplore as ILookmlModelExplore}
       currentModel={mockCurrentModel}
       loadingExplore={null}
       models={mockModels}

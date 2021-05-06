@@ -31,6 +31,7 @@ import { columns } from '../../components/DataDictionary'
 import { theme} from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { DetailDrawerRow } from '../../components/DetailDrawerRow'
+import { ILookmlModelExploreField } from '@looker/sdk/lib/3.1/models'
 
 it('renders correctly', () => {
   const tree = renderer
@@ -38,7 +39,7 @@ it('renders correctly', () => {
       <ThemeProvider theme={theme}>
         <DetailDrawerRow
           column={columns[0]}
-          field={mockCurrentExplore.fields.dimensions[0]}
+          field={mockCurrentExplore.fields.dimensions[0] as ILookmlModelExploreField}
         />
       </ThemeProvider>
     )

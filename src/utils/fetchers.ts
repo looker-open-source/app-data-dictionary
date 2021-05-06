@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
-import { ExtensionContext, ExtensionContextData } from "@looker/extension-sdk-react"
-import { Looker31SDK as LookerSDK, Looker31SDK } from '@looker/sdk/lib/sdk/3.1/methods'
-import { ILookmlModel, ILookmlModelExplore, IUser, IGroup } from "@looker/sdk/lib/sdk/4.0/models"
+import { ExtensionContext2, ExtensionContextData, ExtensionContextData2 } from "@looker/extension-sdk-react"
+import { Looker40SDK as LookerSDK } from '@looker/sdk/lib/4.0/methods'
+import { ILookmlModel, ILookmlModelExplore, IUser } from "@looker/sdk/lib/4.0/models"
 import { FieldComments, CommentPermissions } from "../../src/components/interfaces";
 
 const globalCache: any = {}
@@ -64,7 +64,7 @@ export const getGroups = async (sdk: LookerSDK) => {
 }
 
 export function useAllModels() {
-  const { coreSDK } = useContext(ExtensionContext)
+  const { coreSDK } = useContext(ExtensionContext2)
   const [allModels, allModelsSetter] = useState<ILookmlModel[] | undefined>(undefined)
   useEffect(() => {
     async function fetcher() {
@@ -76,7 +76,7 @@ export function useAllModels() {
 }
 
 export function useExplore(modelName?: string, exploreName?: string) {
-  const { coreSDK } = useContext(ExtensionContext)
+  const { coreSDK } = useContext(ExtensionContext2)
   const [currentExplore, exploreSetter] = useState<ILookmlModelExplore | undefined>(undefined)
   const [loadingExplore, loadingExploreSetter] = useState(null)
   useEffect(() => {
@@ -113,7 +113,7 @@ export async function loadModelDetail(
 }
 
 export function useModelDetail(modelName?: string) {
-  const { coreSDK } = useContext(ExtensionContext)
+  const { coreSDK } = useContext(ExtensionContext2)
   const [modelDetail, setModelDetail] = useState<DetailedModel | undefined>(undefined)
   useEffect(() => {
     async function fetcher() {
@@ -170,10 +170,8 @@ export interface DetailedModel {
 }
 
 export function getComments(currentExplore: ILookmlModelExplore) {
-  const extensionContext = useContext<ExtensionContextData>(ExtensionContext)
-  const { extensionSDK, initializeError } = extensionContext
   const [permissions, setPermissions] = useState<CommentPermissions>({disabled: false, reader: false, writer: true, manager: false})
-  const { coreSDK } = useContext(ExtensionContext)
+  const { coreSDK, extensionSDK } = useContext(ExtensionContext2)
   const [authors, setAuthors] = React.useState<IUser[]>([])
   const [comments, setComments] = React.useState("{}")
   const [me, setMe] = React.useState<IUser>()

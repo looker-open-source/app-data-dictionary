@@ -29,6 +29,7 @@ import renderer from 'react-test-renderer';
 import { mockCurrentExplore, mockModels } from "../MockData/MockData";
 import { theme } from "@looker/components"
 import { ThemeProvider } from "styled-components"
+import { ILookmlModelExplore } from '@looker/sdk/lib/3.1/models'
 
 import { ExploreList } from '../../components/ExploreList'
 
@@ -65,7 +66,7 @@ it('renders correctly', () => {
     .create(
       <ThemeProvider theme={theme}>
         <ExploreList
-          currentExplore={mockCurrentExplore}
+          currentExplore={mockCurrentExplore as ILookmlModelExplore}
           loadingExplore={''}
           search={null}
         />)

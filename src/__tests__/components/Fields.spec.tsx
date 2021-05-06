@@ -29,8 +29,9 @@ import renderer from 'react-test-renderer';
 import { theme} from "@looker/components"
 import { ThemeProvider } from "styled-components"
 import { columns } from '../../components/DataDictionary'
-import { mockGroups, mockCurrentExplore, mockCurrentModel } from "../MockData/MockData";
-import { defaultShowColumns } from "../../components/PanelFields";
+import { mockGroups, mockCurrentExplore, mockCurrentModel } from "../MockData/MockData"
+import { defaultShowColumns } from "../../components/PanelFields"
+import { ILookmlModelExplore } from '@looker/sdk/lib/3.1/models'
 
 import { Fields } from '../../components/Fields'
 
@@ -44,7 +45,7 @@ it('renders correctly', () => {
     <ThemeProvider theme={theme}>
       <Fields
         columns={columns}
-        explore={mockCurrentExplore}
+        explore={mockCurrentExplore as ILookmlModelExplore}
         // @ts-ignore
         label={mockGroups[0][0]}
         model={mockCurrentModel}

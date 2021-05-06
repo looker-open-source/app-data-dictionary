@@ -25,7 +25,8 @@
  */
 
 import React from 'react';
-import renderer from 'react-test-renderer';
+import renderer from 'react-test-renderer'
+import { ILookmlModelExplore, ILookmlModelExploreField } from '@looker/sdk/lib/3.1/models'
 import { mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
 import { columns } from '../../components/DataDictionary'
 import { defaultShowColumns } from "../../components/PanelFields";
@@ -62,9 +63,9 @@ it('renders correctly', () => {
       <ThemeProvider theme={theme}>
         <DetailDrawer
           columns={columns}
-          explore={mockCurrentExplore}
+          explore={mockCurrentExplore as ILookmlModelExplore}
           model={mockCurrentModel}
-          field={mockCurrentExplore.fields.dimensions[0]}
+          field={mockCurrentExplore.fields.dimensions[0] as ILookmlModelExploreField}
           shownColumns={defaultShowColumns}
           tab={0}
           setTab={()=>{}}

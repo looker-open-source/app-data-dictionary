@@ -13878,7 +13878,7 @@ export const mockGroups = [
 
 export const mockComments = {
   comments: "{}",
-  authors: [],
+  authors: [{}],
   me: {},
   addComment: ()=>{},
   editComment: ()=>{},
