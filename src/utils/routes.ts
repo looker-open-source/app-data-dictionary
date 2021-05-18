@@ -55,7 +55,7 @@ export function usePathNames(): {
     useRouteMatch<{ model: string; explore: string; field: string; tab: string;}>({
       path: "/models/:model/explores/:explore/field/:field/pane/:tab",
     }) || undefined
-  
+
   const relMatch = useRouteMatch({
     path: "/models/:model/relationships",
     sensitive: true
@@ -81,7 +81,7 @@ export function useCurrentModel() {
   if (!modelName) {
     return (
       modelData &&
-      modelData.filter(m => m.explores && m.explores.some(e => !e.hidden))[0]
+      modelData.filter(m => m.explores && m.explores.some((e: any) => !e.hidden))[0]
     )
   }
   return modelData && modelData.find(m => m.name === modelName)

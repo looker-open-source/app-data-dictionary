@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
   const root = document.createElement("div")
   document.body.appendChild(root)
   ReactDOM.render(
-    <ExtensionProvider>
+    <ExtensionProvider chattyTimeout={300000}>
       <Extension />
     </ExtensionProvider>,
     root
