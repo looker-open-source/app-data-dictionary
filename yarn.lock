@@ -1373,7 +1373,7 @@
   resolved "https://registry.yarnpkg.com/@looker/icons/-/icons-0.9.14.tgz#4733609c1c81195fea9bf12f775c95f3a0f4c7ee"
   integrity sha512-XCGYtp+VwPsSaKlHeZ+7nF3mx7y4l2b+WjFHal1tfVMQGllwhVlBDn2oIOTiX2bRSPNmsSUSm6MHACHforbJSg==
 
-"@looker/sdk-rtl@^21.0.13", "@looker/sdk-rtl@^21.6.0":
+"@looker/sdk-rtl@^21.0.13":
   version "21.0.13"
   resolved "https://registry.yarnpkg.com/@looker/sdk-rtl/-/sdk-rtl-21.0.13.tgz#1ee9fd344c5146025b42fce1b3940758bb463b64"
   integrity sha512-x7UibUKwOrmw2jdkCopNtNHBtSkY7zufEur8WMj/STuZwlaumsZ4pjvY1g94CuxXLwu65zhRaeMXz9MJ3dQiIA==

@@ -1,4 +1,5 @@
 import { useRouteMatch } from "react-router-dom"
+import { ILookmlModelNavExplore } from "@looker/sdk"
 import { useAllModels, useExplore } from "./fetchers"
 
 export function internalExploreURL({
@@ -81,7 +82,7 @@ export function useCurrentModel() {
   if (!modelName) {
     return (
       modelData &&
-      modelData.filter(m => m.explores && m.explores.some((e: any) => !e.hidden))[0]
+      modelData.filter(m => m.explores && m.explores.some((e: ILookmlModelNavExplore) => !e.hidden))[0]
     )
   }
   return modelData && modelData.find(m => m.name === modelName)
