@@ -3,7 +3,7 @@
 exports[`renders correctly 1`] = `
 <tr
   aria-expanded={false}
-  className="TableRow-sc-1tgwedx-0 sc-gtssRu gYAnID crDTFH"
+  className="TableRow-sc-1tgwedx-0 sc-gtssRu gYAnID dUGqAv"
   onClick={[Function]}
   role="button"
 >

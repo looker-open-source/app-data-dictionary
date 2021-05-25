@@ -28,11 +28,13 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { theme} from "@looker/components"
 import { ThemeProvider } from "styled-components"
+import { ILookmlModelExplore, IUser } from '@looker/sdk/lib/3.1/models';
 import { columns } from '../../components/DataDictionary'
 import { mockGroups, mockCurrentExplore, mockCurrentModel } from "../MockData/MockData";
 import { defaultShowColumns } from "../../components/PanelFields";
 
 import { Fields } from '../../components/Fields'
+import { ColumnDescriptor, CommentPermissions } from '../../components/interfaces';
 
 jest.mock("../../components/DetailDrawer", () => ({
   DetailDrawer: () => "DetailDrawer"
@@ -40,6 +42,7 @@ jest.mock("../../components/DetailDrawer", () => ({
 
 
 it('renders correctly', () => {
+  const fn = jest.fn()
   const tree = renderer.create(
     <ThemeProvider theme={theme}>
       <Fields
@@ -53,6 +56,13 @@ it('renders correctly', () => {
         fields={mockGroups[0][1]}
         search={null}
         shownColumns={defaultShowColumns}
+        comments=""
+        addComment={fn}
+        editComment={fn}
+        deleteComment={fn}
+        authors={[]}
+        me={{} as IUser}
+        permissions={{} as CommentPermissions}
       />
     </ThemeProvider>
   ).toJSON();

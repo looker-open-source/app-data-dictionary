@@ -24,6 +24,8 @@
 
  */
 
+import { ILookmlModelExplore, ILookModel } from "@looker/sdk/lib/3.1/models"
+
 // @ts-nocheck
 
 export const mockCurrentExplore = {
@@ -6910,7 +6912,7 @@ export const mockCurrentExplore = {
   "label": "Query History",
   "project_name": "block-snowflake-usage-config",
   "access_filter_fields": null
-}
+} as ILookmlModelExplore
 
 export const mockCurrentModel = {
   "explores": [{
@@ -6956,7 +6958,7 @@ export const mockCurrentModel = {
   "unlimited_db_connections": false,
   "allowed_db_connection_names": ["block-snowflake-usage"],
   "can": {"index": true, "show": true, "create": true, "update": true, "destroy": true}
-}
+} as ILookModel
 
 export const mockModels = [{
   "explores": [{
@@ -7900,7 +7902,7 @@ export const mockModels = [{
   "unlimited_db_connections": false,
   "allowed_db_connection_names": ["thelook"],
   "can": {"index": true, "show": true, "create": true, "update": true, "destroy": true}
-}]
+}] as any
 
 export const mockGroups = [
   ["Databases",
@@ -13874,7 +13876,7 @@ export const mockGroups = [
   "time_interval": null,
   "sql": "${credits_used} ",
   "sql_case": null
-}]]]
+}]]] as any
 
 export const mockComments = {
   comments: "{}",
@@ -13883,4 +13885,4 @@ export const mockComments = {
   addComment: ()=>{},
   editComment: ()=>{},
   deleteComment: ()=>{},
-}
+} as any

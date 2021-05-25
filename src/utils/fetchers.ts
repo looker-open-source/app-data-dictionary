@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react"
 import { ExtensionContext, ExtensionContextData } from "@looker/extension-sdk-react"
-import { Looker31SDK as LookerSDK, Looker31SDK } from '@looker/sdk/lib/sdk/3.1/methods'
-import { ILookmlModel, ILookmlModelExplore, IUser, IGroup } from "@looker/sdk/lib/sdk/4.0/models"
+import { Looker31SDK as LookerSDK } from '@looker/sdk'
+import { ILookmlModel, ILookmlModelExplore, IUser } from "@looker/sdk"
 import { FieldComments, CommentPermissions } from "../../src/components/interfaces";
 
 const globalCache: any = {}
