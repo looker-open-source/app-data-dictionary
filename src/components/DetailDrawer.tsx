@@ -64,6 +64,10 @@ const TableRowCustom = styled(TableRow as any)`
   cursor: pointer;
 `
 
+export interface LooselyIndexableField extends ILookmlModelExploreField {
+  [key: string]: any
+}
+
 export const DetailDrawer: React.FC<{
   columns: ColumnDescriptor[]
   explore: ILookmlModelExplore
@@ -195,6 +199,8 @@ export const DetailDrawer: React.FC<{
       <TableRowCustom>
         {columns.map(column => {
           if (shownColumns.includes(column.rowValueDescriptor)) {
+            const indexableField = field as LooselyIndexableField
+            const unformattedValue = indexableField[column.rowValueDescriptor]
             return (
               <TableDataCell
                 color="text3"
@@ -210,9 +216,8 @@ export const DetailDrawer: React.FC<{
                     : detailsPane
                 }
               >
-                {/* 
-                  // @ts-ignore prettier-ignore */}
-                {column.formatter(field[column.rowValueDescriptor],
+                {column.formatter(
+                  unformattedValue,
                   true,
                   field,
                   getFieldCommentsLength(field.name),
