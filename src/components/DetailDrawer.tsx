@@ -63,8 +63,8 @@ const TableRowCustom = styled(TableRow as any)`
   }
   cursor: pointer;
 `
-
-export interface LooselyIndexableField extends ILookmlModelExploreField {
+// TODO: Refactor column formatters to not need this
+interface LooselyIndexableField extends ILookmlModelExploreField {
   [key: string]: any
 }
 
