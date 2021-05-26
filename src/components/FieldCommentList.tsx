@@ -123,7 +123,7 @@ export const FieldCommentList: React.FC<{
     <Flex flexDirection="column">
       {sortedComments.map((comment: FieldComments) => {
         return (
-          <FlexItem pb="small">
+          <FlexItem pb="small" key={comment.pk}>
             <FieldComment
               comment={comment}
               editingComment={editingComment}

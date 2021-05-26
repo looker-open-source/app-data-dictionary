@@ -90,7 +90,11 @@ export const columns: ColumnDescriptor[] = [
     name: "category",
     label: "Category",
     rowValueDescriptor: "category",
-    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField) => {
+    formatter: function CategoryLabel(
+      x: any,
+      isRow: boolean,
+      field: ILookmlModelExploreField
+    ) {
       return <CategorizedLabel label={x} category={field.category} />
     },
     minWidth: "10em",
@@ -130,7 +134,7 @@ export const columns: ColumnDescriptor[] = [
   {
     label: "SQL",
     rowValueDescriptor: "sql",
-    formatter: (x: any, isRow: boolean) => {
+    formatter: function Snippets(x: any, isRow: boolean) {
       return <SQLSnippet isRow={isRow} src={x} />
     },
     minWidth: "10em",
@@ -142,7 +146,11 @@ export const columns: ColumnDescriptor[] = [
     label: "Tags",
     rowValueDescriptor: "tags",
     formatter: (tags: any) => {
-      return tags.map((tag: string) => <Chip disabled>{tag}</Chip>)
+      return tags.map((tag: string) => (
+        <Chip disabled key={tag}>
+          {tag}
+        </Chip>
+      ))
     },
     default: false
   }

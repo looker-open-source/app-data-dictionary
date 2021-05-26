@@ -242,7 +242,8 @@ export const PanelFields: React.FC<{
               mt="medium"
               onChange={(e: SyntheticEvent) => {
                 const target = e.target as HTMLInputElement
-                setSearch(target.value)}}
+                setSearch(target.value)
+              }}
               value={search}
             />
           </FlexItem>
