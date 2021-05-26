@@ -211,9 +211,8 @@ export const DetailDrawer: React.FC<{
                 }
               >
                 {/* 
-                  // @ts-ignore */}
-                {column.formatter(
-                  field[column.rowValueDescriptor],
+                  // @ts-ignore prettier-ignore */}
+                {column.formatter(field[column.rowValueDescriptor],
                   true,
                   field,
                   getFieldCommentsLength(field.name),

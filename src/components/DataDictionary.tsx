@@ -90,7 +90,7 @@ export const columns: ColumnDescriptor[] = [
     name: "category",
     label: "Category",
     rowValueDescriptor: "category",
-    formatter: function CategoryLabel(
+    formatter: function CategoryLabelFormatter(
       x: any,
       isRow: boolean,
       field: ILookmlModelExploreField
@@ -134,7 +134,7 @@ export const columns: ColumnDescriptor[] = [
   {
     label: "SQL",
     rowValueDescriptor: "sql",
-    formatter: function Snippets(x: any, isRow: boolean) {
+    formatter: function SqlSnippetFormatter(x: any, isRow: boolean) {
       return <SQLSnippet isRow={isRow} src={x} />
     },
     minWidth: "10em",
