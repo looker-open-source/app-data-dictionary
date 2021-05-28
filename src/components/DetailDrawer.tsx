@@ -63,10 +63,6 @@ const TableRowCustom = styled(TableRow as any)`
   }
   cursor: pointer;
 `
-// TODO: Refactor column formatters to not need this
-interface LooselyIndexableField extends ILookmlModelExploreField {
-  [key: string]: any
-}
 
 export const DetailDrawer: React.FC<{
   columns: ColumnDescriptor[]
