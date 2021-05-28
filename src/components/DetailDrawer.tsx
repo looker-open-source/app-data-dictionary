@@ -199,8 +199,8 @@ export const DetailDrawer: React.FC<{
       <TableRowCustom>
         {columns.map(column => {
           if (shownColumns.includes(column.rowValueDescriptor)) {
-            const indexableField = field as LooselyIndexableField
-            const unformattedValue = indexableField[column.rowValueDescriptor]
+            const unformattedValue =
+              field[column.rowValueDescriptor as keyof ILookmlModelExploreField]
             return (
               <TableDataCell
                 color="text3"
@@ -217,7 +217,7 @@ export const DetailDrawer: React.FC<{
                 }
               >
                 {column.formatter(
-                  unformattedValue,
+                  String(unformattedValue),
                   true,
                   field,
                   getFieldCommentsLength(field.name),
