@@ -201,6 +201,9 @@ export const DetailDrawer: React.FC<{
           if (shownColumns.includes(column.rowValueDescriptor)) {
             const unformattedValue =
               field[column.rowValueDescriptor as keyof ILookmlModelExploreField]
+            const displayValue = unformattedValue
+              ? String(unformattedValue)
+              : undefined
             return (
               <TableDataCell
                 color="text3"
@@ -217,7 +220,7 @@ export const DetailDrawer: React.FC<{
                 }
               >
                 {column.formatter(
-                  String(unformattedValue),
+                  displayValue,
                   true,
                   field,
                   getFieldCommentsLength(field.name),
