@@ -215,14 +215,15 @@ export const DetailDrawer: React.FC<{
                     : detailsPane
                 }
               >
-                {column.formatter(
-                  displayValue,
-                  true,
+                {column.formatter({
+                  x: displayValue,
+                  isRow: true,
                   field,
-                  getFieldCommentsLength(field.name),
-                  canViewComments(),
-                  permissions.reader
-                )}
+                  commentCount: getFieldCommentsLength(field.name),
+                  canComment: canViewComments(),
+                  reader: permissions.reader,
+                  tags: unformattedValue as string[]
+                })}
               </TableDataCell>
             )
           }
