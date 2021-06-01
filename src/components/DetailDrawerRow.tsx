@@ -37,6 +37,7 @@ export const DetailDrawerRow: React.FC<{
   const unformattedValue =
     field[column.rowValueDescriptor as keyof ILookmlModelExploreField]
   const displayValue = unformattedValue ? String(unformattedValue) : undefined
+  const Formatter = column.formatter
   return (
     <TableRow key={column.rowValueDescriptor}>
       <TableDataCell color="text" p="medium" pl="small" pr="small">
@@ -50,12 +51,12 @@ export const DetailDrawerRow: React.FC<{
         pr="small"
       >
         <Code color="text3" fontSize="small" className="break">
-          {column.formatter({
-            x: displayValue,
-            isRow: false,
-            field,
-            tags: unformattedValue as string[]
-          })}
+          <Formatter
+            x={displayValue}
+            isRow={false}
+            field={field}
+            tags={unformattedValue as string[]}
+          />
         </Code>
       </TableDataCell>
     </TableRow>

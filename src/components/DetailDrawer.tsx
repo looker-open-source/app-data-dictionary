@@ -193,10 +193,10 @@ export const DetailDrawer: React.FC<{
       onClose={closePaneUrl}
     >
       <TableRowCustom>
-        {columns.map(column => {
-          if (shownColumns.includes(column.rowValueDescriptor)) {
+        {columns.map(({ formatter: Formatter, ...props }) => {
+          if (shownColumns.includes(props.rowValueDescriptor)) {
             const unformattedValue =
-              field[column.rowValueDescriptor as keyof ILookmlModelExploreField]
+              field[props.rowValueDescriptor as keyof ILookmlModelExploreField]
             const displayValue = unformattedValue
               ? String(unformattedValue)
               : undefined
@@ -206,24 +206,24 @@ export const DetailDrawer: React.FC<{
                 p="medium"
                 pl="small"
                 fontWeight="normal"
-                key={column.rowValueDescriptor}
-                maxWidth={column.maxWidth}
-                minWidth={column.minWidth}
+                key={props.rowValueDescriptor}
+                maxWidth={props.maxWidth}
+                minWidth={props.minWidth}
                 onClick={
-                  column.rowValueDescriptor === "comment"
+                  props.rowValueDescriptor === "comment"
                     ? commentsPane
                     : detailsPane
                 }
               >
-                {column.formatter({
-                  x: displayValue,
-                  isRow: true,
-                  field,
-                  commentCount: getFieldCommentsLength(field.name),
-                  canComment: canViewComments(),
-                  reader: permissions.reader,
-                  tags: unformattedValue as string[]
-                })}
+                <Formatter
+                  x={displayValue}
+                  isRow={true}
+                  field={field}
+                  commentCount={getFieldCommentsLength(field.name)}
+                  canComment={canViewComments()}
+                  reader={permissions.reader}
+                  tags={unformattedValue as string[]}
+                />
               </TableDataCell>
             )
           }
