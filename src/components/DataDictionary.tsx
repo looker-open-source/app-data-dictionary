@@ -57,12 +57,12 @@ export const columns: ColumnDescriptor[] = [
     name: "comment-icon",
     label: " ",
     rowValueDescriptor: "comment",
-    formatter: ({
+    Formatter: function RenderCommentIcon({
       isRow,
       commentCount,
       canComment,
       reader
-    }: FormatterProps) => {
+    }: FormatterProps) {
       const showIcon = !reader || commentCount > 0
       if (canComment && isRow && showIcon) {
         return <CommentIcon count={commentCount} />
@@ -77,7 +77,7 @@ export const columns: ColumnDescriptor[] = [
     name: "field-label",
     label: "Field Label",
     rowValueDescriptor: "label_short",
-    formatter: ({ x, field }: FormatterProps) => {
+    Formatter: function RenderLabelShort({ x, field }: FormatterProps) {
       if (field.field_group_label && field.field_group_variant) {
         return <>{`${field.field_group_label} ${field.field_group_variant}`}</>
       } else {
@@ -91,12 +91,9 @@ export const columns: ColumnDescriptor[] = [
     name: "category",
     label: "Category",
     rowValueDescriptor: "category",
-    formatter: Object.assign(
-      ({ x, field }: FormatterProps) => {
-        return <CategorizedLabel label={x} category={field.category} />
-      },
-      { displayName: "CategoryLabel" }
-    ),
+    Formatter: function RenderCategoryLabel({ x, field }: FormatterProps) {
+      return <CategorizedLabel label={x} category={field.category} />
+    },
     minWidth: "10em",
     default: false
   },
@@ -104,15 +101,12 @@ export const columns: ColumnDescriptor[] = [
     name: "description",
     label: "Description",
     rowValueDescriptor: "description",
-    formatter: Object.assign(
-      ({ x, isRow }: FormatterProps) => {
-        if (x && isRow && x.length > 200) {
-          return <>{x.substring(0, 200) + "..."}</>
-        }
-        return <>{x}</>
-      },
-      { displayName: "Description" }
-    ),
+    Formatter: function RenderDescription({ x, isRow }: FormatterProps) {
+      if (x && isRow && x.length > 200) {
+        return <>{x.substring(0, 200) + "..."}</>
+      }
+      return <>{x}</>
+    },
     minWidth: "10em",
     default: true
   },
@@ -120,10 +114,9 @@ export const columns: ColumnDescriptor[] = [
     name: "lookml-name",
     label: "LookML Name",
     rowValueDescriptor: "name",
-    formatter: Object.assign(
-      ({ x }: FormatterProps) => <>{x.replace(/\./g, ".\u200B")}</>,
-      { displayName: "LookmlName" }
-    ),
+    Formatter: function RenderLookmlName({ x }: FormatterProps) {
+      return <>{x.replace(/\./g, ".\u200B")}</>
+    },
     minWidth: "8em",
     default: true
   },
@@ -131,19 +124,18 @@ export const columns: ColumnDescriptor[] = [
     name: "type",
     label: "Type",
     rowValueDescriptor: "type",
-    formatter: Object.assign(({ x }: FormatterProps) => <>{humanize(x)}</>, {
-      displayName: "Type"
-    }),
+    Formatter: function RenderType({ x }: FormatterProps) {
+      return <>{humanize(x)}</>
+    },
     minWidth: "8em",
     default: true
   },
   {
     label: "SQL",
     rowValueDescriptor: "sql",
-    formatter: Object.assign(
-      ({ x, isRow }: FormatterProps) => <SQLSnippet isRow={isRow} src={x} />,
-      { displayName: "SQLSnippet" }
-    ),
+    Formatter: function RenderSqlSnippet({ x, isRow }: FormatterProps) {
+      return <SQLSnippet isRow={isRow} src={x} />
+    },
     minWidth: "10em",
     name: "sql",
     default: true
@@ -152,8 +144,8 @@ export const columns: ColumnDescriptor[] = [
     name: "tags",
     label: "Tags",
     rowValueDescriptor: "tags",
-    formatter: Object.assign(
-      ({ tags }: FormatterProps) => (
+    Formatter: function RenderTags({ tags }: FormatterProps) {
+      return (
         <>
           {tags &&
             tags.map((tag: string) => (
@@ -162,9 +154,8 @@ export const columns: ColumnDescriptor[] = [
               </Chip>
             ))}
         </>
-      ),
-      { displayName: "TagList" }
-    ),
+      )
+    },
     default: false
   }
 ]

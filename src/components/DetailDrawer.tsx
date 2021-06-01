@@ -193,7 +193,7 @@ export const DetailDrawer: React.FC<{
       onClose={closePaneUrl}
     >
       <TableRowCustom>
-        {columns.map(({ formatter: Formatter, ...props }) => {
+        {columns.map(({ Formatter, ...props }) => {
           if (shownColumns.includes(props.rowValueDescriptor)) {
             const unformattedValue =
               field[props.rowValueDescriptor as keyof ILookmlModelExploreField]

@@ -29,7 +29,7 @@ export interface ColumnDescriptor {
   name: string
   label: string
   rowValueDescriptor: string
-  formatter: (props: FormatterProps) => JSX.Element
+  Formatter: (props: FormatterProps) => JSX.Element
   minWidth?: string
   maxWidth?: string
   default?: boolean
