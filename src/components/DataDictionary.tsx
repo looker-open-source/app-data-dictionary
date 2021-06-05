@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React, { FC } from "react"
 import {
   Chip,
   Flex,
@@ -103,7 +103,7 @@ export const columns: ColumnDescriptor[] = [
     rowValueDescriptor: "description",
     Formatter: function RenderDescription({ x, isRow }: FormatterProps) {
       if (x && isRow && x.length > 200) {
-        return <>{x.substring(0, 200) + "..."}</>
+        return <>{x.slice(0, 200) + "..."}</>
       }
       return <>{x}</>
     },
