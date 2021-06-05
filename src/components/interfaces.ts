@@ -23,24 +23,26 @@
  SOFTWARE.
 
  */
-
 import { ILookmlModelExploreField } from "@looker/sdk"
 
 export interface ColumnDescriptor {
   name: string
   label: string
   rowValueDescriptor: string
-  formatter: (
-    x: string,
-    isRow?: boolean,
-    field?: ILookmlModelExploreField,
-    commentCount?: number,
-    canComment?: boolean,
-    reader?: boolean
-  ) => string | JSX.Element
+  Formatter: React.ComponentType<FormatterProps>
   minWidth?: string
   maxWidth?: string
   default?: boolean
+}
+
+export interface FormatterProps {
+  x: string
+  isRow?: boolean
+  field?: ILookmlModelExploreField
+  commentCount?: number
+  canComment?: boolean
+  reader?: boolean
+  tags?: string[]
 }
 
 export interface SidebarStyleProps {

@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React, { FC } from "react"
 import {
   Chip,
   Flex,
@@ -40,13 +40,16 @@ import "./styles.css"
 import { PanelFields } from "./PanelFields"
 import SidebarToggle from "./SidebarToggle"
 import { useCurrentModel, useCurrentExplore } from "../utils/routes"
-import { ColumnDescriptor, SidebarStyleProps } from "./interfaces"
+import {
+  ColumnDescriptor,
+  SidebarStyleProps,
+  FormatterProps
+} from "./interfaces"
 import { SQLSnippet } from "./SQLSnippet"
 import { Sidebar } from "./Sidebar"
 import { CommentIcon } from "./CommentIcon"
 
 import { NoModelsAvailable } from "./NoModelsAvailable"
-import { ILookmlModelExploreField } from "@looker/sdk"
 import { CategorizedLabel } from "./CategorizedLabel"
 
 export const columns: ColumnDescriptor[] = [
@@ -54,14 +57,12 @@ export const columns: ColumnDescriptor[] = [
     name: "comment-icon",
     label: " ",
     rowValueDescriptor: "comment",
-    formatter: (
-      x: any,
-      isRow: boolean,
-      field: ILookmlModelExploreField,
-      commentCount: number,
-      canComment: boolean,
-      reader: boolean
-    ) => {
+    Formatter: function RenderCommentIcon({
+      isRow,
+      commentCount,
+      canComment,
+      reader
+    }: FormatterProps) {
       const showIcon = !reader || commentCount > 0
       if (canComment && isRow && showIcon) {
         return <CommentIcon count={commentCount} />
@@ -76,11 +77,11 @@ export const columns: ColumnDescriptor[] = [
     name: "field-label",
     label: "Field Label",
     rowValueDescriptor: "label_short",
-    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField) => {
+    Formatter: function RenderLabelShort({ x, field }: FormatterProps) {
       if (field.field_group_label && field.field_group_variant) {
-        return `${field.field_group_label} ${field.field_group_variant}`
+        return <>{`${field.field_group_label} ${field.field_group_variant}`}</>
       } else {
-        return x
+        return <>{x}</>
       }
     },
     minWidth: "12em",
@@ -90,7 +91,7 @@ export const columns: ColumnDescriptor[] = [
     name: "category",
     label: "Category",
     rowValueDescriptor: "category",
-    formatter: (x: any, isRow: boolean, field: ILookmlModelExploreField) => {
+    Formatter: function RenderCategoryLabel({ x, field }: FormatterProps) {
       return <CategorizedLabel label={x} category={field.category} />
     },
     minWidth: "10em",
@@ -100,11 +101,11 @@ export const columns: ColumnDescriptor[] = [
     name: "description",
     label: "Description",
     rowValueDescriptor: "description",
-    formatter: (x: any, isRow: boolean) => {
+    Formatter: function RenderDescription({ x, isRow }: FormatterProps) {
       if (x && isRow && x.length > 200) {
-        return x.substring(0, 200) + "..."
+        return <>{x.slice(0, 200) + "..."}</>
       }
-      return x
+      return <>{x}</>
     },
     minWidth: "10em",
     default: true
@@ -113,8 +114,8 @@ export const columns: ColumnDescriptor[] = [
     name: "lookml-name",
     label: "LookML Name",
     rowValueDescriptor: "name",
-    formatter: (x: any) => {
-      return x.replace(/\./g, ".\u200B")
+    Formatter: function RenderLookmlName({ x }: FormatterProps) {
+      return <>{x.replace(/\./g, ".\u200B")}</>
     },
     minWidth: "8em",
     default: true
@@ -123,14 +124,16 @@ export const columns: ColumnDescriptor[] = [
     name: "type",
     label: "Type",
     rowValueDescriptor: "type",
-    formatter: (x: any) => humanize(x),
+    Formatter: function RenderType({ x }: FormatterProps) {
+      return <>{humanize(x)}</>
+    },
     minWidth: "8em",
     default: true
   },
   {
     label: "SQL",
     rowValueDescriptor: "sql",
-    formatter: (x: any, isRow: boolean) => {
+    Formatter: function RenderSqlSnippet({ x, isRow }: FormatterProps) {
       return <SQLSnippet isRow={isRow} src={x} />
     },
     minWidth: "10em",
@@ -141,8 +144,17 @@ export const columns: ColumnDescriptor[] = [
     name: "tags",
     label: "Tags",
     rowValueDescriptor: "tags",
-    formatter: (tags: any) => {
-      return tags.map((tag: string) => <Chip disabled>{tag}</Chip>)
+    Formatter: function RenderTags({ tags }: FormatterProps) {
+      return (
+        <>
+          {tags &&
+            tags.map((tag: string) => (
+              <Chip disabled key={tag}>
+                {tag}
+              </Chip>
+            ))}
+        </>
+      )
     },
     default: false
   }

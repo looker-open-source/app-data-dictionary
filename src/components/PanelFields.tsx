@@ -24,7 +24,7 @@
 
  */
 
-import React, { useState, SyntheticEvent } from "react"
+import React, { useState, ChangeEvent } from "react"
 import { Fields } from "./Fields"
 import {
   Box,
@@ -240,9 +240,9 @@ export const PanelFields: React.FC<{
               hideSearchIcon
               placeholder="Filter fields in this Explore"
               mt="medium"
-              onChange={(e: SyntheticEvent) => {
-                const target = e.target as HTMLInputElement
-                setSearch(target.value)}}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                setSearch(e.target.value)
+              }}
               value={search}
             />
           </FlexItem>

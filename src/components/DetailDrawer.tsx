@@ -193,32 +193,37 @@ export const DetailDrawer: React.FC<{
       onClose={closePaneUrl}
     >
       <TableRowCustom>
-        {columns.map(column => {
-          if (shownColumns.includes(column.rowValueDescriptor)) {
+        {columns.map(({ Formatter, ...props }) => {
+          if (shownColumns.includes(props.rowValueDescriptor)) {
+            const unformattedValue =
+              field[props.rowValueDescriptor as keyof ILookmlModelExploreField]
+            const displayValue = unformattedValue
+              ? String(unformattedValue)
+              : undefined
             return (
               <TableDataCell
                 color="text3"
                 p="medium"
                 pl="small"
                 fontWeight="normal"
-                key={column.rowValueDescriptor}
-                maxWidth={column.maxWidth}
-                minWidth={column.minWidth}
+                key={props.rowValueDescriptor}
+                maxWidth={props.maxWidth}
+                minWidth={props.minWidth}
                 onClick={
-                  column.rowValueDescriptor === "comment"
+                  props.rowValueDescriptor === "comment"
                     ? commentsPane
                     : detailsPane
                 }
               >
-                {/* 
-                  // @ts-ignore */}
-                {column.formatter( field[column.rowValueDescriptor],
-                  true,
-                  field,
-                  getFieldCommentsLength(field.name),
-                  canViewComments(),
-                  permissions.reader
-                )}
+                <Formatter
+                  x={displayValue}
+                  isRow={true}
+                  field={field}
+                  commentCount={getFieldCommentsLength(field.name)}
+                  canComment={canViewComments()}
+                  reader={permissions.reader}
+                  tags={unformattedValue as string[]}
+                />
               </TableDataCell>
             )
           }
