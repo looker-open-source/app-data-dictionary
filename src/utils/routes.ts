@@ -25,10 +25,6 @@ export function internalExploreURL({
   return url
 }
 
-export function relationshipsURL({ model }: { model: string }) {
-  return `/models/${encodeURIComponent(model)}/relationships`
-}
-
 export function internalModelURL({ model }: { model: string }) {
   return `/models/${encodeURIComponent(model)}`
 }
@@ -38,7 +34,6 @@ export function usePathNames(): {
   exploreName?: string
   fieldName?: string
   detailPane?: string
-  isRelationships: boolean
 } {
   const match =
     useRouteMatch<{ model: string }>({
@@ -57,17 +52,11 @@ export function usePathNames(): {
       path: "/models/:model/explores/:explore/field/:field/pane/:tab",
     }) || undefined
 
-  const relMatch = useRouteMatch({
-    path: "/models/:model/relationships",
-    sensitive: true
-  })
-
   return {
     modelName: match && decodeURIComponent(match.params.model),
     exploreName: match2 && decodeURIComponent(match2.params.explore),
     fieldName: match3 && decodeURIComponent(match3.params.field),
     detailPane: match3 && match3.params.tab,
-    isRelationships: !!relMatch,
   }
 }
 

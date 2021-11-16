@@ -72,7 +72,6 @@ it('renders correctly', () => {
         currentExplore={mockCurrentExplore}
         loadingExplore={null}
         columns={columns}
-        model={mockCurrentModel}
         comments={"{}"}
         addComment={()=>{}}
         editComment={()=>{}}

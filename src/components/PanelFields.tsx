@@ -98,7 +98,6 @@ export const PanelFields: React.FC<{
   currentExplore: ILookmlModelExplore | null
   currentModel: ILookmlModel | null
   loadingExplore: string
-  model: ILookmlModel
   comments: string
   addComment: (newCommentStr: string, field: string) => void
   editComment: (newCommentStr: string, field: string) => void
@@ -111,7 +110,6 @@ export const PanelFields: React.FC<{
   currentExplore,
   currentModel,
   loadingExplore,
-  model,
   comments,
   addComment,
   editComment,
@@ -273,7 +271,7 @@ export const PanelFields: React.FC<{
                   fields={group[1]}
                   key={group[0]}
                   label={group[0]}
-                  model={model}
+                  model={currentModel}
                   search={search}
                   shownColumns={shownColumns}
                   comments={comments}
