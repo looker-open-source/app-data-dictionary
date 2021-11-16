@@ -1,6 +1,6 @@
 {
   "name": "app-data-dictionary",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --no-inline --no-hot",

@@ -65,10 +65,10 @@ export const getGroups = async (sdk: LookerSDK) => {
 
 export function useAllModels() {
   const { coreSDK } = useContext(ExtensionContext)
-  const [allModels, allModelsSetter] = useState<ILookmlModel[] | undefined>(undefined)
+  const [allModels, setAllModels] = useState<ILookmlModel[] | undefined>(undefined)
   useEffect(() => {
     async function fetcher() {
-      allModelsSetter(await loadAllModels(coreSDK))
+      setAllModels(await loadAllModels(coreSDK))
     }
     fetcher()
   }, [coreSDK])
@@ -77,14 +77,16 @@ export function useAllModels() {
 
 export function useExplore(modelName?: string, exploreName?: string) {
   const { coreSDK } = useContext(ExtensionContext)
-  const [currentExplore, exploreSetter] = useState<ILookmlModelExplore | undefined>(undefined)
-  const [loadingExplore, loadingExploreSetter] = useState(null)
+  const [currentExplore, setCurrentExplore] = useState<ILookmlModelExplore | undefined>(undefined)
+  const [loadingExplore, setLoadingExplore] = useState(null)
   useEffect(() => {
     async function fetcher() {
       if (modelName && exploreName) {
-        loadingExploreSetter(exploreName)
-        exploreSetter(await loadCachedExplore(coreSDK, modelName, exploreName))
-        loadingExploreSetter(null)
+        setLoadingExplore(exploreName)
+        setCurrentExplore(await loadCachedExplore(coreSDK, modelName, exploreName))
+        setLoadingExplore(null)
+      } else {
+        setCurrentExplore(undefined)
       }
     }
     fetcher()

@@ -238,7 +238,6 @@ export const DataDictionary: React.FC<{}> = () => {
               currentExplore={currentExplore}
               currentModel={currentModel}
               loadingExplore={loadingExplore}
-              model={currentModel}
               comments={comments}
               addComment={addComment}
               editComment={editComment}
