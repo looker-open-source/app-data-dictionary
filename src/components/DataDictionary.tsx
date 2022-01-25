@@ -189,7 +189,7 @@ export const DataDictionary: React.FC<{}> = () => {
 
   if (!models) {
     return (
-      <Flex alignItems="center" height="100%" justifyContent="center">
+      <Flex alignItems="center" height="100vh" justifyContent="center">
         <Spinner />
       </Flex>
     )
