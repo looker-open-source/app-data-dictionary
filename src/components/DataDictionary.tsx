@@ -28,7 +28,6 @@ import React from 'react'
 import {
   Chip,
   Flex,
-  FlexItem,
   Heading,
   Spinner,
   ComponentsProvider,
@@ -202,16 +201,9 @@ export const DataDictionary = () => {
     <ComponentsProvider>
       <div style={{ minWidth: '1200px' }}>
         <PageHeader>
-          <FlexItem>
-            <Heading
-              as="h1"
-              fontSize="xlarge"
-              fontWeight="semiBold"
-              mb="xsmall"
-            >
-              Data Dictionary
-            </Heading>
-          </FlexItem>
+          <Heading as="h1" fontSize="xlarge" fontWeight="semiBold">
+            Data Dictionary
+          </Heading>
         </PageHeader>
         <PageLayout open={sidebarOpen}>
           <LayoutSidebar>
@@ -255,13 +247,8 @@ export const DataDictionary = () => {
 }
 
 const PageHeader = styled(Flex as any)`
-  background-color: ${theme.colors.key};
-  background-position: 100% 0;
-  background-repeat: no-repeat;
-  background-size: 836px 120px;
+  background-color: ${theme.colors.inform};
   padding: ${theme.space.large};
-  background-image: url('https://marketplace-api.looker.com/app-assets/spirals.png');
-
   h1 {
     color: ${theme.colors.keyText};
   }

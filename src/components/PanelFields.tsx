@@ -24,7 +24,6 @@
 
  */
 
-import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import {
   Box,
@@ -239,9 +238,7 @@ export const PanelFields: React.FC<{
               hideSearchIcon
               placeholder="Filter fields in this Explore"
               mt="medium"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setSearch(e.target.value)
-              }}
+              onChange={setSearch}
               value={search}
             />
           </FlexItem>

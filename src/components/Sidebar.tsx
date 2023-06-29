@@ -87,7 +87,7 @@ export const Sidebar: React.FC<{
           hideSearchIcon
           placeholder="Search Model"
           mt="medium"
-          onChange={(e) => setSearch(e.currentTarget.value)}
+          onChange={setSearch}
           value={search}
         />
       </FlexItem>
