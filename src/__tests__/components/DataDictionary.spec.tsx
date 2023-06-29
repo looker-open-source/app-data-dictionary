@@ -25,7 +25,8 @@
  */
 
 import React from 'react'
-import { assertSnapshot } from '@looker/components-test-utils'
+import { screen } from '@testing-library/react'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import {
   mockModels,
   mockComments,
@@ -68,16 +69,11 @@ jest.mock('../../components/CategorizedLabel', () => ({
   CategorizedLabel: () => 'CategorizedLabel',
 }))
 
-jest.mock('@looker/components', () => ({
-  Chip: () => 'Chip',
-  Flex: () => 'Flex',
-  FlexItem: () => 'FlexItem',
-  Heading: () => 'Heading',
-  Spinner: () => 'Spinner',
-  IconButton: () => 'IconButton',
-  theme: { colors: { key: 'purple' }, space: { large: '2em' } },
-}))
-
-it('renders correctly', () => {
-  assertSnapshot(<DataDictionary />)
+describe('<PanelFields>', () => {
+  it('renders correctly', () => {
+    renderWithExtensionContext(<DataDictionary />)
+    expect(screen.getByText(/Data Dictionary/)).toBeInTheDocument()
+    expect(screen.getByText(/Close Sidebar/)).toBeInTheDocument()
+    expect(screen.getByText(/PanelFields/)).toBeInTheDocument()
+  })
 })
