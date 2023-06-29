@@ -24,9 +24,9 @@
 
  */
 
-import React from "react"
-import { Flex } from "@looker/components"
-import styled from "styled-components"
+import React from 'react'
+import { Flex } from '@looker/components'
+import styled from 'styled-components'
 
 const Main = styled(Flex as any)`
   width: 100%;

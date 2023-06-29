@@ -24,14 +24,14 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 
 import { ViewOptions } from '../../components/ViewOptions'
-import { columns } from "../../components/DataDictionary";
-import { defaultShowColumns } from "../../components/PanelFields";
+import { columns } from '../../components/DataDictionary'
+import { defaultShowColumns } from '../../components/PanelFields'
 
 it('renders correctly', () => {
   const tree = renderer
@@ -40,9 +40,13 @@ it('renders correctly', () => {
         <ViewOptions
           columns={columns}
           shownColumns={defaultShowColumns}
-          setShownColumns={() => {}}
-        />)
+          setShownColumns={() => {
+            // noop
+          }}
+        />
+        )
       </ThemeProvider>
-    ).toJSON();
-  expect(tree).toMatchSnapshot();
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

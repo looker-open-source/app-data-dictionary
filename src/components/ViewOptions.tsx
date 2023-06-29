@@ -24,14 +24,15 @@
 
  */
 
-import React, { SyntheticEvent } from "react"
+import type { SyntheticEvent } from 'react'
+import React from 'react'
 import {
   ButtonOutline,
   FieldCheckbox,
   Popover,
-  PopoverContent
-} from "@looker/components"
-import { ColumnDescriptor } from "./interfaces"
+  PopoverContent,
+} from '@looker/components'
+import type { ColumnDescriptor } from './interfaces'
 
 const checkChange = (
   setShownColumns: (newState: string[]) => void,
@@ -43,7 +44,7 @@ const checkChange = (
     if (target.checked) {
       setShownColumns([...shownColumns, columnDesc])
     } else {
-      setShownColumns(shownColumns.filter(x => x !== columnDesc))
+      setShownColumns(shownColumns.filter((x) => x !== columnDesc))
     }
   }
 }
@@ -57,7 +58,7 @@ export const ViewOptions: React.FC<{
     <Popover
       content={
         <PopoverContent p="xsmall" width="150px">
-          {columns.map(column => {
+          {columns.map((column) => {
             return (
               <FieldCheckbox
                 key={column.name}

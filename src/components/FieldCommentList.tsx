@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   ButtonOutline,
   Button,
@@ -32,17 +32,17 @@ import {
   FlexItem,
   FieldTextArea,
   Space,
-  Text
-} from "@looker/components"
+  Text,
+} from '@looker/components'
 
-import {
+import type {
   IUser,
   ILookmlModelExploreField,
-  ILookmlModelExplore
-} from "@looker/sdk"
-import { UserData, FieldComments, CommentPermissions } from "./interfaces"
-import { FieldComment } from "./FieldComment"
-import { NOT_EDITING_COMMENT } from "../utils/constants"
+  ILookmlModelExplore,
+} from '@looker/sdk'
+import { NOT_EDITING_COMMENT } from '../utils/constants'
+import type { UserData, FieldComments, CommentPermissions } from './interfaces'
+import { FieldComment } from './FieldComment'
 
 export const FieldCommentList: React.FC<{
   sortedComments: FieldComments[]
@@ -59,15 +59,14 @@ export const FieldCommentList: React.FC<{
   addComment,
   editComment,
   deleteComment,
-  explore,
   field,
   commentAuthors,
   me,
-  permissions
+  permissions,
 }) => {
   const [addingNew, setAddingNew] = React.useState(false)
-  const [editingComment, setEditingComment] = React.useState("")
-  const [commentContent, setCommentContent] = React.useState("")
+  const [editingComment, setEditingComment] = React.useState('')
+  const [commentContent, setCommentContent] = React.useState('')
 
   const toggleNew = () => {
     setAddingNew(!addingNew)
@@ -82,7 +81,7 @@ export const FieldCommentList: React.FC<{
       timestamp: generated_timestamp,
       edited: false,
       content: commentContent,
-      pk: `${generated_timestamp}::${me.id}`
+      pk: `${generated_timestamp}::${me.id}`,
     }
     addComment(JSON.stringify(comment), field.name)
     setAddingNew(false)
@@ -90,7 +89,7 @@ export const FieldCommentList: React.FC<{
   const getCommentAuthorData = (author_id: number) => {
     const commentAuthor =
       commentAuthors &&
-      commentAuthors.filter(d => {
+      commentAuthors.filter((d) => {
         return d.id === author_id
       })
     let authorData: UserData
@@ -99,21 +98,21 @@ export const FieldCommentList: React.FC<{
         first_name: me.first_name,
         last_name: me.last_name,
         display_name: me.display_name,
-        avatar_url: me.avatar_url
+        avatar_url: me.avatar_url,
       }
     } else if (commentAuthor.length === 0) {
       authorData = {
-        first_name: "Deleted",
-        last_name: "User",
-        display_name: "Deleted User",
-        avatar_url: ""
+        first_name: 'Deleted',
+        last_name: 'User',
+        display_name: 'Deleted User',
+        avatar_url: '',
       }
     } else {
       authorData = {
-        avatar_url: commentAuthor[0].avatar_url,
-        first_name: commentAuthor[0].first_name,
-        last_name: commentAuthor[0].last_name,
-        display_name: commentAuthor[0].display_name
+        avatar_url: commentAuthor[0].avatar_url || '',
+        first_name: commentAuthor[0].first_name || '',
+        last_name: commentAuthor[0].last_name || '',
+        display_name: commentAuthor[0].display_name || '',
       }
     }
     return authorData
@@ -141,27 +140,30 @@ export const FieldCommentList: React.FC<{
           </FlexItem>
         )
       })}
-      {addingNew ? (
-        <FlexItem pb="small">
-          <FieldTextArea
-            autoFocus
-            onChange={handleChange}
-            aria-label="NewCommentTextArea"
-          />
-          <Space pt="small" gap="xsmall" reverse>
-            <Button size="medium" onClick={addToComments}>
-              Comment
-            </Button>
-            <ButtonOutline size="medium" color="neutral" onClick={toggleNew}>
-              Cancel
-            </ButtonOutline>
-          </Space>
-        </FlexItem>
-      ) : editingComment === NOT_EDITING_COMMENT && !permissions.reader ? (
-        <Button fullWidth onClick={toggleNew}>
-          Add Comment
-        </Button>
-      ) : null}
+      {
+        // eslint-disable-next-line no-nested-ternary
+        addingNew ? (
+          <FlexItem pb="small">
+            <FieldTextArea
+              autoFocus
+              onChange={handleChange}
+              aria-label="NewCommentTextArea"
+            />
+            <Space pt="small" gap="xsmall" reverse>
+              <Button size="medium" onClick={addToComments}>
+                Comment
+              </Button>
+              <ButtonOutline size="medium" color="neutral" onClick={toggleNew}>
+                Cancel
+              </ButtonOutline>
+            </Space>
+          </FlexItem>
+        ) : editingComment === NOT_EDITING_COMMENT && !permissions.reader ? (
+          <Button fullWidth onClick={toggleNew}>
+            Add Comment
+          </Button>
+        ) : null
+      }
       <Text pt="small" fontSize="xsmall" variant="secondary">
         These comments are unique to fields in the Data Dictionary and are not
         saved to any LookML description.

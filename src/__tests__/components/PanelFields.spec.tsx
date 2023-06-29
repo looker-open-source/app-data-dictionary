@@ -24,32 +24,32 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 import { columns } from '../../components/DataDictionary'
-import { mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
+import { mockCurrentModel, mockCurrentExplore } from '../MockData/MockData'
 import { PanelFields } from '../../components/PanelFields'
 
-jest.mock("../../components/DetailDrawer", () => ({
-  DetailDrawer: () => "DetailDrawer"
+jest.mock('../../components/DetailDrawer', () => ({
+  DetailDrawer: () => 'DetailDrawer',
 }))
 
-jest.mock("../../components/Fields", () => ({
-  Fields: () => "Fields"
+jest.mock('../../components/Fields', () => ({
+  Fields: () => 'Fields',
 }))
 
-jest.mock("../../components/ViewOptions", () => ({
-  ViewOptions: () => "ViewOptions"
+jest.mock('../../components/ViewOptions', () => ({
+  ViewOptions: () => 'ViewOptions',
 }))
 
-jest.mock("../../components/ExternalLink", () => ({
-  ExternalLink: () => "ExternalLink"
+jest.mock('../../components/ExternalLink', () => ({
+  ExternalLink: () => 'ExternalLink',
 }))
 
-jest.mock("../../components/QuickSearch", () => ({
-  QuickSearch: () => "QuickSearch"
+jest.mock('../../components/QuickSearch', () => ({
+  QuickSearch: () => 'QuickSearch',
 }))
 
 jest.mock('../../utils/routes', () => {
@@ -59,28 +59,29 @@ jest.mock('../../utils/routes', () => {
     }),
     useCurrentExplore: jest.fn(() => {
       return mockCurrentExplore
-    })
+    }),
   }
 })
 
-
 it('renders correctly', () => {
-  const tree = renderer.create(
-    <ThemeProvider theme={theme}>
-      <PanelFields
-        currentModel={mockCurrentModel}
-        currentExplore={mockCurrentExplore}
-        loadingExplore={null}
-        columns={columns}
-        comments={"{}"}
-        addComment={()=>{}}
-        editComment={()=>{}}
-        deleteComment={()=>{}}
-        authors={[]}
-        me={{}}
-        permissions={{}}
-      />
-    </ThemeProvider>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
+  const tree = renderer
+    .create(
+      <ThemeProvider theme={theme}>
+        <PanelFields
+          currentModel={mockCurrentModel}
+          currentExplore={mockCurrentExplore}
+          loadingExplore={null}
+          columns={columns}
+          comments={'{}'}
+          addComment={jest.fn()}
+          editComment={jest.fn()}
+          deleteComment={jest.fn()}
+          authors={[]}
+          me={{}}
+          permissions={{}}
+        />
+      </ThemeProvider>
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

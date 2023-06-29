@@ -24,45 +24,45 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme, ComponentsProvider } from "@looker/components"
-import { assertSnapshot } from "@looker/components-test-utils"
+import React from 'react'
+import { assertSnapshot } from '@looker/components-test-utils'
 import { FieldCommentDisplay } from '../../components/FieldCommentDisplay'
 
-jest.mock("@looker/components", () => ({
-  FlexItem: () => "FlexItem",
-  Card: () => "Card",
-  CardContent: () => "CardContent",
-  Flex: () => "Flex",
-  AvatarUser: () => "AvatarUser",
-  Text: () => "Text",
-  IconButton: () => "IconButton",
-  SpaceVertical: () => "SpaceVertical",
-  Menu: () => "Menu",
-  MenuDisclosure: () => "MenuDisclosure",
-  MenuList: () => "MenuList",
-  MenuItem: () => "Heading",
-  Icon: () => "Icon",
+jest.mock('@looker/components', () => ({
+  FlexItem: () => 'FlexItem',
+  Card: () => 'Card',
+  CardContent: () => 'CardContent',
+  Flex: () => 'Flex',
+  AvatarUser: () => 'AvatarUser',
+  Text: () => 'Text',
+  IconButton: () => 'IconButton',
+  SpaceVertical: () => 'SpaceVertical',
+  Menu: () => 'Menu',
+  MenuDisclosure: () => 'MenuDisclosure',
+  MenuList: () => 'MenuList',
+  MenuItem: () => 'Heading',
+  Icon: () => 'Icon',
 }))
 
 it('renders correctly', () => {
-  assertSnapshot(<FieldCommentDisplay
-    authorData={{
-      display_name: "Mr. Foo Bar",
-      first_name: "Foo",
-      last_name: "Bar",
-      avatar_url: "imgsrv.com/foo/bar"
-    }}
-    comment={{
-      pk: "timestamp::author",
-      author: 1,
-      content: "This is my comment.",
-      timestamp: 7171717171,
-      edited: false
-    }}
-    showDetails={()=>""}
-    toggleEdit={()=>{}}
-    openDialog={()=>{}}
-/>)
+  assertSnapshot(
+    <FieldCommentDisplay
+      authorData={{
+        display_name: 'Mr. Foo Bar',
+        first_name: 'Foo',
+        last_name: 'Bar',
+        avatar_url: 'imgsrv.com/foo/bar',
+      }}
+      comment={{
+        pk: 'timestamp::author',
+        author: 1,
+        content: 'This is my comment.',
+        timestamp: 7171717171,
+        edited: false,
+      }}
+      showDetails={() => ''}
+      toggleEdit={jest.fn()}
+      openDialog={jest.fn()}
+    />
+  )
 })

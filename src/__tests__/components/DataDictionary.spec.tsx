@@ -24,9 +24,14 @@
 
  */
 
-import React from 'react';
-import { mockModels, mockComments, mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
-import { assertSnapshot } from "@looker/components-test-utils"
+import React from 'react'
+import { assertSnapshot } from '@looker/components-test-utils'
+import {
+  mockModels,
+  mockComments,
+  mockCurrentModel,
+  mockCurrentExplore,
+} from '../MockData/MockData'
 import { DataDictionary } from '../../components/DataDictionary'
 
 jest.mock('../../utils/fetchers', () => {
@@ -51,26 +56,26 @@ jest.mock('../../utils/routes', () => {
   }
 })
 
-jest.mock("../../components/PanelFields", () => ({
-  PanelFields: () => "PanelFields"
+jest.mock('../../components/PanelFields', () => ({
+  PanelFields: () => 'PanelFields',
 }))
 
-jest.mock("../../components/Sidebar", () => ({
-  Sidebar: () => "Sidebar"
+jest.mock('../../components/Sidebar', () => ({
+  Sidebar: () => 'Sidebar',
 }))
 
-jest.mock("../../components/CategorizedLabel", () => ({
-  CategorizedLabel: () => "CategorizedLabel"
+jest.mock('../../components/CategorizedLabel', () => ({
+  CategorizedLabel: () => 'CategorizedLabel',
 }))
 
-jest.mock("@looker/components", () => ({
-  Chip: () => "Chip",
-  Flex: () => "Flex",
-  FlexItem: () => "FlexItem",
-  Heading: () => "Heading",
-  Spinner: () => "Spinner",
-  IconButton: () => "IconButton",
-  theme: {colors: {key:"purple"}, space: {large: "2em"}},
+jest.mock('@looker/components', () => ({
+  Chip: () => 'Chip',
+  Flex: () => 'Flex',
+  FlexItem: () => 'FlexItem',
+  Heading: () => 'Heading',
+  Spinner: () => 'Spinner',
+  IconButton: () => 'IconButton',
+  theme: { colors: { key: 'purple' }, space: { large: '2em' } },
 }))
 
 it('renders correctly', () => {

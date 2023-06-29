@@ -24,20 +24,21 @@
 
  */
 
-import React from "react"
+import React from 'react'
+import { AddComment } from '@styled-icons/material-rounded'
 import {
   FlexItem,
   ButtonTransparent,
   IconButton,
-  Tooltip
-} from "@looker/components"
+  Tooltip,
+} from '@looker/components'
 
 export const CommentIcon: React.FC<{
   count: number
 }> = ({ count }) => {
   return (
     <FlexItem>
-      {" "}
+      {' '}
       {count !== null ? (
         <Tooltip content="View Comments">
           <ButtonTransparent iconBefore="Comment" color="neutral" size="small">
@@ -47,7 +48,7 @@ export const CommentIcon: React.FC<{
       ) : (
         <IconButton
           label="Add Comment"
-          icon="AddComment"
+          icon={<AddComment />}
           color="neutral"
           className="disabled"
         />

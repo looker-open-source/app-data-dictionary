@@ -23,7 +23,7 @@
  SOFTWARE.
 
  */
-import { ILookmlModelExploreField } from "@looker/sdk"
+import type { ILookmlModelExploreField } from '@looker/sdk'
 
 export interface ColumnDescriptor {
   name: string

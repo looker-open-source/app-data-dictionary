@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   FlexItem,
   Card,
@@ -38,10 +38,10 @@ import {
   MenuDisclosure,
   MenuList,
   MenuItem,
-  Icon
-} from "@looker/components"
-import { FieldComments, UserData } from "./interfaces"
-import styled from "styled-components"
+  Icon,
+} from '@looker/components'
+import styled from 'styled-components'
+import type { FieldComments, UserData } from './interfaces'
 
 const CustomCommentCard = styled(Card as any)`
   .show {
@@ -83,7 +83,7 @@ export const FieldCommentDisplay: React.FC<{
               <FlexItem>
                 <Text fontSize="xsmall" variant="secondary">
                   {timestamp.toLocaleString()}
-                  {comment.edited ? " (edited)" : null}
+                  {comment.edited ? ' (edited)' : null}
                 </Text>
               </FlexItem>
             </FlexItem>

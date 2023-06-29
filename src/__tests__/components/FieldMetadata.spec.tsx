@@ -24,26 +24,26 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 import { FieldMetadata } from '../../components/FieldMetadata'
 
-jest.mock("../../components/DetailDrawerRow", () => ({
-  DetailDrawerRow: () => "DetailDrawerRow"
+jest.mock('../../components/DetailDrawerRow', () => ({
+  DetailDrawerRow: () => 'DetailDrawerRow',
 }))
 
-jest.mock("../../components/QueryChart", () => ({
-  QueryChart: () => "QueryChart"
+jest.mock('../../components/QueryChart', () => ({
+  QueryChart: () => 'QueryChart',
 }))
 
-jest.mock("../../components/ExternalLink", () => ({
-  ExternalLink: () => "ExternalLink"
+jest.mock('../../components/ExternalLink', () => ({
+  ExternalLink: () => 'ExternalLink',
 }))
 
-jest.mock("../../components/FieldCommentList", () => ({
-  FieldCommentList: () => "FieldCommentList"
+jest.mock('../../components/FieldCommentList', () => ({
+  FieldCommentList: () => 'FieldCommentList',
 }))
 
 it('renders correctly', () => {
@@ -54,15 +54,15 @@ it('renders correctly', () => {
           field={{}}
           columns={[]}
           explore={{}}
-          key={""}
+          key={''}
           model={{}}
           tab={0}
-          detailsPane={()=>{}}
-          commentsPane={()=>{}}
+          detailsPane={jest.fn()}
+          commentsPane={jest.fn()}
           sortedComments={[]}
-          addComment={()=>{}}
-          editComment={()=>{}}
-          deleteComment={()=>{}}
+          addComment={jest.fn()}
+          editComment={jest.fn()}
+          deleteComment={jest.fn()}
           fieldCommentLength={0}
           commentAuthors={[]}
           me={{}}
@@ -71,6 +71,6 @@ it('renders correctly', () => {
         />
       </ThemeProvider>
     )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

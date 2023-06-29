@@ -24,10 +24,10 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 
 import { SQLSnippet } from '../../components/SQLSnippet'
 
@@ -35,11 +35,9 @@ it('renders correctly', () => {
   const tree = renderer
     .create(
       <ThemeProvider theme={theme}>
-        <SQLSnippet
-          isRow={false}
-          src={"SELECT * from users;"}
-        />)
+        <SQLSnippet isRow={false} src={'SELECT * from users;'} />)
       </ThemeProvider>
-    ).toJSON();
-  expect(tree).toMatchSnapshot();
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

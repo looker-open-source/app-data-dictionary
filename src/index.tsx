@@ -24,18 +24,18 @@
 
  */
 
-import React from "react"
-import * as ReactDOM from "react-dom"
-import { Extension } from "./components/Extension"
-import { ExtensionProvider } from "@looker/extension-sdk-react"
+import React from 'react'
+import * as ReactDOM from 'react-dom'
+import { ExtensionProvider40 } from '@looker/extension-sdk-react'
+import { Extension } from './components/Extension'
 
-window.addEventListener("DOMContentLoaded", () => {
-  const root = document.createElement("div")
+window.addEventListener('DOMContentLoaded', () => {
+  const root = document.createElement('div')
   document.body.appendChild(root)
   ReactDOM.render(
-    <ExtensionProvider chattyTimeout={300000}>
+    <ExtensionProvider40 chattyTimeout={300000}>
       <Extension />
-    </ExtensionProvider>,
+    </ExtensionProvider40>,
     root
   )
 })
