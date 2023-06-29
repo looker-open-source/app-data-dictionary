@@ -69,7 +69,7 @@ jest.mock('../../components/CategorizedLabel', () => ({
   CategorizedLabel: () => 'CategorizedLabel',
 }))
 
-describe('<PanelFields>', () => {
+describe('<DataDictionary>', () => {
   it('renders correctly', () => {
     renderWithExtensionContext(<DataDictionary />)
     expect(screen.getByText(/Data Dictionary/)).toBeInTheDocument()
