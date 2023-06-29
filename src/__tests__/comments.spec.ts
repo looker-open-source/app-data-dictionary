@@ -23,7 +23,7 @@
  SOFTWARE.
 
  */
-const { getAuthorIds, determinePermissions } = require('../utils/fetchers')
+import { getAuthorIds, determinePermissions } from '../utils/fetchers'
 
 // getAuthorIds
 test('no explores', () => {

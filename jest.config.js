@@ -32,7 +32,8 @@
    '@looker/components',
    '@looker/icons',
    '@looker/design-tokens',
-   'react-syntax-highlighter'
+   'react-syntax-highlighter',
+   'd3-color'
  ]
 
  const excludeNodeModulesExceptRegExp = excludeNodeModuleExcept([...ownModules])
@@ -56,9 +57,11 @@
    testPathIgnorePatterns: [
     "<rootDir>/src/__tests__/MockData"
    ],
-  //  setupFilesAfterEnv: [
-  //   "<rootDir>/src/__tests__/test_setup.js"
-  // ],
+   setupFilesAfterEnv: [
+    // "<rootDir>/src/__tests__/test_setup.js"
+    '@testing-library/jest-dom/extend-expect',
+    'regenerator-runtime/runtime',
+  ],
   globals: {
      'ts-jest': {
        isolatedModules: true,

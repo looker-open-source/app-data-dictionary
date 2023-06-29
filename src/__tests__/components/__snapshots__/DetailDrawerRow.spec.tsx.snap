@@ -2,23 +2,18 @@
 
 exports[`renders correctly 1`] = `
 <tr
-  className="TableRow-sc-1tgwedx-0 gYAnID"
+  className="TableRow-sc-1ty7jg8-0 gyYQVo"
 >
   <td
-    className="TableDataCell-sc-1ehugof-0 ctFtsH"
-    color="text"
+    className="TableDataCell-sc-1ougxp0-0 kXNLFN"
   >
      
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 hBJa-Dj break"
-    color="text3"
+    className="TableDataCell-sc-1ougxp0-0 gDzkhl break"
   >
     <code
-      className="TextBase-sc-1sjok63-0 Code-sc-1b6zsy0-0 guzlQN break"
-      color="text3"
-      fontFamily="code"
-      fontSize="small"
+      className="TextBase-sc-90l5yt-0 Code-sc-3cj3ur-0 cPYcMC break"
     />
   </td>
 </tr>

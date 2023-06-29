@@ -3,44 +3,34 @@
 exports[`renders correctly 1`] = `
 <tr
   aria-expanded={false}
-  className="TableRow-sc-1tgwedx-0 sc-gtssRu gYAnID dUGqAv"
+  className="TableRow-sc-1ty7jg8-0 sc-dcJsrY gyYQVo hrDGjz"
   onClick={[Function]}
   role="button"
 >
   <td
-    className="TableDataCell-sc-1ehugof-0 dgixgo"
-    color="text3"
-    fontWeight="normal"
+    className="TableDataCell-sc-1ougxp0-0 kIfudW"
     onClick={[Function]}
   >
     Comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 eINDZi"
-    color="text3"
-    fontWeight="normal"
+    className="TableDataCell-sc-1ougxp0-0 eIawQM"
     onClick={[Function]}
   />
   <td
-    className="TableDataCell-sc-1ehugof-0 eimCTP"
-    color="text3"
-    fontWeight="normal"
+    className="TableDataCell-sc-1ougxp0-0 fVlSxR"
     onClick={[Function]}
   >
     databases.​comment
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 eimCTP"
-    color="text3"
-    fontWeight="normal"
+    className="TableDataCell-sc-1ougxp0-0 fVlSxR"
     onClick={[Function]}
   >
     String
   </td>
   <td
-    className="TableDataCell-sc-1ehugof-0 eINDZi"
-    color="text3"
-    fontWeight="normal"
+    className="TableDataCell-sc-1ougxp0-0 eIawQM"
     onClick={[Function]}
   >
     <pre
@@ -51,7 +41,7 @@ exports[`renders correctly 1`] = `
       }
     >
       <code
-        className="sc-dIsAE gNlDhJ"
+        className="sc-cwHptR dBNVIg"
         style={
           Object {
             "MozHyphens": "none",

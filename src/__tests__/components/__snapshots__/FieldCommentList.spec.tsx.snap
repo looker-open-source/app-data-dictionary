@@ -2,20 +2,34 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="Flex-sc-1ak395a-0 jAuRlG"
+  className="Flex-sc-1ak395a-0 ifrcWG"
 >
   <button
-    className="ButtonBase__ButtonOuter-sc-1bpio6j-0 cSzqXc ButtonBase-sc-1bpio6j-1 Button-sc-18euc9m-0 gzZLNH ekbhoA"
+    className="ButtonBase__ButtonOuter-sc-1bpio6j-0 wcwKt ButtonBase-sc-1bpio6j-1 Button-sc-18euc9m-0 ksxDbK bwJWWl"
     onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
     onKeyUp={[Function]}
-    size="medium"
+    onMouseDown={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
+    onMouseUp={[Function]}
+    style={
+      Object {
+        "--ripple-color": "#FFFFFF",
+        "--ripple-overflow": "hidden",
+        "--ripple-scale-end": 1,
+        "--ripple-scale-start": 0.1,
+        "--ripple-size": "100%",
+        "--ripple-translate": "0, 0",
+      }
+    }
   >
     Add Comment
   </button>
   <span
-    className="TextBase-sc-1sjok63-0 Text-sc-1wcc5y1-0 gdjBpx kdlxrc"
-    fontSize="xsmall"
+    className="TextBase-sc-90l5yt-0 Span-sc-1e8sfe6-0 Text-sc-1d84yfs-0 llYKOD fIOIIE"
   >
     These comments are unique to fields in the Data Dictionary and are not saved to any LookML description.
   </span>
