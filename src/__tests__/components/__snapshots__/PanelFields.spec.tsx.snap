@@ -42,7 +42,7 @@ exports[`renders correctly 1`] = `
           aria-haspopup="true"
           aria-label=" combobox"
           className="Box-sc-5738oh-0 fZQzfn Combobox-sc-cyiezv-0 InputSearch-sc-c2e1s0-0 sc-iGgWBj  eyMnWb"
-          id="315379ef-b0d1-4679-b409-3d3252d3cf9d"
+          id="697325f1-88ff-4466-9d77-e250bfa9a788"
           role="combobox"
         >
           <div
@@ -54,7 +54,7 @@ exports[`renders correctly 1`] = `
               aria-autocomplete="both"
               autoComplete="off"
               className="InputText__StyledInput-sc-6cvg1f-0 cgYrkC"
-              id="listbox-input-315379ef-b0d1-4679-b409-3d3252d3cf9d"
+              id="listbox-input-697325f1-88ff-4466-9d77-e250bfa9a788"
               onBlur={[Function]}
               onChange={[Function]}
               onFocus={[Function]}
