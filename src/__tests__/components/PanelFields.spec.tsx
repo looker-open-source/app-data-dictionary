@@ -25,11 +25,11 @@
  */
 
 import React from 'react'
-import renderer from 'react-test-renderer'
-import { ComponentsProvider } from '@looker/components'
+import { screen } from '@testing-library/react'
+import { PanelFields } from '../../components/PanelFields'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import { columns } from '../../components/DataDictionary'
 import { mockCurrentModel, mockCurrentExplore } from '../MockData/MockData'
-import { PanelFields } from '../../components/PanelFields'
 
 jest.mock('../../components/DetailDrawer', () => ({
   DetailDrawer: () => 'DetailDrawer',
@@ -62,25 +62,29 @@ jest.mock('../../utils/routes', () => {
   }
 })
 
-it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ComponentsProvider>
-        <PanelFields
-          currentModel={mockCurrentModel}
-          currentExplore={mockCurrentExplore}
-          loadingExplore={null}
-          columns={columns}
-          comments={'{}'}
-          addComment={jest.fn()}
-          editComment={jest.fn()}
-          deleteComment={jest.fn()}
-          authors={[]}
-          me={{}}
-          permissions={{}}
-        />
-      </ComponentsProvider>
+describe('<PanelFields>', () => {
+  it('renders correctly', () => {
+    renderWithExtensionContext(
+      <PanelFields
+        currentModel={mockCurrentModel}
+        currentExplore={mockCurrentExplore}
+        loadingExplore={null}
+        columns={columns}
+        comments={'{}'}
+        addComment={jest.fn()}
+        editComment={jest.fn()}
+        deleteComment={jest.fn()}
+        authors={[]}
+        me={{}}
+        permissions={{}}
+      />
     )
-    .toJSON()
-  expect(tree).toMatchSnapshot()
+    expect(screen.getByText('Snowflake Usage')).toBeInTheDocument()
+    expect(
+      screen.getByText('Select a field for more information.')
+    ).toBeInTheDocument()
+    expect(screen.getByText(/ExternalLink/)).toBeInTheDocument()
+    expect(screen.getByText(/ViewOptions/)).toBeInTheDocument()
+    expect(screen.getByText(/Fields/)).toBeInTheDocument()
+  })
 })

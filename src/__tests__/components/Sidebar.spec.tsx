@@ -26,15 +26,13 @@
 
 import React from 'react'
 import { screen } from '@testing-library/react'
-// import { assertSnapshot } from '@looker/components-test-utils'
+import { Sidebar } from '../../components/Sidebar'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import {
   mockCurrentExplore,
   mockCurrentModel,
   mockModels,
 } from '../MockData/MockData'
-
-import { Sidebar } from '../../components/Sidebar'
-import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 
 jest.mock('react-router', () => {
   return {
