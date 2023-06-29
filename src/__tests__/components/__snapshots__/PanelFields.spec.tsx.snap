@@ -2,66 +2,83 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="Box-sc-5738oh-0 sc-dlnjPT eqlWJo eWlZuf"
+  className="StyleDefender-sc-1kd51tv-0 fQmNoh looker-components-reset"
 >
   <div
-    className="Flex-sc-1ak395a-0 kYivOg"
+    className="Box-sc-5738oh-0 sc-eqUAAy kMujgW gprWdi"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 iunkBy"
-    >
-      <h1
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 jxVrDv hTEfbx"
-        fontFamily="brand"
-        fontSize="xxlarge"
-        fontWeight="semiBold"
-      >
-        Snowflake Usage
-      </h1>
-      <h4
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 ilTIhv lksPkV"
-        fontFamily="brand"
-        fontSize="medium"
-        fontWeight="normal"
-      >
-        Select a field for more information.
-      </h4>
-    </div>
-    <div
-      className="FlexItem-sc-1xhpm9o-0 iunkBy"
-    >
-      ExternalLink
-      ViewOptions
-    </div>
-  </div>
-  <div
-    className="Flex-sc-1ak395a-0 cOonEg"
-  >
-    <div
-      className="FlexItem-sc-1xhpm9o-0 ijaGTj"
-      width="350px"
+      className="Flex-sc-1ak395a-0 cDOVng"
     >
       <div
-        className="InputText-sc-6cvg1f-2 fFlyRR sc-jSFkmK iHdHnq"
-        onMouseDown={[Function]}
+        className="FlexItem-sc-1xhpm9o-0 hVeONI"
       >
-        <input
-          className="InputText__StyledInput-sc-6cvg1f-0 kPMZOS"
-          onChange={[Function]}
-          placeholder="Filter fields in this Explore"
-          type="text"
-          value=""
-        />
+        <h1
+          className="TextBase-sc-90l5yt-0 Heading-sc-m5s1gl-0 cCiPVn bXhYYS"
+        >
+          Snowflake Usage
+        </h1>
+        <h4
+          className="TextBase-sc-90l5yt-0 Heading-sc-m5s1gl-0 dssaYU bXhYYS"
+        >
+          Select a field for more information.
+        </h4>
+      </div>
+      <div
+        className="FlexItem-sc-1xhpm9o-0 hVeONI"
+      >
+        ExternalLink
+        ViewOptions
       </div>
     </div>
-  </div>
-  QuickSearch
-  <div
-    className="Box-sc-5738oh-0 hPsATA"
-  >
-    Fields
-    Fields
-    Fields
+    <div
+      className="Flex-sc-1ak395a-0 eHXCaI"
+    >
+      <div
+        className="FlexItem-sc-1xhpm9o-0 hbdqcV"
+      >
+        <div
+          aria-expanded={false}
+          aria-haspopup="true"
+          aria-label=" combobox"
+          className="Box-sc-5738oh-0 fZQzfn Combobox-sc-cyiezv-0 InputSearch-sc-c2e1s0-0 sc-iGgWBj  eyMnWb"
+          id="315379ef-b0d1-4679-b409-3d3252d3cf9d"
+          role="combobox"
+        >
+          <div
+            className="InputText-sc-6cvg1f-1 kbqraa ComboboxInput-sc-1c0xkr8-0 dFhyEw"
+            onClick={[Function]}
+            onMouseDown={[Function]}
+          >
+            <input
+              aria-autocomplete="both"
+              autoComplete="off"
+              className="InputText__StyledInput-sc-6cvg1f-0 cgYrkC"
+              id="listbox-input-315379ef-b0d1-4679-b409-3d3252d3cf9d"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              placeholder="Filter fields in this Explore"
+              readOnly={false}
+              type="text"
+              value=""
+            />
+            <div
+              className="AdvancedInputControls-sc-1e7uo3l-0 eOsANC"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    QuickSearch
+    <div
+      className="Box-sc-5738oh-0 denBny"
+    >
+      Fields
+      Fields
+      Fields
+    </div>
   </div>
 </div>
 `;

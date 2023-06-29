@@ -26,8 +26,7 @@
 
 import React from 'react'
 import renderer from 'react-test-renderer'
-import { theme } from '@looker/components'
-import { ThemeProvider } from 'styled-components'
+import { ComponentsProvider } from '@looker/components'
 import { columns } from '../../components/DataDictionary'
 import { mockCurrentModel, mockCurrentExplore } from '../MockData/MockData'
 import { PanelFields } from '../../components/PanelFields'
@@ -66,7 +65,7 @@ jest.mock('../../utils/routes', () => {
 it('renders correctly', () => {
   const tree = renderer
     .create(
-      <ThemeProvider theme={theme}>
+      <ComponentsProvider>
         <PanelFields
           currentModel={mockCurrentModel}
           currentExplore={mockCurrentExplore}
@@ -80,7 +79,7 @@ it('renders correctly', () => {
           me={{}}
           permissions={{}}
         />
-      </ThemeProvider>
+      </ComponentsProvider>
     )
     .toJSON()
   expect(tree).toMatchSnapshot()
