@@ -86,19 +86,19 @@ export const FieldCommentList: React.FC<{
     addComment(JSON.stringify(comment), field.name)
     setAddingNew(false)
   }
-  const getCommentAuthorData = (author_id: number) => {
+  const getCommentAuthorData = (author_id: string | number) => {
     const commentAuthor =
       commentAuthors &&
       commentAuthors.filter((d) => {
-        return d.id === author_id
+        return d.id === author_id.toString()
       })
     let authorData: UserData
     if (me.id === author_id) {
       authorData = {
-        first_name: me.first_name,
-        last_name: me.last_name,
-        display_name: me.display_name,
-        avatar_url: me.avatar_url,
+        first_name: me.first_name || '',
+        last_name: me.last_name || '',
+        display_name: me.display_name || '',
+        avatar_url: me.avatar_url || '',
       }
     } else if (commentAuthor.length === 0) {
       authorData = {

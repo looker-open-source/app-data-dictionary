@@ -50,7 +50,7 @@ export interface SidebarStyleProps {
 }
 
 export interface FieldComments {
-  author: number
+  author: number | string
   timestamp: number
   content: string
   edited: boolean

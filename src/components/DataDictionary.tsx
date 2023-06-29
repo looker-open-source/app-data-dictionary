@@ -36,7 +36,7 @@ import {
 } from '@looker/components'
 import humanize from 'humanize-string'
 import styled from 'styled-components'
-import { useAllModels, getComments } from '../utils/fetchers'
+import { useAllModels, useComments } from '../utils/fetchers'
 import './styles.css'
 import { useCurrentModel, useCurrentExplore } from '../utils/routes'
 import { PanelFields } from './PanelFields'
@@ -175,7 +175,7 @@ export const DataDictionary = () => {
     addComment,
     editComment,
     deleteComment,
-  } = getComments(currentExplore)
+  } = useComments(currentExplore)
 
   let models
 
@@ -188,7 +188,7 @@ export const DataDictionary = () => {
     }
   }
 
-  if (!models) {
+  if (!models || !me) {
     return (
       <Flex alignItems="center" height="100vh" justifyContent="center">
         <Spinner />

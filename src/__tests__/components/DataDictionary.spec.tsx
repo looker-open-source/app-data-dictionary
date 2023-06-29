@@ -39,7 +39,7 @@ jest.mock('../../utils/fetchers', () => {
     useAllModels: jest.fn(() => {
       return mockModels
     }),
-    getComments: jest.fn(() => {
+    useComments: jest.fn(() => {
       return mockComments
     }),
   }

@@ -32,7 +32,6 @@ import type {
   ILookmlModelExplore,
   IUser,
 } from '@looker/sdk'
-import { DelimArray } from '@looker/sdk-rtl'
 import type {
   FieldComments,
   CommentPermissions,
@@ -68,10 +67,14 @@ export const loadCachedExplore = async (
   )
 }
 
-export const loadUsers = async (coreSDK: ILooker40SDK, ids: number[]) => {
-  return coreSDK.ok(
-    coreSDK.all_users({ ids: new DelimArray(ids.map((id) => id + '')) })
-  )
+export const loadUsers = async (coreSDK: ILooker40SDK, ids: string[]) => {
+  if (ids && ids.length > 0) {
+    return coreSDK.ok(
+      // TODO extensionSDK cannot handle serialization of DelimArray
+      coreSDK.all_users({ ids: ids.join(',') as any })
+    )
+  }
+  return []
 }
 
 export const loadAllModels = async (sdk: ILooker40SDK) => {
@@ -184,15 +187,15 @@ export function useModelDetail(modelName?: string) {
 
 export function getAuthorIds(commentString: string) {
   const comments = JSON.parse(commentString)
-  const authorIds: number[] = []
+  const authorIds: string[] = []
 
   const commentExplores = Object.keys(comments)
   commentExplores.forEach((i) => {
     const commentExploreFields = Object.keys(comments[i])
     commentExploreFields.forEach((j) => {
       comments[i][j].forEach((c: FieldComments) => {
-        if (!authorIds.includes(c.author)) {
-          authorIds.push(c.author)
+        if (!authorIds.includes(c.author.toString())) {
+          authorIds.push(c.author.toString())
         }
       })
     })
@@ -225,23 +228,18 @@ export interface DetailedModel {
   explores: ILookmlModelExplore[]
 }
 
-export function getComments(currentExplore: ILookmlModelExplore) {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+export function useComments(currentExplore?: ILookmlModelExplore) {
   const { extensionSDK, coreSDK } = useContext<ExtensionContextData40>(
     ExtensionContext40
   )
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [permissions, setPermissions] = useState<CommentPermissions>({
     disabled: false,
     reader: false,
     writer: true,
     manager: false,
   })
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [authors, setAuthors] = React.useState<IUser[]>([])
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [comments, setComments] = React.useState('{}')
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [me, setMe] = React.useState<IUser>()
 
   const addComment = async (
@@ -250,7 +248,7 @@ export function getComments(currentExplore: ILookmlModelExplore) {
   ): Promise<void> => {
     const revivedComments = JSON.parse(comments)
     const newComment = JSON.parse(newCommentStr)
-    if (currentExplore.name) {
+    if (currentExplore && currentExplore.name) {
       // TODO Figure out what this is supposed to be doing
       // eslint-disable-next-line no-unused-expressions
       revivedComments[currentExplore.name]
@@ -327,7 +325,6 @@ export function getComments(currentExplore: ILookmlModelExplore) {
     }
   }
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
     const initialize = async () => {
       // Context requires Looker version 7.14.0. If not supported provide
@@ -352,7 +349,8 @@ export function getComments(currentExplore: ILookmlModelExplore) {
       }
     }
     initialize()
-  }, [currentExplore, extensionSDK, coreSDK, me])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentExplore])
 
   return {
     comments,
