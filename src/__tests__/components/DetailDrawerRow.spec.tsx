@@ -24,12 +24,12 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { mockCurrentExplore } from "../MockData/MockData";
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
+import { mockCurrentExplore } from '../MockData/MockData'
 import { columns } from '../../components/DataDictionary'
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
 import { DetailDrawerRow } from '../../components/DetailDrawerRow'
 
 it('renders correctly', () => {
@@ -42,6 +42,6 @@ it('renders correctly', () => {
         />
       </ThemeProvider>
     )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

@@ -24,44 +24,45 @@
 
  */
 
-import React, { FC } from "react"
+import React from 'react'
 import {
   Chip,
   Flex,
   FlexItem,
   Heading,
   Spinner,
-  theme
-} from "@looker/components"
-import humanize from "humanize-string"
-import styled, { ThemeProvider } from "styled-components"
-import { useAllModels, getComments } from "../utils/fetchers"
-import "./styles.css"
-import { PanelFields } from "./PanelFields"
-import SidebarToggle from "./SidebarToggle"
-import { useCurrentModel, useCurrentExplore } from "../utils/routes"
-import {
+  ComponentsProvider,
+  theme,
+} from '@looker/components'
+import humanize from 'humanize-string'
+import styled from 'styled-components'
+import { useAllModels, getComments } from '../utils/fetchers'
+import './styles.css'
+import { useCurrentModel, useCurrentExplore } from '../utils/routes'
+import { PanelFields } from './PanelFields'
+import SidebarToggle from './SidebarToggle'
+import type {
   ColumnDescriptor,
   SidebarStyleProps,
-  FormatterProps
-} from "./interfaces"
-import { SQLSnippet } from "./SQLSnippet"
-import { Sidebar } from "./Sidebar"
-import { CommentIcon } from "./CommentIcon"
+  FormatterProps,
+} from './interfaces'
+import { SQLSnippet } from './SQLSnippet'
+import { Sidebar } from './Sidebar'
+import { CommentIcon } from './CommentIcon'
 
-import { NoModelsAvailable } from "./NoModelsAvailable"
-import { CategorizedLabel } from "./CategorizedLabel"
+import { NoModelsAvailable } from './NoModelsAvailable'
+import { CategorizedLabel } from './CategorizedLabel'
 
 export const columns: ColumnDescriptor[] = [
   {
-    name: "comment-icon",
-    label: " ",
-    rowValueDescriptor: "comment",
+    name: 'comment-icon',
+    label: ' ',
+    rowValueDescriptor: 'comment',
     Formatter: function RenderCommentIcon({
       isRow,
       commentCount,
       canComment,
-      reader
+      reader,
     }: FormatterProps) {
       const showIcon = !reader || commentCount > 0
       if (canComment && isRow && showIcon) {
@@ -70,13 +71,13 @@ export const columns: ColumnDescriptor[] = [
         return null
       }
     },
-    maxWidth: "4em",
-    default: true
+    maxWidth: '4em',
+    default: true,
   },
   {
-    name: "field-label",
-    label: "Field Label",
-    rowValueDescriptor: "label_short",
+    name: 'field-label',
+    label: 'Field Label',
+    rowValueDescriptor: 'label_short',
     Formatter: function RenderLabelShort({ x, field }: FormatterProps) {
       if (field.field_group_label && field.field_group_variant) {
         return <>{`${field.field_group_label} ${field.field_group_variant}`}</>
@@ -84,66 +85,66 @@ export const columns: ColumnDescriptor[] = [
         return <>{x}</>
       }
     },
-    minWidth: "12em",
-    default: true
+    minWidth: '12em',
+    default: true,
   },
   {
-    name: "category",
-    label: "Category",
-    rowValueDescriptor: "category",
+    name: 'category',
+    label: 'Category',
+    rowValueDescriptor: 'category',
     Formatter: function RenderCategoryLabel({ x, field }: FormatterProps) {
       return <CategorizedLabel label={x} category={field.category} />
     },
-    minWidth: "10em",
-    default: false
+    minWidth: '10em',
+    default: false,
   },
   {
-    name: "description",
-    label: "Description",
-    rowValueDescriptor: "description",
+    name: 'description',
+    label: 'Description',
+    rowValueDescriptor: 'description',
     Formatter: function RenderDescription({ x, isRow }: FormatterProps) {
       if (x && isRow && x.length > 200) {
-        return <>{x.slice(0, 200) + "..."}</>
+        return <>{x.slice(0, 200) + '...'}</>
       }
       return <>{x}</>
     },
-    minWidth: "10em",
-    default: true
+    minWidth: '10em',
+    default: true,
   },
   {
-    name: "lookml-name",
-    label: "LookML Name",
-    rowValueDescriptor: "name",
+    name: 'lookml-name',
+    label: 'LookML Name',
+    rowValueDescriptor: 'name',
     Formatter: function RenderLookmlName({ x }: FormatterProps) {
-      return <>{x.replace(/\./g, ".\u200B")}</>
+      return <>{x.replace(/\./g, '.\u200B')}</>
     },
-    minWidth: "8em",
-    default: true
+    minWidth: '8em',
+    default: true,
   },
   {
-    name: "type",
-    label: "Type",
-    rowValueDescriptor: "type",
+    name: 'type',
+    label: 'Type',
+    rowValueDescriptor: 'type',
     Formatter: function RenderType({ x }: FormatterProps) {
       return <>{humanize(x)}</>
     },
-    minWidth: "8em",
-    default: true
+    minWidth: '8em',
+    default: true,
   },
   {
-    label: "SQL",
-    rowValueDescriptor: "sql",
+    label: 'SQL',
+    rowValueDescriptor: 'sql',
     Formatter: function RenderSqlSnippet({ x, isRow }: FormatterProps) {
       return <SQLSnippet isRow={isRow} src={x} />
     },
-    minWidth: "10em",
-    name: "sql",
-    default: true
+    minWidth: '10em',
+    name: 'sql',
+    default: true,
   },
   {
-    name: "tags",
-    label: "Tags",
-    rowValueDescriptor: "tags",
+    name: 'tags',
+    label: 'Tags',
+    rowValueDescriptor: 'tags',
     Formatter: function RenderTags({ tags }: FormatterProps) {
       return (
         <>
@@ -156,15 +157,15 @@ export const columns: ColumnDescriptor[] = [
         </>
       )
     },
-    default: false
-  }
+    default: false,
+  },
 ]
 
-export const DataDictionary: React.FC<{}> = () => {
+export const DataDictionary = () => {
   const unfilteredModels = useAllModels()
   const currentModel = useCurrentModel()
   const [sidebarOpen, setSidebarOpen] = React.useState(true)
-  const [search, setSearch] = React.useState("")
+  const [search, setSearch] = React.useState('')
   const { currentExplore, loadingExplore } = useCurrentExplore()
   const {
     comments,
@@ -173,14 +174,14 @@ export const DataDictionary: React.FC<{}> = () => {
     permissions,
     addComment,
     editComment,
-    deleteComment
+    deleteComment,
   } = getComments(currentExplore)
 
   let models
 
   if (unfilteredModels) {
     models = unfilteredModels.filter(
-      m => m.explores && m.explores.some(e => !e.hidden)
+      (m) => m.explores && m.explores.some((e) => !e.hidden)
     )
     if (!models.length) {
       return <NoModelsAvailable />
@@ -198,8 +199,8 @@ export const DataDictionary: React.FC<{}> = () => {
   const toggleFn = () => setSidebarOpen(!sidebarOpen)
 
   return (
-    <ThemeProvider theme={theme}>
-      <div style={{ minWidth: "1200px" }}>
+    <ComponentsProvider>
+      <div style={{ minWidth: '1200px' }}>
         <PageHeader>
           <FlexItem>
             <Heading
@@ -249,7 +250,7 @@ export const DataDictionary: React.FC<{}> = () => {
           </PageContent>
         </PageLayout>
       </div>
-    </ThemeProvider>
+    </ComponentsProvider>
   )
 }
 
@@ -259,7 +260,7 @@ const PageHeader = styled(Flex as any)`
   background-repeat: no-repeat;
   background-size: 836px 120px;
   padding: ${theme.space.large};
-  background-image: url("https://marketplace-api.looker.com/app-assets/spirals.png");
+  background-image: url('https://marketplace-api.looker.com/app-assets/spirals.png');
 
   h1 {
     color: ${theme.colors.keyText};
@@ -270,8 +271,8 @@ const PageLayout = styled.div<SidebarStyleProps>`
   display: grid;
   grid-template-rows: 1fr;
   grid-template-columns: ${({ open }) =>
-    open ? "16.625rem 0 1fr" : "1.5rem 0 1fr"};
-  grid-template-areas: "sidebar divider main";
+    open ? '16.625rem 0 1fr' : '1.5rem 0 1fr'};
+  grid-template-areas: 'sidebar divider main';
   position: relative;
 `
 
@@ -292,7 +293,7 @@ const LayoutSidebar = styled.aside`
 const SidebarDivider = styled.div<SidebarStyleProps>`
   transition: border 0.3s;
   border-left: 1px solid
-    ${({ theme, open }) => (open ? theme.colors.ui2 : "transparent")};
+    ${({ theme, open }) => (open ? theme.colors.ui2 : 'transparent')};
   grid-area: divider;
   overflow: visible;
   position: relative;

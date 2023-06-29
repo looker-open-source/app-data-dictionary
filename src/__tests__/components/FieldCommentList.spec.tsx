@@ -24,33 +24,33 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 import { FieldCommentList } from '../../components/FieldCommentList'
 
-jest.mock("../../components/FieldComment", () => ({
-  FieldComment: () => "FieldComment"
+jest.mock('../../components/FieldComment', () => ({
+  FieldComment: () => 'FieldComment',
 }))
 
 it('renders correctly', () => {
   const tree = renderer
     .create(
       <ThemeProvider theme={theme}>
-        <FieldCommentList 
-            sortedComments={[]}
-            addComment={()=>{}}
-            editComment={()=>{}}
-            deleteComment={()=>{}}
-            explore={{}}
-            field={{}}
-            commentAuthors={[]}
-            me={{}}
-            permissions={{}}
+        <FieldCommentList
+          sortedComments={[]}
+          addComment={jest.fn()}
+          editComment={jest.fn()}
+          deleteComment={jest.fn()}
+          explore={{}}
+          field={{}}
+          commentAuthors={[]}
+          me={{}}
+          permissions={{}}
         />
       </ThemeProvider>
     )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

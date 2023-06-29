@@ -24,11 +24,11 @@
 
  */
 
-import React from "react"
-import { Code, TableRow, TableDataCell } from "@looker/components"
+import React from 'react'
+import { Code, TableRow, TableDataCell } from '@looker/components'
 
-import { ILookmlModelExploreField } from "@looker/sdk"
-import { ColumnDescriptor } from "./interfaces"
+import type { ILookmlModelExploreField } from '@looker/sdk'
+import type { ColumnDescriptor } from './interfaces'
 
 export const DetailDrawerRow: React.FC<{
   column: ColumnDescriptor

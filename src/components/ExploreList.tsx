@@ -24,13 +24,12 @@
 
  */
 
-import React from "react"
-import styled from "styled-components"
-import { FlexItem, List, ListItem, MenuItem, theme } from "@looker/components"
-import "./styles.css"
-import { internalExploreURL, useCurrentModel } from "../utils/routes"
-import { useHistory } from "react-router"
-import { ILookmlModelExplore } from "@looker/sdk"
+import React from 'react'
+import { FlexItem, List, ListItem, theme } from '@looker/components'
+import './styles.css'
+import { useHistory } from 'react-router'
+import type { ILookmlModelExplore } from '@looker/sdk'
+import { internalExploreURL, useCurrentModel } from '../utils/routes'
 
 const isActive = (
   currentExplore: ILookmlModelExplore,
@@ -42,9 +41,9 @@ const isActive = (
     currentExplore &&
     listExplore.name === currentExplore.name
   ) {
-    return "active"
+    return 'active'
   } else if (loadingExplore && listExplore.name === loadingExplore) {
-    return "active"
+    return 'active'
   } else {
     return null
   }
@@ -58,9 +57,10 @@ export const ExploreList: React.FC<{
   const currentModel = useCurrentModel()
   const history = useHistory()
   return (
-    <FlexItem pt="xlarge">
-      <List>
+    <FlexItem pt="xlarge" ml="xsmall">
+      <List density={0} color={theme.colors.key}>
         {currentModel &&
+          currentModel.explores &&
           currentModel.explores.map((explore: any) => {
             if (
               !explore.hidden &&
@@ -68,48 +68,26 @@ export const ExploreList: React.FC<{
                 explore.label.toLowerCase().includes(search.toLowerCase()))
             ) {
               return (
-                <ListItem mb="0" key={explore.name}>
-                  <CustomLink
-                    onClick={() => {
-                      history.push(
-                        internalExploreURL({
-                          model: currentModel.name,
-                          explore: explore.name
-                        })
-                      )
-                    }}
-                    className={isActive(
-                      currentExplore,
-                      explore,
-                      loadingExplore
-                    )}
-                  >
-                    {explore.label}
-                  </CustomLink>
+                <ListItem
+                  key={explore.name}
+                  truncate={true}
+                  onClick={() => {
+                    history.push(
+                      internalExploreURL({
+                        model: currentModel.name || '',
+                        explore: explore.name,
+                      })
+                    )
+                  }}
+                  selected={isActive(currentExplore, explore, loadingExplore)}
+                >
+                  {explore.label}
                 </ListItem>
               )
             }
+            return undefined
           })}
       </List>
     </FlexItem>
   )
 }
-
-const CustomLink = styled(MenuItem as any)`
-  color: ${theme.colors.keyPressed};
-  display: block;
-  transition: all 0.3s ease;
-
-  button {
-    padding: ${theme.space.small} ${theme.space.large};
-  }
-
-  &.active,
-  &:hover,
-  &:focus {
-    background-color: ${theme.colors.keySubtle};
-    color: ${theme.colors.key};
-    text-decoration: none;
-  }
-  cursor: pointer;
-`

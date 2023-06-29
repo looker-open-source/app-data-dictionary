@@ -24,14 +24,14 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme } from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
 import { FieldComment } from '../../components/FieldComment'
 
-jest.mock("../../components/FieldCommentDisplay", () => ({
-  FieldCommentDisplay: () => "FieldCommentDisplay"
+jest.mock('../../components/FieldCommentDisplay', () => ({
+  FieldCommentDisplay: () => 'FieldCommentDisplay',
 }))
 
 it('renders correctly', () => {
@@ -40,31 +40,31 @@ it('renders correctly', () => {
       <ThemeProvider theme={theme}>
         <FieldComment
           comment={{
-            pk: "timestamp::author",
+            pk: 'timestamp::author',
             author: 1,
-            content: "This is my comment.",
+            content: 'This is my comment.',
             timestamp: 7171717171,
-            edited: false
+            edited: false,
           }}
-          editingComment={""}
-          setEditingComment={()=>{}}
-          setCommentContent={()=>{}}
-          editComment={()=>{}}
-          deleteComment={()=>{}}
-          commentContent={""}
+          editingComment={''}
+          setEditingComment={jest.fn()}
+          setCommentContent={jest.fn()}
+          editComment={jest.fn()}
+          deleteComment={jest.fn()}
+          commentContent={''}
           field={{}}
           authorData={{
-            display_name: "Mr. Foo Bar",
-            first_name: "Foo",
-            last_name: "Bar",
-            avatar_url: "imgsrv.com/foo/bar"
+            display_name: 'Mr. Foo Bar',
+            first_name: 'Foo',
+            last_name: 'Bar',
+            avatar_url: 'imgsrv.com/foo/bar',
           }}
           me={{}}
           addingNew={false}
           permissions={{}}
-          />
+        />
       </ThemeProvider>
     )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

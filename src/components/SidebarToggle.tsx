@@ -24,9 +24,11 @@
 
  */
 
-import React, { FC } from "react"
-import { IconButton, IconNames } from "@looker/components"
-import styled from "styled-components"
+import type { FC } from 'react'
+import React from 'react'
+import { ChevronLeft, ChevronRight } from '@styled-icons/material-rounded'
+import { IconButton } from '@looker/components'
+import styled from 'styled-components'
 
 interface SidebarToggleProps {
   isOpen: boolean
@@ -37,17 +39,17 @@ interface SidebarToggleProps {
 const SidebarToggle: FC<SidebarToggleProps> = ({
   isOpen,
   onClick,
-  headerHeight
+  headerHeight,
 }) => {
-  const iconName: IconNames = isOpen ? "CaretLeft" : "CaretRight"
+  const icon = isOpen ? <ChevronLeft /> : <ChevronRight />
 
   return (
     <SidebarToggleWrapper headerHeight={headerHeight}>
       <IconButton
         shape="round"
-        icon={iconName}
+        icon={icon}
         onClick={onClick}
-        label={isOpen ? "Close Sidebar" : "Open Sidebar"}
+        label={isOpen ? 'Close Sidebar' : 'Open Sidebar'}
         size="small"
         outline
       />
@@ -61,7 +63,7 @@ interface WrapperProps {
 
 const SidebarToggleWrapper = styled.div<WrapperProps>`
   position: relative;
-  margin-top: calc(${props => props.headerHeight} / 2);
+  margin-top: calc(${(props) => props.headerHeight} / 2);
   z-index: 1;
   ${IconButton} {
     background: #fff;

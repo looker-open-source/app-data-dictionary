@@ -24,22 +24,17 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { FlexItem, ButtonTransparent, IconButton, Tooltip, theme } from "@looker/components";
-import { assertSnapshot } from "@looker/components-test-utils"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import { assertSnapshot } from '@looker/components-test-utils'
 import { CommentIcon } from '../../components/CommentIcon'
 
-jest.mock("@looker/components", () => ({
-  FlexItem: () => "FlexItem",
-  ButtonTransparent: () => "ButtonTransparent",
-  IconButton: () => "IconButton",
-  Tooltip: () => "Tooltip",
+jest.mock('@looker/components', () => ({
+  FlexItem: () => 'FlexItem',
+  ButtonTransparent: () => 'ButtonTransparent',
+  IconButton: () => 'IconButton',
+  Tooltip: () => 'Tooltip',
 }))
 
 it('renders correctly', () => {
-  assertSnapshot(<CommentIcon
-    count={10}
-  />)
+  assertSnapshot(<CommentIcon count={10} />)
 })

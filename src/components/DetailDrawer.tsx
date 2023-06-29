@@ -24,24 +24,24 @@
 
  */
 
-import React from "react"
-import { theme, Drawer, TableRow, TableDataCell } from "@looker/components"
-import styled from "styled-components"
-import {
+import React from 'react'
+import { theme, Drawer, TableRow, TableDataCell } from '@looker/components'
+import styled from 'styled-components'
+import type {
   ILookmlModel,
   ILookmlModelExplore,
   ILookmlModelExploreField,
-  IUser
-} from "@looker/sdk"
-import {
+  IUser,
+} from '@looker/sdk'
+import { useHistory } from 'react-router'
+import { DETAILS_PANE, COMMENTS_PANE } from '../utils/constants'
+import { internalExploreURL, usePathNames } from '../utils/routes'
+import type {
   ColumnDescriptor,
   FieldComments,
-  CommentPermissions
-} from "./interfaces"
-import { FieldMetadata } from "./FieldMetadata"
-import { DETAILS_PANE, COMMENTS_PANE } from "../utils/constants"
-import { internalExploreURL, usePathNames } from "../utils/routes"
-import { useHistory } from "react-router"
+  CommentPermissions,
+} from './interfaces'
+import { FieldMetadata } from './FieldMetadata'
 
 const TableRowCustom = styled(TableRow as any)`
   transition: background-color 0.3s ease;
@@ -93,7 +93,7 @@ export const DetailDrawer: React.FC<{
   deleteComment,
   authors,
   me,
-  permissions
+  permissions,
 }) => {
   const history = useHistory()
   const path = usePathNames()
@@ -141,7 +141,7 @@ export const DetailDrawer: React.FC<{
           model: explore.model_name,
           explore: explore.name,
           field: field.name,
-          tab: pane.toString()
+          tab: pane.toString(),
         })
       )
   }
@@ -151,7 +151,7 @@ export const DetailDrawer: React.FC<{
       history.push(
         internalExploreURL({
           model: explore.model_name,
-          explore: explore.name
+          explore: explore.name,
         })
       )
   }
@@ -210,7 +210,7 @@ export const DetailDrawer: React.FC<{
                 maxWidth={props.maxWidth}
                 minWidth={props.minWidth}
                 onClick={
-                  props.rowValueDescriptor === "comment"
+                  props.rowValueDescriptor === 'comment'
                     ? commentsPane
                     : detailsPane
                 }
@@ -227,6 +227,7 @@ export const DetailDrawer: React.FC<{
               </TableDataCell>
             )
           }
+          return undefined
         })}
       </TableRowCustom>
     </Drawer>

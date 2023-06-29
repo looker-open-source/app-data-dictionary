@@ -24,20 +24,21 @@
 
  */
 
-import React, { SyntheticEvent } from "react"
+import type { SyntheticEvent } from 'react'
+import React from 'react'
 import {
   ButtonOutline,
   Button,
   FlexItem,
   FieldTextArea,
   useConfirm,
-  Space
-} from "@looker/components"
+  Space,
+} from '@looker/components'
 
-import { IUser, ILookmlModelExploreField } from "@looker/sdk"
-import { FieldComments, UserData, CommentPermissions } from "./interfaces"
-import { NOT_EDITING_COMMENT } from "../utils/constants"
-import { FieldCommentDisplay } from "./FieldCommentDisplay"
+import type { IUser, ILookmlModelExploreField } from '@looker/sdk'
+import { NOT_EDITING_COMMENT } from '../utils/constants'
+import type { FieldComments, UserData, CommentPermissions } from './interfaces'
+import { FieldCommentDisplay } from './FieldCommentDisplay'
 
 export const FieldComment: React.FC<{
   comment: FieldComments
@@ -64,13 +65,13 @@ export const FieldComment: React.FC<{
   authorData,
   me,
   addingNew,
-  permissions
+  permissions,
 }) => {
   const showDetails = () => {
     if (permissions.manager || (comment.author === me.id && !addingNew)) {
-      return "show"
+      return 'show'
     }
-    return "hide"
+    return 'hide'
   }
 
   const toggleEdit = () => {
@@ -94,7 +95,7 @@ export const FieldComment: React.FC<{
       edited: true,
       timestamp: comment.timestamp,
       content: commentContent,
-      pk: comment.pk
+      pk: comment.pk,
     }
     editComment(JSON.stringify(newComment), field.name)
     toggleEdit()
@@ -107,12 +108,12 @@ export const FieldComment: React.FC<{
   }
 
   const [confirmationDialog, openDialog] = useConfirm({
-    confirmLabel: "Delete",
-    buttonColor: "critical",
+    confirmLabel: 'Delete',
+    buttonColor: 'critical',
     title: `Delete Comment?`,
     message:
-      "Deleting this comment will permanently remove it. You cannot undo this later.",
-    onConfirm: deleteFromComments
+      'Deleting this comment will permanently remove it. You cannot undo this later.',
+    onConfirm: deleteFromComments,
   })
 
   return (

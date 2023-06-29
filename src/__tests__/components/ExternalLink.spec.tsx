@@ -24,24 +24,23 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
+import React from 'react'
+import renderer from 'react-test-renderer'
 
 import { ExternalLink } from '../../components/ExternalLink'
 
-jest.mock("@looker/components", () => ({
-  Link: () => "Link",
-  LinkProps: () => "LinkProps",
+jest.mock('@looker/components', () => ({
+  Link: () => 'Link',
+  LinkProps: () => 'LinkProps',
 }))
 
 it('renders correctly', () => {
-  const tree = renderer.create(
-    <ExternalLink
-      target="_blank"
-      href="looker.com"
-    >
-      <div>External Link</div>
-    </ExternalLink>
-  ).toJSON();
-  expect(tree).toMatchSnapshot();
+  const tree = renderer
+    .create(
+      <ExternalLink target="_blank" href="looker.com">
+        <div>External Link</div>
+      </ExternalLink>
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })
