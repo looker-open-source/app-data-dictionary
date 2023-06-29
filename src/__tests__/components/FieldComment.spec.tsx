@@ -25,46 +25,42 @@
  */
 
 import React from 'react'
-import renderer from 'react-test-renderer'
-import { theme } from '@looker/components'
-import { ThemeProvider } from 'styled-components'
+import { screen } from '@testing-library/react'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import { FieldComment } from '../../components/FieldComment'
 
-jest.mock('../../components/FieldCommentDisplay', () => ({
-  FieldCommentDisplay: () => 'FieldCommentDisplay',
-}))
-
-it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <ThemeProvider theme={theme}>
-        <FieldComment
-          comment={{
-            pk: 'timestamp::author',
-            author: 1,
-            content: 'This is my comment.',
-            timestamp: 7171717171,
-            edited: false,
-          }}
-          editingComment={''}
-          setEditingComment={jest.fn()}
-          setCommentContent={jest.fn()}
-          editComment={jest.fn()}
-          deleteComment={jest.fn()}
-          commentContent={''}
-          field={{}}
-          authorData={{
-            display_name: 'Mr. Foo Bar',
-            first_name: 'Foo',
-            last_name: 'Bar',
-            avatar_url: 'imgsrv.com/foo/bar',
-          }}
-          me={{}}
-          addingNew={false}
-          permissions={{}}
-        />
-      </ThemeProvider>
+describe('<FieldMetadata>', () => {
+  it('renders correctly', () => {
+    renderWithExtensionContext(
+      <FieldComment
+        comment={{
+          pk: 'timestamp::author',
+          author: 1,
+          content: 'This is my comment.',
+          timestamp: 7171717171,
+          edited: false,
+        }}
+        editingComment={''}
+        setEditingComment={jest.fn()}
+        setCommentContent={jest.fn()}
+        editComment={jest.fn()}
+        deleteComment={jest.fn()}
+        commentContent={''}
+        field={{}}
+        authorData={{
+          display_name: 'Mr. Foo Bar',
+          first_name: 'Foo',
+          last_name: 'Bar',
+          avatar_url: 'imgsrv.com/foo/bar',
+        }}
+        me={{}}
+        addingNew={false}
+        permissions={{}}
+      />
     )
-    .toJSON()
-  expect(tree).toMatchSnapshot()
+    expect(screen.getByText(/FB/)).toBeInTheDocument()
+    expect(screen.getByText(/Mr\. Foo Bar/)).toBeInTheDocument()
+    expect(screen.getByText(/3\/25\/1970, 12:08:37 A/)).toBeInTheDocument()
+    expect(screen.getByText(/This is my comment./)).toBeInTheDocument()
+  })
 })
