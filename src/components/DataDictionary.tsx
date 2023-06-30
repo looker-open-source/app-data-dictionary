@@ -246,8 +246,12 @@ export const DataDictionary = () => {
   )
 }
 
+// TODO fix this hard coded color as part of theming overhaul.
+//      This was originally Looker purple with a strange background image.
+//      Removing image resulted in Looker purple which is odd so hard
+//      coding to Google blue. Still not great but better than before.
 const PageHeader = styled(Flex as any)`
-  background-color: ${theme.colors.inform};
+  background-color: #1a73e8;
   padding: ${theme.space.large};
   h1 {
     color: ${theme.colors.keyText};
