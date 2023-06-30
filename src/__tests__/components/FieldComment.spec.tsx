@@ -29,7 +29,7 @@ import { screen } from '@testing-library/react'
 import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import { FieldComment } from '../../components/FieldComment'
 
-describe('<FieldMetadata>', () => {
+describe('<FieldComment>', () => {
   it('renders correctly', () => {
     renderWithExtensionContext(
       <FieldComment
