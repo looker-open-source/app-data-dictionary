@@ -26,6 +26,7 @@
 
 import React from 'react'
 import { theme, ButtonOutline, FlexItem, Text } from '@looker/components'
+import { Cached } from '@styled-icons/material'
 import styled from 'styled-components'
 
 const DisabledText = styled.div`
@@ -49,9 +50,9 @@ export const QueryChartButton: React.FC<{
         </Text>
       </FlexItem>
       <ButtonOutline
-        iconBefore="CacheRefresh"
         onClick={onClick}
         disabled={!enabled}
+        iconBefore={<Cached />}
       >
         Calculate
       </ButtonOutline>

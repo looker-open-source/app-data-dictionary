@@ -95,7 +95,7 @@ export class QueryChart extends React.Component<
     this.setState({ loading: true })
     try {
       const response = await runChartQuery(
-        this.context.core31SDK,
+        this.context.coreSDK,
         this.props.type
       )
       this.setState({

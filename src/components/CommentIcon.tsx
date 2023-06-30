@@ -26,6 +26,7 @@
 
 import React from 'react'
 import { AddComment } from '@styled-icons/material-rounded'
+import { Comment } from '@styled-icons/material'
 import {
   FlexItem,
   ButtonTransparent,
@@ -41,7 +42,11 @@ export const CommentIcon: React.FC<{
       {' '}
       {count !== null ? (
         <Tooltip content="View Comments">
-          <ButtonTransparent iconBefore="Comment" color="neutral" size="small">
+          <ButtonTransparent
+            iconBefore={<Comment />}
+            color="neutral"
+            size="small"
+          >
             {count}
           </ButtonTransparent>
         </Tooltip>

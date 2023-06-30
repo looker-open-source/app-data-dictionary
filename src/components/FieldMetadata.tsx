@@ -41,7 +41,7 @@ import {
   TabPanel,
   TabPanels,
 } from '@looker/components'
-
+import { LogoRings, Explore } from '@looker/icons'
 import type {
   ILookmlModel,
   ILookmlModelExplore,
@@ -186,7 +186,7 @@ export const FieldMetadata: React.FC<{
                       <ButtonTransparent
                         mr="small"
                         ml="small"
-                        iconBefore="LogoRings"
+                        iconBefore={<LogoRings />}
                       >
                         Go to LookML
                       </ButtonTransparent>
@@ -198,7 +198,7 @@ export const FieldMetadata: React.FC<{
                       <ButtonTransparent
                         mr="small"
                         ml="small"
-                        iconBefore="Explore"
+                        iconBefore={<Explore />}
                       >
                         Explore with Field
                       </ButtonTransparent>

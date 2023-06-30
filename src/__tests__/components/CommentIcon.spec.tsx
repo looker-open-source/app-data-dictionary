@@ -48,7 +48,6 @@ describe('<CommentIcon>', () => {
 
   it('renders correctly when count is 10', () => {
     renderWithExtensionContext(<CommentIcon count={10} />)
-    expect(screen.getByText(/Comment/)).toBeInTheDocument()
     expect(screen.getByText(/10/)).toBeInTheDocument()
   })
 })
