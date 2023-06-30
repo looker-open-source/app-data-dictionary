@@ -38,6 +38,10 @@ export const ExternalLink: React.FC<Omit<LinkProps, 'color'>> = (
         return (
           <Link
             onClick={(...args) => {
+              const event = args[0]
+              if (event.preventDefault) {
+                event.preventDefault()
+              }
               if (props.href) {
                 context.extensionSDK.updateLocation(
                   props.href,
