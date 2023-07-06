@@ -24,10 +24,10 @@
 
  */
 
-import React from "react"
-import { theme } from "@looker/components"
-import { DataDictionary } from "./DataDictionary"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
+import { DataDictionary } from './DataDictionary'
 
 export const Extension: React.FC = () => (
   <ThemeProvider theme={theme}>

@@ -24,25 +24,24 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { mockCurrentExplore, mockModels } from "../MockData/MockData";
-import { theme } from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
+import { mockCurrentExplore, mockModels } from '../MockData/MockData'
 
 import { ExploreList } from '../../components/ExploreList'
 
 jest.mock('react-router', () => {
   return {
     useHistory: jest.fn(() => {
-      push: () => {}
+      return {}
     }),
     useRouteMatch: jest.fn(() => {
       return ''
-    })
+    }),
   }
 })
-
 
 jest.mock('../../utils/fetchers', () => {
   return {
@@ -52,12 +51,12 @@ jest.mock('../../utils/fetchers', () => {
   }
 })
 
-jest.mock("../../components/PanelFields", () => ({
-  PanelFields: () => "PanelFields"
+jest.mock('../../components/PanelFields', () => ({
+  PanelFields: () => 'PanelFields',
 }))
 
-jest.mock("../../components/Sidebar", () => ({
-  Sidebar: () => "Sidebar"
+jest.mock('../../components/Sidebar', () => ({
+  Sidebar: () => 'Sidebar',
 }))
 
 it('renders correctly', () => {
@@ -68,8 +67,10 @@ it('renders correctly', () => {
           currentExplore={mockCurrentExplore}
           loadingExplore={''}
           search={null}
-        />)
+        />
+        )
       </ThemeProvider>
-    ).toJSON();
-  expect(tree).toMatchSnapshot();
+    )
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

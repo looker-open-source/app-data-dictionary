@@ -23,7 +23,7 @@
  SOFTWARE.
 
  */
-import { ILookmlModelExploreField } from "@looker/sdk"
+import type { ILookmlModelExploreField } from '@looker/sdk'
 
 export interface ColumnDescriptor {
   name: string
@@ -50,7 +50,7 @@ export interface SidebarStyleProps {
 }
 
 export interface FieldComments {
-  author: number
+  author: number | string
   timestamp: number
   content: string
   edited: boolean

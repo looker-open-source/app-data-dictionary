@@ -24,9 +24,9 @@
 
  */
 
-import React from "react"
+import React from 'react'
 
-export const Spirals = (props: any) => {
+export const Spirals = (_props: any) => {
   return (
     <svg
       width="836"

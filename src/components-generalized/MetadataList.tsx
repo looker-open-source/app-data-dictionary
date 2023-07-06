@@ -24,14 +24,14 @@
 
  */
 
-import React from "react"
-import { Box, Text, Flex, FlexItem } from "@looker/components"
+import React from 'react'
+import { Box, Text, Flex, FlexItem } from '@looker/components'
 
 export const MetadataItem = ({
   aux,
   label,
   children,
-  compact
+  compact,
 }: {
   label: string
   aux?: string

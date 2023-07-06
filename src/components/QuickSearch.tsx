@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   Box,
   ButtonGroup,
@@ -32,9 +32,9 @@ import {
   Flex,
   FlexItem,
   Heading,
-  theme
-} from "@looker/components"
-import styled from "styled-components"
+  theme,
+} from '@looker/components'
+import styled from 'styled-components'
 
 export const Main = styled(Box as any)`
   border-radius: 0.25rem;
@@ -80,7 +80,7 @@ export const QuickSearch: React.FC<{
   setHasDescription,
   setHasTags,
   setHasComments,
-  showComments
+  showComments,
 }) => {
   return (
     <Main>
@@ -94,8 +94,8 @@ export const QuickSearch: React.FC<{
         <Group>
           <FilterHeading as="h6">Has Description</FilterHeading>
           <ButtonGroup value={hasDescription} onChange={setHasDescription}>
-            <ButtonItem value={"yes"}>Yes</ButtonItem>
-            <ButtonItem value={"no"}>No</ButtonItem>
+            <ButtonItem value={'yes'}>Yes</ButtonItem>
+            <ButtonItem value={'no'}>No</ButtonItem>
           </ButtonGroup>
         </Group>
 
@@ -128,7 +128,7 @@ export const QuickSearch: React.FC<{
         <Group>
           <FilterHeading as="h6">Type</FilterHeading>
           <ButtonGroup value={selectedFields} onChange={setSelectedFields}>
-            {fields.map(field => {
+            {fields.map((field) => {
               return (
                 <ButtonItem key={field} value={field}>
                   {field}

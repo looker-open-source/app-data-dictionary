@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   theme,
   ButtonTransparent,
@@ -39,26 +39,26 @@ import {
   TabList,
   Tab,
   TabPanel,
-  TabPanels
-} from "@looker/components"
-
-import {
+  TabPanels,
+} from '@looker/components'
+import { LogoRings, Explore } from '@looker/icons'
+import type {
   ILookmlModel,
   ILookmlModelExplore,
   ILookmlModelExploreField,
-  IUser
-} from "@looker/sdk"
-import {
+  IUser,
+} from '@looker/sdk'
+import { exploreFieldURL } from '../utils/urls'
+import { canGetDistribution, canGetTopValues } from '../utils/queries'
+import type {
   ColumnDescriptor,
   FieldComments,
-  CommentPermissions
-} from "./interfaces"
-import { ExternalLink } from "./ExternalLink"
-import { exploreFieldURL } from "../utils/urls"
-import { canGetDistribution, canGetTopValues } from "../utils/queries"
-import { QueryChart } from "./QueryChart"
-import { DetailDrawerRow } from "./DetailDrawerRow"
-import { FieldCommentList } from "./FieldCommentList"
+  CommentPermissions,
+} from './interfaces'
+import { ExternalLink } from './ExternalLink'
+import { QueryChart } from './QueryChart'
+import { DetailDrawerRow } from './DetailDrawerRow'
+import { FieldCommentList } from './FieldCommentList'
 
 export const FieldMetadata: React.FC<{
   columns: ColumnDescriptor[]
@@ -93,7 +93,7 @@ export const FieldMetadata: React.FC<{
   commentAuthors,
   me,
   permissions,
-  canViewComments
+  canViewComments,
 }) => {
   return (
     <DialogContent>
@@ -126,7 +126,7 @@ export const FieldMetadata: React.FC<{
                     fontSize="small"
                     fontWeight="semiBold"
                     mb="small"
-                    style={{ marginTop: "2em" }}
+                    style={{ marginTop: '2em' }}
                   >
                     About this Field
                   </Heading>
@@ -134,10 +134,10 @@ export const FieldMetadata: React.FC<{
                 <FlexItem pb="medium">
                   <Table width="100%">
                     <TableBody fontSize="small">
-                      {columns.map(column => {
+                      {columns.map((column) => {
                         if (
-                          column.rowValueDescriptor !== "comment" &&
-                          column.rowValueDescriptor !== "description"
+                          column.rowValueDescriptor !== 'comment' &&
+                          column.rowValueDescriptor !== 'description'
                         ) {
                           return (
                             <DetailDrawerRow
@@ -147,32 +147,33 @@ export const FieldMetadata: React.FC<{
                             />
                           )
                         }
+                        return undefined
                       })}
                     </TableBody>
                   </Table>
                 </FlexItem>
                 <QueryChart
                   disabledText={
-                    "Distributions can only be shown for numeric dimensions on a view with a count measure."
+                    'Distributions can only be shown for numeric dimensions on a view with a count measure.'
                   }
                   enabled={canGetDistribution({ model, explore, field })}
                   type={{
-                    type: "Distribution",
+                    type: 'Distribution',
                     model,
                     explore,
-                    field
+                    field,
                   }}
                 />
                 <QueryChart
                   disabledText={
-                    "Values can only be shown for dimensions on a view with a count measure."
+                    'Values can only be shown for dimensions on a view with a count measure.'
                   }
                   enabled={canGetTopValues({ model, explore, field })}
                   type={{
-                    type: "Values",
+                    type: 'Values',
                     model,
                     explore,
-                    field
+                    field,
                   }}
                 />
                 <FlexItem
@@ -185,7 +186,7 @@ export const FieldMetadata: React.FC<{
                       <ButtonTransparent
                         mr="small"
                         ml="small"
-                        iconBefore="LogoRings"
+                        iconBefore={<LogoRings />}
                       >
                         Go to LookML
                       </ButtonTransparent>
@@ -197,7 +198,7 @@ export const FieldMetadata: React.FC<{
                       <ButtonTransparent
                         mr="small"
                         ml="small"
-                        iconBefore="Explore"
+                        iconBefore={<Explore />}
                       >
                         Explore with Field
                       </ButtonTransparent>

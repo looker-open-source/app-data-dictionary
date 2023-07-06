@@ -24,36 +24,36 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { mockCurrentModel, mockCurrentExplore } from "../MockData/MockData";
+import React from 'react'
+import renderer from 'react-test-renderer'
+import { theme } from '@looker/components'
+import { ThemeProvider } from 'styled-components'
+import { mockCurrentModel, mockCurrentExplore } from '../MockData/MockData'
 import { columns } from '../../components/DataDictionary'
-import { defaultShowColumns } from "../../components/PanelFields";
-import { theme} from "@looker/components"
-import { ThemeProvider } from "styled-components"
+import { defaultShowColumns } from '../../components/PanelFields'
 import { DetailDrawer } from '../../components/DetailDrawer'
 
 jest.mock('react-router', () => {
   return {
     useHistory: jest.fn(() => {
-      push: () => {}
+      return {}
     }),
     useRouteMatch: jest.fn(() => {
       return ''
-    })
+    }),
   }
 })
 
-jest.mock("../../components/DetailDrawerRow", () => ({
-  DetailDrawerRow: () => "DetailDrawerRow"
+jest.mock('../../components/DetailDrawerRow', () => ({
+  DetailDrawerRow: () => 'DetailDrawerRow',
 }))
 
-jest.mock("../../components/QueryChart", () => ({
-  QueryChart: () => "QueryChart"
+jest.mock('../../components/QueryChart', () => ({
+  QueryChart: () => 'QueryChart',
 }))
 
-jest.mock("../../components/ExternalLink", () => ({
-  ExternalLink: () => "ExternalLink"
+jest.mock('../../components/ExternalLink', () => ({
+  ExternalLink: () => 'ExternalLink',
 }))
 
 it('renders correctly', () => {
@@ -67,17 +67,17 @@ it('renders correctly', () => {
           field={mockCurrentExplore.fields.dimensions[0]}
           shownColumns={defaultShowColumns}
           tab={0}
-          setTab={()=>{}}
-          comments={"{}"}
-          addComment={()=>{}}
-          editComment={()=>{}}
-          deleteComment={()=>{}}
+          setTab={jest.fn()}
+          comments={'{}'}
+          addComment={jest.fn()}
+          editComment={jest.fn()}
+          deleteComment={jest.fn()}
           authors={[]}
           me={{}}
           permissions={{}}
         />
       </ThemeProvider>
     )
-    .toJSON();
-  expect(tree).toMatchSnapshot();
+    .toJSON()
+  expect(tree).toMatchSnapshot()
 })

@@ -24,22 +24,14 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme, ComponentsProvider } from "@looker/components"
-import { assertSnapshot, renderWithTheme } from "@looker/components-test-utils"
-
+import React from 'react'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import SidebarToggle from '../../components/SidebarToggle'
 
-jest.mock("@looker/components", () => ({
-  IconButton: () => "IconButton",
-  IconNames: () => "IconNames",
-}))
-
-it('renders correctly', () => {
-  assertSnapshot(<SidebarToggle
-    isOpen={true}
-    onClick={() => {}}
-    headerHeight="114px"
-  />)
+describe('<SidebarToggle>', () => {
+  it('renders correctly', () => {
+    renderWithExtensionContext(
+      <SidebarToggle isOpen={true} onClick={jest.fn()} headerHeight="114px" />
+    )
+  })
 })

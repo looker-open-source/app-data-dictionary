@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   Spinner,
   Table,
@@ -33,16 +33,17 @@ import {
   TableDataCell,
   Box,
   Text,
-  ButtonTransparent
-} from "@looker/components"
-import { QueryChartType, runChartQuery, SimpleResult } from "../utils/queries"
-import styled from "styled-components"
-import { BarChart, Bar } from "recharts"
-import { ExtensionContext } from "@looker/extension-sdk-react"
-import { ExternalLink } from "./ExternalLink"
-import { getCached } from "../utils/fetchers"
-import { MetadataItem } from "../components-generalized/MetadataList"
-import { QueryChartButton } from "./QueryChartButton"
+  ButtonTransparent,
+} from '@looker/components'
+import styled from 'styled-components'
+import { BarChart, Bar } from 'recharts'
+import { ExtensionContext40 } from '@looker/extension-sdk-react'
+import { runChartQuery } from '../utils/queries'
+import type { QueryChartType, SimpleResult } from '../utils/queries'
+import { getCached } from '../utils/fetchers'
+import { MetadataItem } from '../components-generalized/MetadataList'
+import { ExternalLink } from './ExternalLink'
+import { QueryChartButton } from './QueryChartButton'
 
 interface QueryChartState {
   loading: boolean
@@ -80,13 +81,13 @@ export class QueryChart extends React.Component<
   QueryChartProps,
   QueryChartState
 > {
-  static contextType = ExtensionContext
+  static contextType = ExtensionContext40
 
   constructor(props: QueryChartProps) {
     super(props)
     this.state = {
       loading: false,
-      response: getCached(JSON.stringify(props.type))
+      response: getCached(JSON.stringify(props.type)),
     }
   }
 
@@ -94,18 +95,18 @@ export class QueryChart extends React.Component<
     this.setState({ loading: true })
     try {
       const response = await runChartQuery(
-        this.context.core31SDK,
+        this.context.coreSDK,
         this.props.type
       )
       this.setState({
         loading: false,
-        response
+        response,
       })
     } catch (e) {
       console.error(e)
       this.setState({
         loading: false,
-        response: undefined
+        response: undefined,
       })
     }
   }
@@ -113,7 +114,7 @@ export class QueryChart extends React.Component<
   componentDidUpdate(prevProps: QueryChartProps) {
     if (JSON.stringify(this.props.type) !== JSON.stringify(prevProps.type)) {
       this.setState({
-        response: getCached(JSON.stringify(this.props.type))
+        response: getCached(JSON.stringify(this.props.type)),
       })
     }
   }
@@ -159,13 +160,15 @@ export class QueryChart extends React.Component<
                     <ProgressTableRow
                       key={i}
                       progress={
-                        row[1].n ? row[1].n / this.state.response.max[1] : 0
+                        row[1].n
+                          ? row[1].n / (this.state.response?.max[1] || 1)
+                          : 0
                       }
                     >
                       {row.map((cell, j) => (
                         <PaddedCell
                           key={j}
-                          textAlign={this.state.response.align[j]}
+                          textAlign={this.state.response?.align[j]}
                         >
                           {cell.l ? (
                             <ExternalLink target="_blank" href={cell.l}>

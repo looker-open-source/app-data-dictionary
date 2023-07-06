@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   Box,
   Flex,
@@ -35,18 +35,18 @@ import {
   TableHeaderCell,
   TableRow,
   TableBody,
-  theme
-} from "@looker/components"
-import styled from "styled-components"
-import { ColumnDescriptor, CommentPermissions } from "./interfaces"
-import {
+  theme,
+} from '@looker/components'
+import styled from 'styled-components'
+import type {
   ILookmlModel,
   ILookmlModelExplore,
   ILookmlModelExploreField,
-  IUser
-} from "@looker/sdk"
-import { DetailDrawer } from "./DetailDrawer"
-import { DETAILS_PANE } from "../utils/constants"
+  IUser,
+} from '@looker/sdk'
+import { DETAILS_PANE } from '../utils/constants'
+import type { ColumnDescriptor, CommentPermissions } from './interfaces'
+import { DetailDrawer } from './DetailDrawer'
 
 export const TableWrapper = styled(Box as any)`
   border-bottom: 0.5px solid ${theme.colors.ui2};
@@ -93,7 +93,7 @@ export const Fields: React.FC<{
   deleteComment,
   authors,
   me,
-  permissions
+  permissions,
 }) => {
   const [tab, setTab] = React.useState(DETAILS_PANE)
   return (
@@ -109,7 +109,7 @@ export const Fields: React.FC<{
         <Table width="100%">
           <TableHead>
             <TableRow>
-              {columns.map(column => {
+              {columns.map((column) => {
                 if (shownColumns.includes(column.rowValueDescriptor)) {
                   return (
                     <StickyHeader
@@ -125,11 +125,12 @@ export const Fields: React.FC<{
                     </StickyHeader>
                   )
                 }
+                return undefined
               })}
             </TableRow>
           </TableHead>
           <TableBody fontSize="small">
-            {fields.map(field => {
+            {fields.map((field) => {
               if (
                 !search ||
                 (field.label_short &&
@@ -165,6 +166,7 @@ export const Fields: React.FC<{
                   />
                 )
               }
+              return undefined
             })}
           </TableBody>
         </Table>

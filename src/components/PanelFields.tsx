@@ -24,8 +24,7 @@
 
  */
 
-import React, { useState, ChangeEvent } from "react"
-import { Fields } from "./Fields"
+import React, { useState } from 'react'
 import {
   Box,
   ButtonOutline,
@@ -35,27 +34,28 @@ import {
   InputSearch,
   Paragraph,
   Spinner,
-  theme
-} from "@looker/components"
-import { ViewOptions } from "./ViewOptions"
-import styled from "styled-components"
-import groupBy from "lodash/groupBy"
-import values from "lodash/values"
-import flatten from "lodash/flatten"
-import toPairs from "lodash/toPairs"
-import orderBy from "lodash/orderBy"
-import { ExternalLink } from "./ExternalLink"
-import { exploreURL } from "../utils/urls"
-import { ColumnDescriptor, CommentPermissions } from "./interfaces"
-import {
+  theme,
+} from '@looker/components'
+import styled from 'styled-components'
+import groupBy from 'lodash/groupBy'
+import values from 'lodash/values'
+import flatten from 'lodash/flatten'
+import toPairs from 'lodash/toPairs'
+import orderBy from 'lodash/orderBy'
+import type {
   ILookmlModel,
   ILookmlModelExplore,
   ILookmlModelExploreField,
-  IUser
-} from "@looker/sdk"
-import { QuickSearch } from "./QuickSearch"
-import humanize from "humanize-string"
-import { DIMENSION, MEASURE } from "./CategorizedLabel"
+  IUser,
+} from '@looker/sdk'
+import humanize from 'humanize-string'
+import { exploreURL } from '../utils/urls'
+import { ExternalLink } from './ExternalLink'
+import type { ColumnDescriptor, CommentPermissions } from './interfaces'
+import { QuickSearch } from './QuickSearch'
+import { ViewOptions } from './ViewOptions'
+import { Fields } from './Fields'
+import { DIMENSION, MEASURE } from './CategorizedLabel'
 
 export const Main = styled(Box as any)`
   position: relative;
@@ -86,11 +86,11 @@ export const ExploreSearch = styled(InputSearch as any)`
 `
 
 export const defaultShowColumns = [
-  "label_short",
-  "description",
-  "name",
-  "type",
-  "sql"
+  'label_short',
+  'description',
+  'name',
+  'type',
+  'sql',
 ]
 
 export const PanelFields: React.FC<{
@@ -116,15 +116,15 @@ export const PanelFields: React.FC<{
   deleteComment,
   authors,
   me,
-  permissions
+  permissions,
 }) => {
-  const [search, setSearch] = useState("")
+  const [search, setSearch] = useState('')
   const [shownColumns, setShownColumns] = useState([
     ...columns
-      .filter(d => {
+      .filter((d) => {
         return d.default
       })
-      .map(d => d.rowValueDescriptor)
+      .map((d) => d.rowValueDescriptor),
   ])
   const [hasDescription, setHasDescription] = useState([])
   const [hasTags, setHasTags] = useState([])
@@ -133,7 +133,7 @@ export const PanelFields: React.FC<{
   const [selectedFields, setSelectedFields] = useState([])
 
   const typeMaker = (field: ILookmlModelExploreField) => {
-    return humanize(field.type.split("_")[0])
+    return humanize(field.type.split('_')[0])
   }
 
   if (loadingExplore) {
@@ -152,7 +152,7 @@ export const PanelFields: React.FC<{
     currentModel.name === currentExplore.model_name
   ) {
     const fields = flatten(values(currentExplore.fields))
-      .map(f => typeMaker(f))
+      .map((f) => typeMaker(f))
       .filter((value, index, self) => self.indexOf(value) === index)
 
     const revivedComments = JSON.parse(comments)
@@ -170,7 +170,7 @@ export const PanelFields: React.FC<{
     const groups = orderBy(
       toPairs(
         groupBy(
-          flatten(values(currentExplore.fields)).filter(f => {
+          flatten(values(currentExplore.fields)).filter((f) => {
             const commentFlag = !!(
               commentObj[f.name] && commentObj[f.name].length > 0
             )
@@ -178,24 +178,24 @@ export const PanelFields: React.FC<{
               !f.hidden &&
               (allFilters.length === 0 ||
                 ((hasDescription.length === 0 ||
-                  (hasDescription.includes("yes") && f.description) ||
-                  (hasDescription.includes("no") && !f.description)) &&
+                  (hasDescription.includes('yes') && f.description) ||
+                  (hasDescription.includes('no') && !f.description)) &&
                   (hasTags.length === 0 ||
-                    (hasTags.includes("yes") && f.tags.length > 0) ||
-                    (hasTags.includes("no") && f.tags.length === 0)) &&
+                    (hasTags.includes('yes') && f.tags.length > 0) ||
+                    (hasTags.includes('no') && f.tags.length === 0)) &&
                   (hasComments.length === 0 ||
-                    (hasComments.includes("yes") && commentFlag) ||
-                    (hasComments.includes("no") && !commentFlag)) &&
+                    (hasComments.includes('yes') && commentFlag) ||
+                    (hasComments.includes('no') && !commentFlag)) &&
                   (fieldTypes.length === 0 ||
-                    (fieldTypes.includes("dimensions") &&
+                    (fieldTypes.includes('dimensions') &&
                       f.category === DIMENSION) ||
-                    (fieldTypes.includes("measures") &&
+                    (fieldTypes.includes('measures') &&
                       f.category === MEASURE)) &&
                   (selectedFields.length === 0 ||
                     selectedFields.includes(typeMaker(f)))))
             )
           }),
-          f => f.view_label
+          (f) => f.view_label
         )
       ),
       ([group]) => group
@@ -215,7 +215,7 @@ export const PanelFields: React.FC<{
             <Heading as="h1" fontWeight="semiBold">
               {currentModel.label}
             </Heading>
-            <Heading as="h4" variant="secondary">
+            <Heading as="h4" color="text1">
               Select a field for more information.
             </Heading>
           </FlexItem>
@@ -224,8 +224,8 @@ export const PanelFields: React.FC<{
               <ButtonOutline mr="small">Explore</ButtonOutline>
             </ExternalLink>
             <ViewOptions
-              columns={columns.filter(d => {
-                return d.rowValueDescriptor !== "comment"
+              columns={columns.filter((d) => {
+                return d.rowValueDescriptor !== 'comment'
               })}
               shownColumns={shownColumns}
               setShownColumns={setShownColumns}
@@ -238,9 +238,7 @@ export const PanelFields: React.FC<{
               hideSearchIcon
               placeholder="Filter fields in this Explore"
               mt="medium"
-              onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                setSearch(e.target.value)
-              }}
+              onChange={setSearch}
               value={search}
             />
           </FlexItem>
@@ -262,7 +260,7 @@ export const PanelFields: React.FC<{
         />
 
         <Box>
-          {groups.map(group => {
+          {groups.map((group) => {
             if (group[1].length > 0) {
               return (
                 <Fields
@@ -284,6 +282,7 @@ export const PanelFields: React.FC<{
                 />
               )
             }
+            return undefined
           })}
         </Box>
       </Main>
@@ -291,10 +290,10 @@ export const PanelFields: React.FC<{
   } else {
     return (
       <FullPage>
-        <div style={{ width: "30%" }}>
+        <div style={{ width: '30%' }}>
           <img
             src={
-              "https://marketplace-api.looker.com/app-assets/data_dictionary_2x.png"
+              'https://marketplace-api.looker.com/app-assets/data_dictionary_2x.png'
             }
             alt="Empty Image"
           />

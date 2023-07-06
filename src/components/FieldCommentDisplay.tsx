@@ -24,7 +24,7 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   FlexItem,
   Card,
@@ -35,13 +35,11 @@ import {
   IconButton,
   SpaceVertical,
   Menu,
-  MenuDisclosure,
-  MenuList,
   MenuItem,
-  Icon
-} from "@looker/components"
-import { FieldComments, UserData } from "./interfaces"
-import styled from "styled-components"
+} from '@looker/components'
+import { MoreVert, Create, Delete } from '@styled-icons/material'
+import styled from 'styled-components'
+import type { FieldComments, UserData } from './interfaces'
 
 const CustomCommentCard = styled(Card as any)`
   .show {
@@ -83,40 +81,30 @@ export const FieldCommentDisplay: React.FC<{
               <FlexItem>
                 <Text fontSize="xsmall" variant="secondary">
                   {timestamp.toLocaleString()}
-                  {comment.edited ? " (edited)" : null}
+                  {comment.edited ? ' (edited)' : null}
                 </Text>
               </FlexItem>
             </FlexItem>
             <FlexItem flexBasis="10%">
               <SpaceVertical align="end">
-                <Menu>
-                  <MenuDisclosure>
-                    <IconButton
-                      icon="DotsVert"
-                      label="More Options"
-                      className={showDetails()}
-                    />
-                  </MenuDisclosure>
-                  <MenuList>
-                    <MenuItem onClick={toggleEdit}>
-                      <Icon
-                        name="Edit"
-                        size="small"
-                        color="neutral"
-                        mr="small"
-                      />
-                      Edit Comment
-                    </MenuItem>
-                    <MenuItem onClick={openDialog}>
-                      <Icon
-                        name="Trash"
-                        size="small"
-                        color="neutral"
-                        mr="small"
-                      />
-                      Delete Comment
-                    </MenuItem>
-                  </MenuList>
+                <Menu
+                  density={-1}
+                  content={
+                    <>
+                      <MenuItem onClick={toggleEdit} icon={<Create />}>
+                        Edit Comment
+                      </MenuItem>
+                      <MenuItem onClick={openDialog} icon={<Delete />}>
+                        Delete Comment
+                      </MenuItem>
+                    </>
+                  }
+                >
+                  <IconButton
+                    icon={<MoreVert />}
+                    label="More Options"
+                    className={showDetails()}
+                  />
                 </Menu>
               </SpaceVertical>
             </FlexItem>

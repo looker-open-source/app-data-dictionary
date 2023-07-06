@@ -24,19 +24,24 @@
 
  */
 
-import React from "react"
-import { Link, LinkProps } from "@looker/components"
-import { ExtensionContext } from "@looker/extension-sdk-react"
+import React from 'react'
+import type { LinkProps } from '@looker/components'
+import { Link } from '@looker/components'
+import { ExtensionContext40 } from '@looker/extension-sdk-react'
 
-export const ExternalLink: React.FC<Omit<LinkProps, "color">> = (
+export const ExternalLink: React.FC<Omit<LinkProps, 'color'>> = (
   props: any
 ) => {
   return (
-    <ExtensionContext.Consumer>
-      {context => {
+    <ExtensionContext40.Consumer>
+      {(context) => {
         return (
           <Link
             onClick={(...args) => {
+              const event = args[0]
+              if (event.preventDefault) {
+                event.preventDefault()
+              }
               if (props.href) {
                 context.extensionSDK.updateLocation(
                   props.href,
@@ -52,6 +57,6 @@ export const ExternalLink: React.FC<Omit<LinkProps, "color">> = (
           />
         )
       }}
-    </ExtensionContext.Consumer>
+    </ExtensionContext40.Consumer>
   )
 }

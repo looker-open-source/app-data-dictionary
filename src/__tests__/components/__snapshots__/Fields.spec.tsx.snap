@@ -2,82 +2,62 @@
 
 exports[`renders correctly 1`] = `
 <div
-  className="Box-sc-5738oh-0 sc-bdnylx fmGVSD fmDPpa"
+  className="Box-sc-5738oh-0 sc-fqkvVR bXKNNZ iZTwfc"
 >
   <div
-    className="Flex-sc-1ak395a-0 eYyEcC"
+    className="Flex-sc-1ak395a-0 cvboiO"
   >
     <div
-      className="FlexItem-sc-1xhpm9o-0 iunkBy"
+      className="FlexItem-sc-1xhpm9o-0 hVeONI"
     >
       <h2
-        className="TextBase-sc-1sjok63-0 Heading-sc-63s0tz-0 dMcdfa hTEfbx"
-        fontFamily="brand"
-        fontSize="xlarge"
-        fontWeight="semiBold"
+        className="TextBase-sc-90l5yt-0 Heading-sc-m5s1gl-0 fhYkSK bXhYYS"
       >
         Databases
       </h2>
     </div>
   </div>
   <div
-    className="Flex-sc-1ak395a-0 jAuRlG"
+    className="Flex-sc-1ak395a-0 ifrcWG"
   >
     <table
-      className="Table-sc-1x77f3i-0 kuXVYl"
-      width="100%"
+      className="Table-sc-1x77f3i-0 drJrhC"
     >
       <thead
-        className="TableHead-sc-1p30re3-0 fJIoAY"
+        className="TableHead-sc-1bzogra-0 hbGfLO"
       >
         <tr
-          className="TableRow-sc-1tgwedx-0 gYAnID"
+          className="TableRow-sc-1ty7jg8-0 gyYQVo"
         >
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
-            color="text"
-            fontSize="small"
-            fontWeight="medium"
+            className="TableHeaderCell-sc-hi6xhd-0 sc-dcJsrY dcGAwl ffcdhp"
           >
             Field Label
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
-            color="text"
-            fontSize="small"
-            fontWeight="medium"
+            className="TableHeaderCell-sc-hi6xhd-0 sc-dcJsrY dcGAwl ffcdhp"
           >
             Description
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
-            color="text"
-            fontSize="small"
-            fontWeight="medium"
+            className="TableHeaderCell-sc-hi6xhd-0 sc-dcJsrY dcGAwl ffcdhp"
           >
             LookML Name
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
-            color="text"
-            fontSize="small"
-            fontWeight="medium"
+            className="TableHeaderCell-sc-hi6xhd-0 sc-dcJsrY dcGAwl ffcdhp"
           >
             Type
           </th>
           <th
-            className="TableHeaderCell-sc-1gjfki4-0 sc-gtssRu hVPIVg ewVqEd"
-            color="text"
-            fontSize="small"
-            fontWeight="medium"
+            className="TableHeaderCell-sc-hi6xhd-0 sc-dcJsrY dcGAwl ffcdhp"
           >
             SQL
           </th>
         </tr>
       </thead>
       <tbody
-        className="TableBody-sc-17lboeq-0 fxWXsB"
-        fontSize="small"
+        className="TableBody-sc-1c7fa9v-0 JFfMx"
       >
         DetailDrawer
         DetailDrawer

@@ -24,43 +24,40 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import {mockCurrentExplore, mockCurrentModel, mockModels} from "../MockData/MockData";
-import { ThemeProvider } from "styled-components"
-import { assertSnapshot } from "@looker/components-test-utils"
-import { theme } from "@looker/components"
-
+import React from 'react'
+import { screen } from '@testing-library/react'
 import { Sidebar } from '../../components/Sidebar'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
+import {
+  mockCurrentExplore,
+  mockCurrentModel,
+  mockModels,
+} from '../MockData/MockData'
 
 jest.mock('react-router', () => {
   return {
-    useHistory: jest.fn(() => {
-      push: () => {}
-    })
+    useHistory: jest.fn(),
   }
 })
 
-jest.mock("../../components/ExploreList", () => ({
-  ExploreList: () => "ExploreList"
+jest.mock('../../components/ExploreList', () => ({
+  ExploreList: () => 'ExploreList',
 }))
 
-jest.mock("@looker/components", () => ({
-  FieldSelect: () => "FieldSelect",
-  Flex: () => "Flex",
-  FlexItem: () => "FlexItem",
-  Heading: () => "Heading",
-  InputSearch: () => "InputSearch",
-  theme: {colors: {ui2:"#282828"}},
-}))
-
-it('renders correctly', () => {
-    assertSnapshot(<Sidebar
-      currentExplore={mockCurrentExplore}
-      currentModel={mockCurrentModel}
-      loadingExplore={null}
-      models={mockModels}
-      search={''}
-      setSearch={() => {}}
-    />)
+describe('<Sidebar/>', () => {
+  it('renders loading', () => {
+    renderWithExtensionContext(
+      <Sidebar
+        loadingExplore="products"
+        currentExplore={mockCurrentExplore}
+        currentModel={mockCurrentModel}
+        models={mockModels}
+        search=""
+        setSearch={jest.fn()}
+      />
+    )
+    expect(screen.getByText('Select a Model')).toBeInTheDocument()
+    expect(screen.getByText('Explores')).toBeInTheDocument()
+    expect(screen.getByText('ExploreList')).toBeInTheDocument()
+  })
 })

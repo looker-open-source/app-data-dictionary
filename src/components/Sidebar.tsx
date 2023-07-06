@@ -24,20 +24,20 @@
 
  */
 
-import React from "react"
+import React from 'react'
 import {
   FieldSelect,
   Flex,
   FlexItem,
   Heading,
   InputSearch,
-  theme
-} from "@looker/components"
-import { useHistory } from "react-router"
-import { ILookmlModel, ILookmlModelExplore } from "@looker/sdk"
-import "./styles.css"
-import { internalModelURL } from "../utils/routes"
-import { ExploreList } from "./ExploreList"
+  theme,
+} from '@looker/components'
+import { useHistory } from 'react-router'
+import type { ILookmlModel, ILookmlModelExplore } from '@looker/sdk'
+import './styles.css'
+import { internalModelURL } from '../utils/routes'
+import { ExploreList } from './ExploreList'
 
 export const Sidebar: React.FC<{
   currentExplore: ILookmlModelExplore
@@ -52,9 +52,16 @@ export const Sidebar: React.FC<{
   loadingExplore,
   models,
   search,
-  setSearch
+  setSearch,
 }) => {
   const history = useHistory()
+
+  const onSelectModel = (selectedModel: string) => {
+    if (selectedModel) {
+      const url = internalModelURL({ model: selectedModel })
+      history.push(url)
+    }
+  }
 
   return (
     <Flex flexDirection="column" pt="xxlarge" pb="xxlarge">
@@ -67,10 +74,8 @@ export const Sidebar: React.FC<{
         <FieldSelect
           name="select-model"
           label="Select a Model"
-          options={models.map(m => ({ value: m.name, label: m.label }))}
-          onChange={selectedModel =>
-            history.push(internalModelURL({ model: selectedModel }))
-          }
+          options={models.map((m) => ({ value: m.name, label: m.label }))}
+          onChange={onSelectModel}
           value={currentModel && currentModel.name}
         />
       </FlexItem>
@@ -82,7 +87,7 @@ export const Sidebar: React.FC<{
           hideSearchIcon
           placeholder="Search Model"
           mt="medium"
-          onChange={e => setSearch(e.currentTarget.value)}
+          onChange={setSearch}
           value={search}
         />
       </FlexItem>

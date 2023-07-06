@@ -24,45 +24,36 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { theme, ComponentsProvider } from "@looker/components"
-import { assertSnapshot } from "@looker/components-test-utils"
+import React from 'react'
+import { screen } from '@testing-library/react'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import { FieldCommentDisplay } from '../../components/FieldCommentDisplay'
 
-jest.mock("@looker/components", () => ({
-  FlexItem: () => "FlexItem",
-  Card: () => "Card",
-  CardContent: () => "CardContent",
-  Flex: () => "Flex",
-  AvatarUser: () => "AvatarUser",
-  Text: () => "Text",
-  IconButton: () => "IconButton",
-  SpaceVertical: () => "SpaceVertical",
-  Menu: () => "Menu",
-  MenuDisclosure: () => "MenuDisclosure",
-  MenuList: () => "MenuList",
-  MenuItem: () => "Heading",
-  Icon: () => "Icon",
-}))
-
-it('renders correctly', () => {
-  assertSnapshot(<FieldCommentDisplay
-    authorData={{
-      display_name: "Mr. Foo Bar",
-      first_name: "Foo",
-      last_name: "Bar",
-      avatar_url: "imgsrv.com/foo/bar"
-    }}
-    comment={{
-      pk: "timestamp::author",
-      author: 1,
-      content: "This is my comment.",
-      timestamp: 7171717171,
-      edited: false
-    }}
-    showDetails={()=>""}
-    toggleEdit={()=>{}}
-    openDialog={()=>{}}
-/>)
+describe('<FieldCommentDisplay>', () => {
+  it('renders correctly', () => {
+    renderWithExtensionContext(
+      <FieldCommentDisplay
+        authorData={{
+          display_name: 'Mr. Foo Bar',
+          first_name: 'Foo',
+          last_name: 'Bar',
+          avatar_url: 'imgsrv.com/foo/bar',
+        }}
+        comment={{
+          pk: 'timestamp::author',
+          author: 1,
+          content: 'This is my comment.',
+          timestamp: 7171717171,
+          edited: false,
+        }}
+        showDetails={() => ''}
+        toggleEdit={jest.fn()}
+        openDialog={jest.fn()}
+      />
+    )
+    expect(screen.getByText(/FB/)).toBeInTheDocument()
+    expect(screen.getByText(/Mr. Foo Bar/)).toBeInTheDocument()
+    expect(screen.getByText(/3\/25\/1970, 12:08:37 AM/)).toBeInTheDocument()
+    expect(screen.getByText(/This is my comment./)).toBeInTheDocument()
+  })
 })

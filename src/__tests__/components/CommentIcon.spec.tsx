@@ -24,22 +24,30 @@
 
  */
 
-import React from 'react';
-import renderer from 'react-test-renderer';
-import { FlexItem, ButtonTransparent, IconButton, Tooltip, theme } from "@looker/components";
-import { assertSnapshot } from "@looker/components-test-utils"
-import { ThemeProvider } from "styled-components"
+import React from 'react'
+import { screen } from '@testing-library/react'
+import { renderWithExtensionContext } from '../test_utils/render_with_extension'
 import { CommentIcon } from '../../components/CommentIcon'
 
-jest.mock("@looker/components", () => ({
-  FlexItem: () => "FlexItem",
-  ButtonTransparent: () => "ButtonTransparent",
-  IconButton: () => "IconButton",
-  Tooltip: () => "Tooltip",
-}))
+describe('<CommentIcon>', () => {
+  beforeEach(() => {
+    ;(global as any).ResizeObserver = class {
+      observe() {
+        // noop
+      }
 
-it('renders correctly', () => {
-  assertSnapshot(<CommentIcon
-    count={10}
-  />)
+      disconnect() {
+        // noop
+      }
+    }
+  })
+
+  it('renders correctly when count is null', () => {
+    renderWithExtensionContext(<CommentIcon count={null as any} />)
+  })
+
+  it('renders correctly when count is 10', () => {
+    renderWithExtensionContext(<CommentIcon count={10} />)
+    expect(screen.getByText(/10/)).toBeInTheDocument()
+  })
 })
