@@ -74,7 +74,9 @@ export const Sidebar: React.FC<{
         <FieldSelect
           name="select-model"
           label="Select a Model"
-          options={models.map((m) => ({ value: m.name, label: m.label }))}
+          options={models
+            .map((m) => ({ value: m.name, label: m.label }))
+            .sort((a, b) => (a.label < b.label ? -1 : 1))}
           onChange={onSelectModel}
           value={currentModel && currentModel.name}
         />
