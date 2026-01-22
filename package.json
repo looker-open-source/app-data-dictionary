@@ -23,7 +23,7 @@
     "@looker/extension-sdk-react": "^23.10.0",
     "@looker/sdk": "^23.10.0",
     "@looker/sdk-rtl": "^21.6.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.23",
     "humanize-string": "^2.1.0",
     "prism-react-renderer": "^1.2.0",
     "react-syntax-highlighter": "^11.0.2",
