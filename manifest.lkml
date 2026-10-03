@@ -1,5 +1,9 @@
 project_name: "app-data-dictionary"
 
+marketplace: {
+  listing: "extension-data-dictionary"
+}
+
 application: data-dictionary {
   label: "Looker Data Dictionary"
   file: "dist/bundle.js"
