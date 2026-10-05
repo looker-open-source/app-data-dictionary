@@ -1,6 +1,6 @@
 {
   "name": "app-data-dictionary",
-  "version": "2.0.7",
+  "version": "2.1.3",
   "description": "",
   "scripts": {
     "analyze": "export ANALYZE_MODE=static && yarn build",
